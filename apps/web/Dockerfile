@@ -5,25 +5,33 @@
 # y compilar la aplicación.
 FROM node:20-slim AS builder
 
-# Establece el directorio de trabajo dentro del contenedor a /code (donde se copian los archivos)
+# Establece el directorio de trabajo base.
 WORKDIR /code
 
-# Copia toda la estructura del proyecto al contenedor. 
-# Esto incluye la subcarpeta 'apps/web'.
-COPY . .
+# --- COPIADO EXPLÍCITO DE ARCHIVOS (Solución al ENOENT) ---
 
-# Ahora, movemos el WORKDIR a la subcarpeta donde está el package.json
-# Esto asegura que los comandos npm se ejecuten en la carpeta correcta.
+# 1. Copia solo la subcarpeta de la aplicación ('apps/web') que contiene package.json
+#    Asumimos que el contexto de construcción es la raíz del repositorio.
+COPY apps/web /code/apps/web
+
+# 2. Copia archivos de configuración importantes que podrían estar en la raíz (opcional)
+#    (Descomenta si tienes archivos como vite.config.js o tailwind.config.js en la raíz del repositorio)
+# COPY vite.config.js /code/vite.config.js
+# COPY tsconfig.json /code/tsconfig.json
+
+# --- PREPARACIÓN DEL ENTORNO DE COMPILACIÓN ---
+
+# Cambia el WORKDIR a la subcarpeta donde se ejecutará 'npm install' y 'npm run build'
 WORKDIR /code/apps/web
 
 # Configura la ubicación de la caché de npm para un mejor rendimiento en Docker
 ENV NPM_CONFIG_CACHE=/tmp/.npm-cache
 
 # Instala las dependencias de Node.js (se ejecutará en /code/apps/web)
+# Nota: Si tu monorepo usa 'pnpm' o 'yarn', cambia 'npm install' y 'npm run build'
 RUN npm install
 
 # Ejecuta el comando de construcción (se ejecutará en /code/apps/web). 
-# Esto genera los archivos estáticos en el directorio 'dist' dentro de 'apps/web'.
 RUN npm run build
 
 # |--------------------------------------------------------------------------
@@ -39,7 +47,6 @@ WORKDIR /app
 # Instala el paquete 'serve' de forma global para servir los archivos estáticos.
 RUN npm install -g serve
 
-# **¡AJUSTE CRUCIAL!**
 # Copia los archivos de construcción (carpeta 'dist') desde la ubicación correcta en la etapa 'builder':
 # /code/apps/web/dist
 COPY --from=builder /code/apps/web/dist ./dist
