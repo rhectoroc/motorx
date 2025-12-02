@@ -1,57 +1,48 @@
 # |--------------------------------------------------------------------------
 # | ETAPA 1: BUILDER (Construcción)
 # |--------------------------------------------------------------------------
-# Usamos una imagen de Node.js slim para instalar dependencias y compilar.
+# Usamos una imagen de Node.js con soporte Slim para instalar dependencias
+# y compilar la aplicación.
 FROM node:20-slim AS builder
 
-# Establece el directorio de trabajo /code (requerido por EasyPanel/Canvas)
+# Establece el directorio de trabajo dentro del contenedor a /code (necesario para Canvas/EasyPanel)
 WORKDIR /code
 
-# Copia package.json y lockfile para caché de dependencias
+# Copia los archivos de configuración de dependencias (package.json y lockfile)
+# Esto permite que la capa de instalación de dependencias se almacene en caché.
 COPY package*.json ./
 
-# Instala todas las dependencias (incluyendo devDependencies para build)
-RUN npm ci --only=production=false
+# Instala las dependencias de Node.js (y todas las dependencias de desarrollo para la compilación)
+RUN npm install
 
-# Copia el código fuente
+# Copia el resto del código de la aplicación (incluyendo 'src' y archivos de configuración)
 COPY . .
 
-# Construye la aplicación (genera dist/ para Vite/React)
+# Ejecuta el comando de construcción. Esto genera los archivos estáticos listos para producción
+# en el directorio 'dist' (típico de Vite).
 RUN npm run build
 
 # |--------------------------------------------------------------------------
-# | ETAPA 2: PRODUCTION (Nginx Servidor Estático)
+# | ETAPA 2: PRODUCTION (Servidor Node.js para Archivos Estáticos)
 # |--------------------------------------------------------------------------
-FROM nginx:stable-alpine AS production
+# Utilizamos la imagen de Node.js para servir los archivos estáticos, ya que Nginx no está disponible.
+# Instalaremos 'serve', un servidor simple y ligero, para esta tarea.
+FROM node:20-slim AS production
 
-# Elimina configuración por defecto de Nginx
-RUN rm /etc/nginx/conf.d/default.conf
+# Establece un directorio de trabajo para el servidor de producción
+WORKDIR /app
 
-# Copia archivos estáticos desde builder
-COPY --from=builder /code/dist /usr/share/nginx/html
+# Instala el paquete 'serve' de forma global para servir los archivos estáticos.
+RUN npm install -g serve
 
-# Configuración Nginx optimizada para SPAs (React Router/Vite)
-RUN echo 'server { \
-    listen 80; \
-    server_name localhost; \
-    \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
-        try_files $uri $uri/ /index.html; \
-    } \
-    \
-    # Cache para assets estáticos \
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/conf.d/default.conf \
-&& echo "networkaddress.cache.ttl=5" >> /etc/nginx/nginx.conf \
-&& nginx -t
+# Copia solo los archivos de construcción (carpeta 'dist') desde la etapa 'builder'
+# al directorio de trabajo actual.
+COPY --from=builder /code/dist ./dist
 
-# Expone puerto 80 (EasyPanel lo mapeará)
-EXPOSE 80
+# El servidor 'serve' ahora usará el puerto 4000. 
+# Asegúrate de configurar este mismo puerto (4000) en EasyPanel.
+EXPOSE 4000
 
-# Inicia Nginx en foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para iniciar el servidor 'serve' en modo SPA (-s) y en el puerto 4000 (-l 4000), 
+# sirviendo el contenido de la carpeta 'dist'.
+CMD ["serve", "-s", "dist", "-l", "4000"]
