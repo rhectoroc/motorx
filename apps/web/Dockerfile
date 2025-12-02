@@ -5,27 +5,31 @@
 # y compilar la aplicación.
 FROM node:20-slim AS builder
 
-# Establece el directorio de trabajo dentro del contenedor a /code (necesario para Canvas/EasyPanel)
+# Establece el directorio de trabajo dentro del contenedor a /code (donde se copian los archivos)
 WORKDIR /code
 
-# Copia los archivos de configuración de dependencias (package.json y lockfile)
-# Esto permite que la capa de instalación de dependencias se almacene en caché.
-COPY package*.json ./
-
-# Instala las dependencias de Node.js (y todas las dependencias de desarrollo para la compilación)
-RUN npm install
-
-# Copia el resto del código de la aplicación (incluyendo 'src' y archivos de configuración)
+# Copia toda la estructura del proyecto al contenedor. 
+# Esto incluye la subcarpeta 'apps/web'.
 COPY . .
 
-# Ejecuta el comando de construcción. Esto genera los archivos estáticos listos para producción
-# en el directorio 'dist' (típico de Vite).
+# Ahora, movemos el WORKDIR a la subcarpeta donde está el package.json
+# Esto asegura que los comandos npm se ejecuten en la carpeta correcta.
+WORKDIR /code/apps/web
+
+# Configura la ubicación de la caché de npm para un mejor rendimiento en Docker
+ENV NPM_CONFIG_CACHE=/tmp/.npm-cache
+
+# Instala las dependencias de Node.js (se ejecutará en /code/apps/web)
+RUN npm install
+
+# Ejecuta el comando de construcción (se ejecutará en /code/apps/web). 
+# Esto genera los archivos estáticos en el directorio 'dist' dentro de 'apps/web'.
 RUN npm run build
 
 # |--------------------------------------------------------------------------
 # | ETAPA 2: PRODUCTION (Servidor Node.js para Archivos Estáticos)
 # |--------------------------------------------------------------------------
-# Utilizamos la imagen de Node.js para servir los archivos estáticos, ya que Nginx no está disponible.
+# Utilizamos la imagen de Node.js para servir los archivos estáticos.
 # Instalaremos 'serve', un servidor simple y ligero, para esta tarea.
 FROM node:20-slim AS production
 
@@ -35,12 +39,12 @@ WORKDIR /app
 # Instala el paquete 'serve' de forma global para servir los archivos estáticos.
 RUN npm install -g serve
 
-# Copia solo los archivos de construcción (carpeta 'dist') desde la etapa 'builder'
-# al directorio de trabajo actual.
-COPY --from=builder /code/dist ./dist
+# **¡AJUSTE CRUCIAL!**
+# Copia los archivos de construcción (carpeta 'dist') desde la ubicación correcta en la etapa 'builder':
+# /code/apps/web/dist
+COPY --from=builder /code/apps/web/dist ./dist
 
 # El servidor 'serve' ahora usará el puerto 4000. 
-# Asegúrate de configurar este mismo puerto (4000) en EasyPanel.
 EXPOSE 4000
 
 # Comando para iniciar el servidor 'serve' en modo SPA (-s) y en el puerto 4000 (-l 4000), 
