@@ -5,8 +5,8 @@
 # y compilar la aplicación.
 FROM node:20-slim AS builder
 
-# Establece el directorio de trabajo dentro del contenedor
-WORKDIR /app
+# Establece el directorio de trabajo dentro del contenedor a /code (corregido según el error)
+WORKDIR /code
 
 # Copia los archivos de configuración de dependencias (package.json y lockfile)
 # Esto permite que la capa de instalación de dependencias se almacene en caché.
@@ -35,7 +35,7 @@ FROM nginx:stable-alpine AS production
 
 # Copia los archivos de construcción (carpeta 'dist') desde la etapa 'builder'
 # al directorio por defecto de Nginx para servir contenido estático.
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /code/dist /usr/share/nginx/html
 
 # Opcional: Copia una configuración personalizada de Nginx si es necesaria.
 # Si tu aplicación usa rutas del lado del cliente (routing), es probable que 
