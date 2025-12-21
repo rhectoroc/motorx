@@ -15,10 +15,6 @@ RUN bun run build
 # Añadimos variables para desactivar comprobaciones que bloquean el build en CI
 ENV NODE_ENV=production
 ENV PORT=3000
-
-# Construir la aplicación para producción
-RUN bun run build
-
 # Exponer el puerto que configuraste en vite.config.ts (4000)
 EXPOSE 3000
 
