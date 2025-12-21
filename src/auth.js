@@ -210,15 +210,21 @@ export const { auth } = CreateAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.role = 'admin'; // Forzamos el rol para el usuario de setup
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
+        session.user.role = token.role;
         session.user.id = token.id;
       }
       return session;
+    },
+    pages: {
+      signIn: '/account/signin',
+      signOut: '/account/logout',
     },
   },
 });

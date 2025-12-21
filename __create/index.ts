@@ -18,12 +18,9 @@ import { getHTMLForErrorPage } from './get-html-for-error-page';
 import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
 
-type Variables = {
-  requestId: string;
-};
-
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
+// Logger con trazabilidad
 for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   const original = nodeConsole[method].bind(console);
   console[method] = (...args: unknown[]) => {
@@ -41,10 +38,11 @@ const pool = new Pool({
 });
 const adapter = NeonAdapter(pool);
 
-const app = new Hono<{ Variables: Variables }>();
+const app = new Hono();
 
+// Middlewares Base
 app.use('*', requestId());
-app.use('*', async (c, next) => {
+app.use('*', (c, next) => {
   const reqId = c.get('requestId');
   return als.run({ requestId: reqId }, () => next());
 });
@@ -61,12 +59,15 @@ if (process.env.CORS_ORIGINS) {
   app.use('/*', cors({ origin: process.env.CORS_ORIGINS.split(',').map((o) => o.trim()) }));
 }
 
-// 1. CONFIGURACIÓN DE AUTH.JS
+/**
+ * BLOQUE DE AUTENTICACIÓN UNIFICADO
+ * Se eliminó la redundancia de 'app.use' y 'app.all' dispersos.
+ */
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true,
+    trustHost: true, // Necesario para Easypanel
     pages: { 
       signIn: '/account/signin', 
       signOut: '/account/logout' 
@@ -81,19 +82,16 @@ if (process.env.AUTH_SECRET) {
           // @ts-ignore
           const user = await adapter.getUserByEmail(email as string);
           if (!user) return null;
+
           // @ts-ignore
           const matchingAccount = user.accounts.find(a => a.provider === 'credentials');
           if (!matchingAccount?.password) return null;
+
           const isValid = await verify(matchingAccount.password, password as string);
           
           if (isValid) {
-            // Aseguramos que el objeto retornado tenga los datos mínimos
-            return {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              role: 'admin' // Forzamos el rol para la sesión si es el usuario creado por setup
-            };
+            // Retornamos el usuario con el rol explícito para el frontend
+            return { ...user, role: 'admin' };
           }
           return null;
         }
@@ -102,28 +100,24 @@ if (process.env.AUTH_SECRET) {
     callbacks: {
       async jwt({ token, user }) {
         if (user) {
-          token.id = user.id;
-          // @ts-ignore
-          token.role = user.role;
+          token.role = (user as any).role;
         }
         return token;
       },
       async session({ session, token }) {
         if (session.user) {
-          // @ts-ignore
-          session.user.id = token.id;
-          // @ts-ignore
-          session.user.role = token.role;
+          (session.user as any).role = token.role;
         }
         return session;
       }
     }
   })));
 
+  // Único manejador de rutas Auth
   app.all('/api/auth/*', (c) => authHandler()(c));
 }
 
-// 2. RUTA PARA ADMIN SETUP
+// RUTA PARA ADMIN SETUP
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
@@ -142,7 +136,7 @@ app.post('/api/admin-setup', async (c) => {
       userId: newUser.id,
       type: 'credentials',
       provider: 'credentials',
-      providerAccountId: newUser.id,
+      providerAccountId: userId,
       extraData: { password: await hash(password) },
     });
 
@@ -153,9 +147,10 @@ app.post('/api/admin-setup', async (c) => {
   }
 });
 
-// 3. RUTAS DE API Y DASHBOARD
+// Montaje de APIs del sistema (vienen de route-builder.ts)
 app.route(API_BASENAME, api);
 
+// Inicialización del servidor
 await createHonoServer({
   app,
   defaultLogger: false,
