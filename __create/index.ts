@@ -81,6 +81,7 @@ if (process.env.AUTH_SECRET) {
       })
     ]
   })));
+  app.all('/api/auth/*', authHandler());
 }
 
 // RUTA PARA ADMIN SETUP (Agregada para resolver el error del POST)
