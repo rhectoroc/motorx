@@ -18,14 +18,12 @@ import { getHTMLForErrorPage } from './get-html-for-error-page';
 import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
 
-// Tipado para VS Code
 type Variables = {
   requestId: string;
 };
 
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
-// Logger con Trace ID
 for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   const original = nodeConsole[method].bind(console);
   console[method] = (...args: unknown[]) => {
@@ -38,7 +36,6 @@ for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   };
 }
 
-// Configuración de Base de Datos
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
@@ -46,7 +43,6 @@ const adapter = NeonAdapter(pool);
 
 const app = new Hono<{ Variables: Variables }>();
 
-// Middlewares Base
 app.use('*', requestId());
 app.use('*', async (c, next) => {
   const reqId = c.get('requestId');
@@ -65,12 +61,12 @@ if (process.env.CORS_ORIGINS) {
   app.use('/*', cors({ origin: process.env.CORS_ORIGINS.split(',').map((o) => o.trim()) }));
 }
 
-// 1. CONFIGURACIÓN DE AUTH.JS (Middleware y Manejador Unificado)
+// 1. CONFIGURACIÓN DE AUTH.JS
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true, // CRÍTICO: Para que no use localhost en producción
+    trustHost: true,
     pages: { 
       signIn: '/account/signin', 
       signOut: '/account/logout' 
@@ -89,13 +85,41 @@ if (process.env.AUTH_SECRET) {
           const matchingAccount = user.accounts.find(a => a.provider === 'credentials');
           if (!matchingAccount?.password) return null;
           const isValid = await verify(matchingAccount.password, password as string);
-          return isValid ? user : null;
+          
+          if (isValid) {
+            // Aseguramos que el objeto retornado tenga los datos mínimos
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: 'admin' // Forzamos el rol para la sesión si es el usuario creado por setup
+            };
+          }
+          return null;
         }
       })
-    ]
+    ],
+    callbacks: {
+      async jwt({ token, user }) {
+        if (user) {
+          token.id = user.id;
+          // @ts-ignore
+          token.role = user.role;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if (session.user) {
+          // @ts-ignore
+          session.user.id = token.id;
+          // @ts-ignore
+          session.user.role = token.role;
+        }
+        return session;
+      }
+    }
   })));
 
-  // Manejador único de rutas de autenticación
   app.all('/api/auth/*', (c) => authHandler()(c));
 }
 
@@ -129,10 +153,9 @@ app.post('/api/admin-setup', async (c) => {
   }
 });
 
-// 3. MONTAJE DE API DEL DASHBOARD
+// 3. RUTAS DE API Y DASHBOARD
 app.route(API_BASENAME, api);
 
-// Inicio del servidor
 await createHonoServer({
   app,
   defaultLogger: false,
