@@ -15,10 +15,12 @@ import { serializeError } from 'serialize-error';
 
 import NeonAdapter from './adapter';
 import { getHTMLForErrorPage } from './get-html-for-error-page';
+// @ts-ignore - Evita advertencia si el archivo es .js o no tiene tipos definidos
 import { isAuthAction } from './is-auth-action';
+// @ts-ignore
 import { API_BASENAME, api } from './route-builder';
 
-// Tipado para VS Code
+// Definición de tipos para Hono (Elimina errores de c.get('requestId'))
 type Variables = {
   requestId: string;
 };
@@ -38,10 +40,11 @@ for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   };
 }
 
-// Configuración de Base de Datos
+// Configuración de Base de Datos Estándar (pg)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+// @ts-ignore
 const adapter = NeonAdapter(pool);
 
 const app = new Hono<{ Variables: Variables }>();
@@ -65,12 +68,12 @@ if (process.env.CORS_ORIGINS) {
   app.use('/*', cors({ origin: process.env.CORS_ORIGINS.split(',').map((o) => o.trim()) }));
 }
 
-// 1. CONFIGURACIÓN DE AUTH.JS (Middleware y Manejador Unificado)
+// 1. Configuración de Autenticación
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true, // CRÍTICO: Para que no use localhost en producción
+    trustHost: true,
     pages: { 
       signIn: '/account/signin', 
       signOut: '/account/logout' 
@@ -95,14 +98,18 @@ if (process.env.AUTH_SECRET) {
     ]
   })));
 
-  // Manejador único de rutas de autenticación
-  app.all('/api/auth/*', (c) => authHandler()(c));
+  app.all('/api/auth/*', async (c) => {
+    const handler = authHandler();
+    return handler(c);
+  });
 }
 
-// 2. RUTA PARA ADMIN SETUP
+// 2. Ruta para Admin Setup
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
+    
+    // Generación de ID manual
     const userId = crypto.randomUUID();
 
     // @ts-ignore
@@ -129,7 +136,7 @@ app.post('/api/admin-setup', async (c) => {
   }
 });
 
-// 3. MONTAJE DE API DEL DASHBOARD
+// 3. Montaje de API del Dashboard
 app.route(API_BASENAME, api);
 
 // Inicio del servidor
