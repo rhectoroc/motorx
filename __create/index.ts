@@ -3,7 +3,9 @@ import nodeConsole from 'node:console';
 import { skipCSRFCheck } from '@auth/core';
 import Credentials from '@auth/core/providers/credentials';
 import { authHandler, initAuthConfig } from '@hono/auth-js';
-import { Pool, neonConfig } from '@neondatabase/serverless';
+//import { Pool, neonConfig } from '@neondatabase/serverless';
+import pg from 'pg';
+const { Pool } = pg;
 import { hash, verify } from 'argon2'; // Asegurado el import de hash
 import { Hono } from 'hono';
 import { contextStorage, getContext } from 'hono/context-storage';
