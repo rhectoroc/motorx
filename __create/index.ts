@@ -99,7 +99,8 @@ if (process.env.AUTH_SECRET) {
   })));
 
   app.all('/api/auth/*', async (c) => {
-    return authHandler()(c);
+    const handler = authHandler();
+    return handler(c);
   });
 }
 
