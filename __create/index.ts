@@ -239,4 +239,3 @@ const server = await createHonoServer({
   app,
   defaultLogger: false,
 });
-export default server;
