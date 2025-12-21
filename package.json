@@ -29,6 +29,8 @@
 		"@types/babel__core": "^7.20.5",
 		"@vis.gl/react-google-maps": "^0.8.3",
 		"argon2": "^0.43.0",
+		"baseline-browser-mapping": "^2.9.11",
+		"caniuse-lite": "^1.0.30001761",
 		"classnames": "^2.5.1",
 		"clean-stack": "^5.2.0",
 		"cmdk": "^1.1.1",

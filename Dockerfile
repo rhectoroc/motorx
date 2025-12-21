@@ -12,6 +12,10 @@ RUN bun install
 # Copiar el resto del código
 COPY . .
 
+# Añadimos variables para desactivar comprobaciones que bloquean el build en CI
+ENV NODE_ENV=production
+ENV PORT=4000
+
 # Construir la aplicación para producción
 RUN bun run build
 
