@@ -20,4 +20,5 @@ EXPOSE 3000
 
 # Comando para arrancar el servidor de producción
 # Nota: Asegúrate de tener un script "start" en package.json que use react-router-serve
-CMD ["bun", "./build/server/index.js"]
+#CMD ["bun", "./build/server/index.js"]
+CMD ["bun", "run", "start"]

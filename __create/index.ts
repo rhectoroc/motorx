@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { AsyncLocalStorage } from 'node:async_hooks';
 import { skipCSRFCheck } from '@auth/core';
 import Credentials from '@auth/core/providers/credentials';
 import { authHandler, initAuthConfig } from '@hono/auth-js';
@@ -13,9 +12,8 @@ import { requestId } from 'hono/request-id';
 import { createHonoServer } from 'react-router-hono-server/node';
 
 import MyAdapter from './adapter';
-import { API_BASENAME, api } from './route-builder';
+import { API_BASENAME, api, registerRoutes } from './route-builder';
 
-// 1. Configuración de Base de Datos
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
@@ -23,36 +21,27 @@ const pool = new Pool({
 const adapter = MyAdapter(pool);
 const app = new Hono();
 
-// Middlewares base
-app.use(requestId());
-app.use(contextStorage());
-app.use(cors());
+app.use('*', requestId());
+app.use('*', contextStorage());
+app.use('*', cors());
 
-// 2. CONFIGURACIÓN DE AUTH - FUERZA BRUTA
-// Definimos el secreto con un fallback inmediato para evitar que sea undefined
-const AUTH_SECRET = process.env.AUTH_SECRET || "secreto_temporal_de_emergencia_1234567890";
-
-const getAuthConfig = (c) => ({
-  secret: AUTH_SECRET,
+// Configuración de Auth corregida como Middleware
+app.use('/api/auth/*', initAuthConfig((c) => ({
+  secret: process.env.AUTH_SECRET || "secreto_minimo_32_caracteres_de_emergencia",
   adapter: adapter,
   trustHost: true,
   providers: [
     Credentials({
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-        
         try {
-          const user = await adapter.getUserByEmail(credentials.email);
+          const user = await adapter.getUserByEmail(credentials.email as string);
           if (!user) return null;
 
           const matchingAccount = user.accounts?.find(a => a.provider === 'credentials');
           if (!matchingAccount?.password) return null;
 
-          const isValid = await verify(matchingAccount.password, credentials.password);
+          const isValid = await verify(matchingAccount.password, credentials.password as string);
           if (isValid) {
             return {
               id: user.id,
@@ -70,11 +59,11 @@ const getAuthConfig = (c) => ({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user) (token as any).role = (user as any).role;
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      if (session?.user) (session.user as any).role = (token as any).role;
       return session;
     },
   },
@@ -82,24 +71,16 @@ const getAuthConfig = (c) => ({
     signIn: '/account/signin',
   },
   skipCSRFCheck: skipCSRFCheck
-});
+})));
 
-// 🔥 ESTO ES LO MÁS IMPORTANTE:
-// Inicializamos la configuración pasando la función directamente.
-initAuthConfig(app, getAuthConfig);
+// Manejador centralizado de Auth
+app.all('/api/auth/*', (c) => authHandler()(c));
 
-// 3. MANEJADOR DE RUTAS AUTH
-// En lugar de usar middlewares complejos, interceptamos todas las peticiones a /api/auth
-app.all('/api/auth/*', async (c) => {
-  // authHandler() devuelve una función que maneja la petición
-  const handler = authHandler();
-  return await handler(c);
-});
-
-// 4. RUTAS DE LA API
+// Registro de rutas dinámicas antes de montar la API
+await registerRoutes();
 app.route(API_BASENAME, api);
 
-// 5. SETUP DE ADMIN (AUXILIAR)
+// Endpoint auxiliar de setup
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
@@ -112,15 +93,15 @@ app.post('/api/admin-setup', async (c) => {
       email,
       emailVerified: new Date(),
       role: 'admin'
-    } as any);
+    });
 
     await adapter.linkAccount({
       userId: newUser.id,
       type: 'credentials',
       provider: 'credentials',
       providerAccountId: userId,
-      extraData: { password: hashedPassword },
-    } as any);
+      password: hashedPassword
+    });
 
     return c.json({ success: true });
   } catch (err: any) {
