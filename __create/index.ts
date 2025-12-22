@@ -15,19 +15,12 @@ import { serializeError } from 'serialize-error';
 
 import NeonAdapter from './adapter';
 import { getHTMLForErrorPage } from './get-html-for-error-page';
-// @ts-ignore - Evita advertencia si el archivo es .js o no tiene tipos definidos
 import { isAuthAction } from './is-auth-action';
-// @ts-ignore
 import { API_BASENAME, api } from './route-builder';
-
-// Definición de tipos para Hono (Elimina errores de c.get('requestId'))
-type Variables = {
-  requestId: string;
-};
 
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
-// Logger con Trace ID
+// Logger con trazabilidad
 for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   const original = nodeConsole[method].bind(console);
   console[method] = (...args: unknown[]) => {
@@ -40,18 +33,16 @@ for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   };
 }
 
-// Configuración de Base de Datos Estándar (pg)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
-// @ts-ignore
 const adapter = NeonAdapter(pool);
 
-const app = new Hono<{ Variables: Variables }>();
+const app = new Hono();
 
 // Middlewares Base
 app.use('*', requestId());
-app.use('*', async (c, next) => {
+app.use('*', (c, next) => {
   const reqId = c.get('requestId');
   return als.run({ requestId: reqId }, () => next());
 });
@@ -68,12 +59,15 @@ if (process.env.CORS_ORIGINS) {
   app.use('/*', cors({ origin: process.env.CORS_ORIGINS.split(',').map((o) => o.trim()) }));
 }
 
-// 1. Configuración de Autenticación
+/**
+ * BLOQUE DE AUTENTICACIÓN UNIFICADO
+ * Se eliminó la redundancia de 'app.use' y 'app.all' dispersos.
+ */
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true,
+    trustHost: true, // Necesario para Easypanel
     pages: { 
       signIn: '/account/signin', 
       signOut: '/account/logout' 
@@ -88,28 +82,45 @@ if (process.env.AUTH_SECRET) {
           // @ts-ignore
           const user = await adapter.getUserByEmail(email as string);
           if (!user) return null;
+
           // @ts-ignore
           const matchingAccount = user.accounts.find(a => a.provider === 'credentials');
           if (!matchingAccount?.password) return null;
+
           const isValid = await verify(matchingAccount.password, password as string);
-          return isValid ? user : null;
+          
+          if (isValid) {
+            // Retornamos el usuario con el rol explícito para el frontend
+            return { ...user, role: 'admin' };
+          }
+          return null;
         }
       })
-    ]
+    ],
+    callbacks: {
+      async jwt({ token, user }) {
+        if (user) {
+          token.role = (user as any).role;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if (session.user) {
+          (session.user as any).role = token.role;
+        }
+        return session;
+      }
+    }
   })));
 
-  app.all('/api/auth/*', async (c) => {
-    const handler = authHandler();
-    return handler(c);
-  });
+  // Único manejador de rutas Auth
+  app.all('/api/auth/*', (c) => authHandler()(c));
 }
 
-// 2. Ruta para Admin Setup
+// RUTA PARA ADMIN SETUP
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
-    
-    // Generación de ID manual
     const userId = crypto.randomUUID();
 
     // @ts-ignore
@@ -125,7 +136,7 @@ app.post('/api/admin-setup', async (c) => {
       userId: newUser.id,
       type: 'credentials',
       provider: 'credentials',
-      providerAccountId: newUser.id,
+      providerAccountId: userId,
       extraData: { password: await hash(password) },
     });
 
@@ -136,10 +147,10 @@ app.post('/api/admin-setup', async (c) => {
   }
 });
 
-// 3. Montaje de API del Dashboard
+// Montaje de APIs del sistema (vienen de route-builder.ts)
 app.route(API_BASENAME, api);
 
-// Inicio del servidor
+// Inicialización del servidor
 await createHonoServer({
   app,
   defaultLogger: false,
