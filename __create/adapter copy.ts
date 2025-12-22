@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type {
 	AdapterUser,
 	VerificationToken,
@@ -6,18 +5,41 @@ import type {
 	AdapterSession,
 } from '@auth/core/adapters';
 import type { ProviderType } from '@auth/core/providers';
+import type { Pool } from '@neondatabase/serverless';
 
-// Interfaz extendida para soportar el campo 'role' y la relación con cuentas
-interface CustomUser extends AdapterUser {
-	role?: string;
-	accounts?: {
+interface NeonUser extends AdapterUser {
+	accounts: {
 		provider: string;
 		provider_account_id: string;
 		password?: string;
 	}[];
 }
 
-export default function CustomPostgresAdapter(client: any): any {
+interface NeonAdapter extends Adapter {
+	createUser(data: AdapterUser): Promise<AdapterUser>;
+	getUser(userId: string): Promise<AdapterUser | null>;
+	getUserByEmail(email: string): Promise<NeonUser | null>;
+	getUserByAccount(data: {
+		provider: string;
+		providerAccountId: string;
+	}): Promise<AdapterUser | null>;
+	linkAccount(data: {
+		userId: string;
+		provider: string;
+		providerAccountId: string;
+		type: ProviderType;
+		access_token?: string | null;
+		expires_at?: number | null;
+		refresh_token?: string | null;
+		id_token?: string | null;
+		scope?: string | null;
+		session_state?: string | null;
+		token_type?: string | null;
+		extraData?: Record<string, unknown>;
+	}): Promise<void>;
+}
+
+export default function NeonAdapter(client: Pool): NeonAdapter {
 	return {
 		async createVerificationToken(
 			verificationToken: VerificationToken
@@ -30,7 +52,6 @@ export default function CustomPostgresAdapter(client: any): any {
 			await client.query(sql, [identifier, expires, token]);
 			return verificationToken;
 		},
-
 		async useVerificationToken({
 			identifier,
 			token,
@@ -47,25 +68,18 @@ export default function CustomPostgresAdapter(client: any): any {
 
 		async createUser(user: Omit<AdapterUser, 'id'>) {
 			const { name, email, emailVerified, image } = user;
-            // Definimos el rol por defecto o el que venga en el objeto
-            const role = (user as any).role || 'client';
-            
 			const sql = `
         INSERT INTO auth_users (name, email, "emailVerified", image, role)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id, name, email, "emailVerified", image, role`;
-            
-            // Corregido: Ahora pasamos los 5 parámetros correspondientes
 			const result = await client.query(sql, [
 				name,
 				email,
 				emailVerified,
 				image,
-                role
 			]);
 			return result.rows[0];
 		},
-
 		async getUser(id: string) {
 			const sql = 'select * from auth_users where id = $1';
 			try {
@@ -75,8 +89,7 @@ export default function CustomPostgresAdapter(client: any): any {
 				return null;
 			}
 		},
-
-		async getUserByEmail(email: string): Promise<CustomUser | null> {
+		async getUserByEmail(email) {
 			const sql = 'select * from auth_users where email = $1';
 			const result = await client.query(sql, [email]);
 			if (result.rowCount === 0) {
@@ -84,7 +97,7 @@ export default function CustomPostgresAdapter(client: any): any {
 			}
 			const userData = result.rows[0];
 			const accountsData = await client.query(
-				'select * from auth_accounts where "userId" = $1',
+				'select * from auth_accounts where "providerAccountId" = $1',
 				[userData.id]
 			);
 			return {
@@ -92,7 +105,6 @@ export default function CustomPostgresAdapter(client: any): any {
 				accounts: accountsData.rows,
 			};
 		},
-
 		async getUserByAccount({
 			providerAccountId,
 			provider,
@@ -107,7 +119,6 @@ export default function CustomPostgresAdapter(client: any): any {
 			const result = await client.query(sql, [provider, providerAccountId]);
 			return result.rowCount !== 0 ? result.rows[0] : null;
 		},
-
 		async updateUser(user: Partial<AdapterUser>): Promise<AdapterUser> {
 			const fetchSql = 'select * from auth_users where id = $1';
 			const query1 = await client.query(fetchSql, [user.id]);
@@ -118,12 +129,12 @@ export default function CustomPostgresAdapter(client: any): any {
 				...user,
 			};
 
-			const { id, name, email, emailVerified, image, role } = newUser;
+			const { id, name, email, emailVerified, image } = newUser;
 			const updateSql = `
         UPDATE auth_users set
-        name = $2, email = $3, "emailVerified" = $4, image = $5, role = $6
+        name = $2, email = $3, "emailVerified" = $4, image = $5
         where id = $1
-        RETURNING id, name, email, "emailVerified", image, role
+        RETURNING name, id, email, "emailVerified", image
       `;
 			const query2 = await client.query(updateSql, [
 				id,
@@ -131,12 +142,10 @@ export default function CustomPostgresAdapter(client: any): any {
 				email,
 				emailVerified,
 				image,
-                role
 			]);
 			return query2.rows[0];
 		},
-
-		async linkAccount(account: any) {
+		async linkAccount(account) {
 			const sql = `
       insert into auth_accounts
       (
@@ -154,7 +163,21 @@ export default function CustomPostgresAdapter(client: any): any {
         password
       )
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      returning *`;
+      returning
+        id,
+        "userId",
+        provider,
+        type,
+        "providerAccountId",
+        access_token,
+        expires_at,
+        refresh_token,
+        id_token,
+        scope,
+        session_state,
+        token_type,
+        password
+      `;
 
 			const params = [
 				account.userId,
@@ -168,14 +191,16 @@ export default function CustomPostgresAdapter(client: any): any {
 				account.scope,
 				account.session_state,
 				account.token_type,
-				account.extraData?.password || account.password,
+				account.extraData?.password,
 			];
 
 			const result = await client.query(sql, params);
 			return result.rows[0];
 		},
-
 		async createSession({ sessionToken, userId, expires }) {
+			if (userId === undefined) {
+				throw Error('userId is undef in createSession');
+			}
 			const sql = `insert into auth_sessions ("userId", expires, "sessionToken")
       values ($1, $2, $3)
       RETURNING id, "sessionToken", "userId", expires`;
@@ -188,55 +213,76 @@ export default function CustomPostgresAdapter(client: any): any {
 			session: AdapterSession;
 			user: AdapterUser;
 		} | null> {
-			if (!sessionToken) return null;
-            
+			if (sessionToken === undefined) {
+				return null;
+			}
 			const result1 = await client.query(
 				`select * from auth_sessions where "sessionToken" = $1`,
 				[sessionToken]
 			);
-			if (result1.rowCount === 0) return null;
+			if (result1.rowCount === 0) {
+				return null;
+			}
 			const session: AdapterSession = result1.rows[0];
 
 			const result2 = await client.query(
 				'select * from auth_users where id = $1',
 				[session.userId]
 			);
-			if (result2.rowCount === 0) return null;
+			if (result2.rowCount === 0) {
+				return null;
+			}
 			const user = result2.rows[0];
-            
-			return { session, user };
+			return {
+				session,
+				user,
+			};
 		},
-
 		async updateSession(
 			session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>
 		): Promise<AdapterSession | null | undefined> {
+			const { sessionToken } = session;
+			const result1 = await client.query(
+				`select * from auth_sessions where "sessionToken" = $1`,
+				[sessionToken]
+			);
+			if (result1.rowCount === 0) {
+				return null;
+			}
+			const originalSession: AdapterSession = result1.rows[0];
+
+			const newSession: AdapterSession = {
+				...originalSession,
+				...session,
+			};
 			const sql = `
         UPDATE auth_sessions set
         expires = $2
         where "sessionToken" = $1
-        RETURNING *`;
+        `;
 			const result = await client.query(sql, [
-				session.sessionToken,
-				session.expires,
+				newSession.sessionToken,
+				newSession.expires,
 			]);
 			return result.rows[0];
 		},
-
-		async deleteSession(sessionToken: string) {
+		async deleteSession(sessionToken) {
 			const sql = `delete from auth_sessions where "sessionToken" = $1`;
 			await client.query(sql, [sessionToken]);
 		},
-
-		async unlinkAccount(partialAccount: any) {
+		async unlinkAccount(partialAccount) {
 			const { provider, providerAccountId } = partialAccount;
 			const sql = `delete from auth_accounts where "providerAccountId" = $1 and provider = $2`;
 			await client.query(sql, [providerAccountId, provider]);
 		},
-
 		async deleteUser(userId: string) {
 			await client.query('delete from auth_users where id = $1', [userId]);
-			await client.query('delete from auth_sessions where "userId" = $1', [userId]);
-			await client.query('delete from auth_accounts where "userId" = $1', [userId]);
+			await client.query('delete from auth_sessions where "userId" = $1', [
+				userId,
+			]);
+			await client.query('delete from auth_accounts where "userId" = $1', [
+				userId,
+			]);
 		},
 	};
 }
