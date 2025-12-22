@@ -180,7 +180,7 @@ app.get('/api/user/profile', async (c) => {
 // 6. Servidor
 const server = createHonoServer({
   app,
-  port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
+  port: process.env.PORT ? parseInt(process.env.PORT!) : 80,  // EasyPanel = 80
 });
 
 export default server;
