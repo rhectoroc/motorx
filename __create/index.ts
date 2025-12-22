@@ -14,8 +14,7 @@ import { createHonoServer } from 'react-router-hono-server/node';
 import MyAdapter from './adapter';
 import { API_BASENAME, api, registerRoutes } from './route-builder';
 
-// 1. CONEXIÓN FORZADA A LA DB 'mx'
-// Esto evita el error "database master does not exist" de tus logs
+// 1. CONEXIÓN A LA DB 'mx'
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   database: 'mx', 
@@ -35,17 +34,6 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
   adapter: adapter,
   trustHost: true,
   basePath: '/api/auth',
-  cookies: {
-    sessionToken: {
-      name: `__Secure-authjs.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-  },
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -56,37 +44,23 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
 
           const accounts = await adapter.getAccountsByUserId(user.id);
           const matchingAccount = accounts.find(a => a.provider === 'credentials');
-          
           if (!matchingAccount?.password) return null;
 
           const isValid = await verify(matchingAccount.password, credentials.password as string);
-          if (isValid) {
-            return {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              role: user.role || 'client'
-            };
-          }
-        } catch (e) {
-          console.error("Error en authorize:", e);
-        }
+          if (isValid) return { id: user.id, name: user.name, email: user.email, role: user.role || 'admin' };
+        } catch (e) { console.error(e); }
         return null;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) (token as any).role = (user as any).role;
+      if (user) { token.role = user.role; token.id = user.id; }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) (session.user as any).role = (token as any).role;
+      if (session.user) { session.user.role = token.role; session.user.id = token.id; }
       return session;
-    },
-    async redirect({ url, baseUrl }) {
-      if (url.includes('/signin')) return `${baseUrl}/dashboard`;
-      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
   pages: { signIn: '/account/signin' },
@@ -96,56 +70,52 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
 app.all('/api/auth/:action', async (c) => authHandler()(c));
 app.all('/api/auth/:action/:provider', async (c) => authHandler()(c));
 
-// 3. RUTAS DINÁMICAS Y SETUP
+// 3. REGISTRO DE RUTAS
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// RUTA DE ADMIN-SETUP (Habilitada para crear tu usuario inicial)
+// 4. RUTA PARA EL FORMULARIO DE ADMIN-SETUP
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
-    const hashedPassword = await hash(password);
-    let user = await adapter.getUserByEmail(email);
-    let userId: string;
-
-    if (user) {
-      userId = user.id;
-    } else {
-      userId = crypto.randomUUID();
-      user = await adapter.createUser({
-        id: userId,
-        name,
-        email,
-        emailVerified: new Date(),
-        role: 'admin'
-      });
+    
+    // Verificamos si ya existe para evitar duplicados o errores de UNIQUE
+    const existingUser = await adapter.getUserByEmail(email);
+    if (existingUser) {
+      return c.json({ success: false, error: "Este usuario ya existe en la base de datos." }, 400);
     }
 
+    const hashedPassword = await hash(password);
+    
+    // Insertamos manualmente para asegurar que el ID sea numérico (SERIAL)
+    // y no un UUID que cause el error de sintaxis
+    const userRes = await pool.query(
+      `INSERT INTO auth_users (name, email, role, "emailVerified") 
+       VALUES ($1, $2, $3, NOW()) RETURNING id`,
+      [name, email, 'admin']
+    );
+    const newUser = userRes.rows[0];
+
+    // Vinculamos la cuenta usando el ID numérico
     await adapter.linkAccount({
-      userId: userId,
+      userId: newUser.id,
       type: 'credentials',
       provider: 'credentials',
-      providerAccountId: userId,
+      providerAccountId: newUser.id.toString(),
       password: hashedPassword, 
     });
 
-    return c.json({ success: true, message: "Admin configurado. Ya puedes loguearte." });
+    return c.json({ success: true, message: "¡Admin creado! Ya puedes iniciar sesión." });
   } catch (err: any) {
+    console.error("Error en setup:", err);
     return c.json({ success: false, error: err.message }, 500);
   }
 });
 
-// 4. INICIO DEL SERVIDOR (Recupera la interfaz original)
+// 5. INICIO DEL SERVIDOR
 const server = createHonoServer({
   app,
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
 });
 
-process.on('SIGTERM', async () => {
-  await pool.end();
-  process.exit(0);
-});
-
-export default server; {
-  await registerRoutes();
-}
+export default server;
