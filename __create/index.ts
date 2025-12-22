@@ -12,7 +12,7 @@ import { requestId } from 'hono/request-id';
 import { createHonoServer } from 'react-router-hono-server/node';
 import { serializeError } from 'serialize-error';
 
-// Importamos el adaptador y las rutas dinámicamente
+// Importaciones de lógica propia
 import NeonAdapter from './adapter';
 import { getHTMLForErrorPage } from './get-html-for-error-page';
 import { API_BASENAME, api } from './route-builder';
@@ -20,7 +20,7 @@ import { API_BASENAME, api } from './route-builder';
 const { Pool } = pg;
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
-// Logger trazable para depuración en Easypanel
+// Logger para producción
 for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   const original = nodeConsole[method].bind(console);
   console[method] = (...args: unknown[]) => {
@@ -33,15 +33,9 @@ for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   };
 }
 
-// Configuración de la base de datos
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-const adapter = NeonAdapter(pool);
-
 const app = new Hono();
 
-// Middlewares base
+// Middlewares obligatorios
 app.use('*', requestId());
 app.use('*', (c, next) => {
   const reqId = c.get('requestId');
@@ -49,22 +43,21 @@ app.use('*', (c, next) => {
 });
 app.use(contextStorage());
 
-// Manejo de errores global (evita responder HTML cuando se espera JSON)
+// Manejo de errores para evitar el "Unexpected token <"
 app.onError((err, c) => {
-  console.error("Hono Server Error:", err);
+  console.error("Critical Error:", err);
   if (c.req.path.startsWith('/api/')) {
-    return c.json({ error: 'Internal Server Error', details: serializeError(err) }, 500);
+    return c.json({ error: 'Server Error', details: serializeError(err) }, 500);
   }
   return c.html(getHTMLForErrorPage(err), 200);
 });
 
-// Configuración de CORS
 if (process.env.CORS_ORIGINS) {
   app.use('/*', cors({ origin: process.env.CORS_ORIGINS.split(',').map((o) => o.trim()) }));
 }
 
 /**
- * CONFIGURACIÓN DE AUTH.JS (Hono Integration)
+ * CONFIGURACIÓN DE AUTENTICACIÓN
  */
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
@@ -72,49 +65,41 @@ if (process.env.AUTH_SECRET) {
     basePath: '/api/auth',
     trustHost: true,
     skipCSRFCheck,
-    session: { strategy: 'jwt' },
     providers: [
       Credentials({
         id: 'credentials-signin',
-        name: 'Credentials',
         authorize: async (credentials) => {
-          if (!credentials?.email || !credentials?.password) return null;
-
-          // Buscamos al usuario usando el adaptador (que ya maneja UUID)
-          const user = await adapter.getUserByEmail(credentials.email as string);
+          // Inicialización del pool dentro del scope para evitar errores de build
+          const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+          const adapter = NeonAdapter(pool);
           
-          if (user && user.accounts && user.accounts.length > 0) {
-            const passwordHash = user.accounts.find((a: any) => a.provider === 'credentials')?.password;
-            
-            if (passwordHash) {
-              const isValid = await verify(passwordHash, credentials.password as string);
+          try {
+            const user = await adapter.getUserByEmail(credentials.email as string);
+            if (user && user.accounts?.[0]?.password) {
+              const isValid = await verify(user.accounts[0].password, credentials.password as string);
               if (isValid) {
-                return {
-                  id: user.id, // UUID de la tabla auth_users
-                  name: user.name,
-                  email: user.email,
-                  role: user.role || 'admin'
+                return { 
+                  id: user.id, // UUID según tu tabla
+                  name: user.name, 
+                  email: user.email, 
+                  role: user.role || 'admin' 
                 };
               }
             }
+            return null;
+          } finally {
+            await pool.end(); // Cerramos conexión
           }
-          return null;
         }
       })
     ],
     callbacks: {
       async jwt({ token, user }) {
-        if (user) {
-          token.role = (user as any).role;
-          token.id = user.id;
-        }
+        if (user) token.role = (user as any).role;
         return token;
       },
       async session({ session, token }) {
-        if (session.user) {
-          (session.user as any).role = token.role;
-          (session.user as any).id = token.id;
-        }
+        if (session.user) (session.user as any).role = token.role;
         return session;
       }
     }
@@ -123,11 +108,9 @@ if (process.env.AUTH_SECRET) {
   app.all('/api/auth/*', (c) => authHandler()(c));
 }
 
-/**
- * RUTAS DE API Y SERVIDOR
- */
-// Montamos las rutas de la API (incluyendo /api/user/profile)
+// Registro de APIs (esto monta automáticamente el perfil del usuario)
 app.route(API_BASENAME, api);
 
-// Iniciamos el servidor
+// El servidor arranca solo si no estamos en fase de build si fuera necesario, 
+// pero HonoServer suele manejarlo bien.
 await createHonoServer({ app, defaultLogger: false });
