@@ -1,26 +1,24 @@
 import { Hono } from 'hono';
-import { authHandler, initAuthConfig, verifyAuth } from '@hono/auth-js';
+import { authHandler, initAuthConfig } from '@hono/auth-js';
 import CredentialsProvider from '@auth/core/providers/credentials';
 import { Pool } from 'pg';
 import * as argon2 from 'argon2';
 import { cors } from 'hono/cors';
-import { serveStatic } from '@hono/node-server/serve-static'; // Importante para servir el frontend
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+// @ts-ignore - Importado desde el build de React Router
+import { createRequestHandler } from "@react-router/node";
 
 const app = new Hono();
 
-// 1. CORS y Seguridad
-app.use('*', cors());
-
-// 2. Conexión a la Base de Datos 'mx'
+// 1. Conexión a la DB 'mx'
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   database: 'mx',
   ssl: false,
 });
 
-// 3. Configuración de Auth.js
+app.use('*', cors());
+
+// 2. Configuración de Auth.js
 app.use(
   '/api/auth/*',
   initAuthConfig((c) => ({
@@ -35,6 +33,7 @@ app.use(
         async authorize(credentials) {
           if (!credentials?.email || !credentials?.password) return null;
           try {
+            // Consulta exacta según tu esquema
             const query = `
               SELECT u.id, u.name, u.email, u.role, a.password as hashed_password 
               FROM auth_users u
@@ -43,6 +42,7 @@ app.use(
             `;
             const result = await pool.query(query, [credentials.email]);
             const user = result.rows[0];
+            
             if (user && user.hashed_password) {
               const isValid = await (argon2 as any).compare(user.hashed_password, credentials.password as string);
               if (isValid) return { id: user.id.toString(), name: user.name, email: user.email, role: user.role };
@@ -61,30 +61,20 @@ app.use(
 
 app.all('/api/auth/*', authHandler());
 
-// --- SECCIÓN CRÍTICA PARA LA INTERFAZ ---
+// 3. RUTAS DE API MANUALES (Si tienes alguna)
+app.get('/api/health', (c) => c.json({ status: 'ok', db: 'mx' }));
 
-// 4. Servir archivos estáticos (CSS, JS, Imágenes)
-// Asumimos que Easypanel construye tu frontend en la carpeta 'dist'
-app.use('/assets/*', serveStatic({ root: './dist' }));
-app.use('/favicon.ico', serveStatic({ path: './dist/favicon.ico' }));
-
-// 5. Servir el index.html para la ruta raíz y cualquier ruta del frontend
-// Esto permite que al recargar la página en /dashboard no dé error 404
-app.get('*', async (c) => {
-  const path = c.req.path;
-  
-  // Si la ruta es para la API, no servir el HTML
-  if (path.startsWith('/api')) {
-    return c.notFound();
-  }
-
+// 4. EL PASO CLAVE: Delegar el resto a React Router
+// Esto permite que se vea la interfaz original en lugar de solo texto
+app.all("*", async (c) => {
   try {
-    // Intentamos leer el archivo index.html de tu compilación
-    const html = await readFile(join(process.cwd(), 'dist', 'index.html'), 'utf-8');
-    return c.html(html);
-  } catch (e) {
-    // Si falla (por ejemplo en desarrollo), mostramos un mensaje de auxilio
-    return c.html('<h1>Iniciando MotorX...</h1><p>Si ves esto, el frontend se está compilando o la ruta "dist" es incorrecta.</p>');
+    // @ts-ignore - Esto carga el servidor de React Router generado en el build
+    const build = await import("../build/server/index.js");
+    const handler = createRequestHandler(build, "production");
+    return handler(c.req.raw);
+  } catch (error) {
+    console.error("Error delegando a React Router:", error);
+    return c.text("Error cargando la interfaz. Verifica que 'bun run build' se ejecutó.", 500);
   }
 });
 
