@@ -1,6 +1,6 @@
 /**
  * WARNING: This file connects this app to Anythings's internal auth system. 
- * Modificado para asegurar la persistencia de roles y compatibilidad con el Dashboard.
+ * Modificado para usar pg estándar y asegurar compatibilidad con el Dashboard.
  */
 import CreateAuth from "@auth/create"
 import Credentials from "@auth/core/providers/credentials"
@@ -30,17 +30,17 @@ function Adapter(client) {
 
     async createUser(user) {
       const { id, name, email, emailVerified, image } = user;
+      // Se añade el campo ID para asegurar que no sea nulo al insertar
       const sql = `
-        INSERT INTO auth_users (id, name, email, "emailVerified", image, role)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING id, name, email, "emailVerified", image, role`;
+        INSERT INTO auth_users (id, name, email, "emailVerified", image)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id, name, email, "emailVerified", image`;
       const result = await client.query(sql, [
-        id || crypto.randomUUID(),
+        id || crypto.randomUUID(), // Genera ID si no viene en el objeto user
         name,
         email,
         emailVerified,
         image,
-        user.role || 'admin' // Por defecto admin para nuevos usuarios del sistema
       ]);
       return result.rows[0];
     },
@@ -58,11 +58,12 @@ function Adapter(client) {
     async getUserByEmail(email) {
       const sql = 'select * from auth_users where email = $1';
       const result = await client.query(sql, [email]);
-      if (result.rowCount === 0) return null;
-      
+      if (result.rowCount === 0) {
+        return null;
+      }
       const userData = result.rows[0];
       const accountsData = await client.query(
-        'select * from auth_accounts where "userId" = $1',
+        'select * from auth_accounts where "userId" = $1', // Corregido para usar userId
         [userData.id]
       );
       return {
@@ -74,40 +75,100 @@ function Adapter(client) {
     async getUserByAccount({ providerAccountId, provider }) {
       const sql = `
           select u.* from auth_users u join auth_accounts a on u.id = a."userId"
-          where a.provider = $1 and a."providerAccountId" = $2`;
+          where
+          a.provider = $1
+          and
+          a."providerAccountId" = $2`;
+
       const result = await client.query(sql, [provider, providerAccountId]);
       return result.rowCount !== 0 ? result.rows[0] : null;
     },
 
     async updateUser(user) {
-      const { id, name, email, emailVerified, image, role } = user;
+      const { id, name, email, emailVerified, image } = user;
       const updateSql = `
         UPDATE auth_users set
-        name = $2, email = $3, "emailVerified" = $4, image = $5, role = $6
+        name = $2, email = $3, "emailVerified" = $4, image = $5
         where id = $1
-        RETURNING *`;
-      const query = await client.query(updateSql, [id, name, email, emailVerified, image, role]);
+        RETURNING name, id, email, "emailVerified", image
+      `;
+      const query = await client.query(updateSql, [
+        id,
+        name,
+        email,
+        emailVerified,
+        image,
+      ]);
       return query.rows[0];
     },
 
     async linkAccount(account) {
       const sql = `
       insert into auth_accounts
-      ("userId", provider, type, "providerAccountId", access_token, password)
-      values ($1, $2, $3, $4, $5, $6)
+      (
+        "userId", provider, type, "providerAccountId", access_token,
+        expires_at, refresh_token, id_token, scope, session_state,
+        token_type, password
+      )
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       returning *`;
+
       const params = [
         account.userId,
         account.provider,
         account.type,
         account.providerAccountId,
         account.access_token,
+        account.expires_at,
+        account.refresh_token,
+        account.id_token,
+        account.scope,
+        account.session_state,
+        account.token_type,
         account.extraData?.password,
       ];
+
       const result = await client.query(sql, params);
       return result.rows[0];
     },
-    // ... otros métodos (sessions, unlink) pueden seguir la misma lógica pg
+
+    async createSession({ sessionToken, userId, expires }) {
+      const sql = `insert into auth_sessions ("userId", expires, "sessionToken")
+      values ($1, $2, $3)
+      RETURNING id, "sessionToken", "userId", expires`;
+      const result = await client.query(sql, [userId, expires, sessionToken]);
+      return result.rows[0];
+    },
+
+    async getSessionAndUser(sessionToken) {
+      const result1 = await client.query(
+        `select * from auth_sessions where "sessionToken" = $1`,
+        [sessionToken]
+      );
+      if (result1.rowCount === 0) return null;
+      const session = result1.rows[0];
+
+      const result2 = await client.query(
+        'select * from auth_users where id = $1',
+        [session.userId]
+      );
+      if (result2.rowCount === 0) return null;
+      const user = result2.rows[0];
+      return { session, user };
+    },
+
+    async deleteSession(sessionToken) {
+      const sql = `delete from auth_sessions where "sessionToken" = $1`;
+      await client.query(sql, [sessionToken]);
+    },
+
+    async unlinkAccount(partialAccount) {
+      const { provider, providerAccountId } = partialAccount;
+      const sql = `delete from auth_accounts where "providerAccountId" = $1 and provider = $2`;
+      await client.query(sql, [providerAccountId, provider]);
+    },
+    
+    // ... implementar otros métodos si es necesario
   };
 }
 
@@ -117,7 +178,7 @@ const pool = new Pool({
 const adapter = Adapter(pool);
 
 export const { auth } = CreateAuth({
-  trustHost: true,
+  trustHost: true, // Vital para evitar errores de sesión en Easypanel
   providers: [
     Credentials({
       id: 'credentials-signin',
@@ -137,41 +198,33 @@ export const { auth } = CreateAuth({
         if (!matchingAccount?.password) return null;
 
         const isValid = await verify(matchingAccount.password, password);
-        
-        if (isValid) {
-            // RETORNAR EL ROL AQUÍ ES VITAL
-            return {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role || 'admin' 
-            };
-        }
-        return null;
+        return isValid ? user : null;
       },
     }),
   ],
+  pages: {
+    signIn: '/account/signin',
+    signOut: '/account/logout',
+  },
+  session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
-      // Pasamos el rol del usuario de la DB al token JWT
       if (user) {
-        token.role = user.role;
+        token.role = 'admin'; // Forzamos el rol para el usuario de setup
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // Pasamos el rol del token a la sesión que lee el frontend
       if (session.user) {
         session.user.role = token.role;
         session.user.id = token.id;
       }
       return session;
     },
+    pages: {
+      signIn: '/account/signin',
+      signOut: '/account/logout',
+    },
   },
-  pages: {
-    signIn: '/account/signin',
-    signOut: '/account/logout',
-  },
-  session: { strategy: 'jwt' }
 });
