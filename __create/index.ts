@@ -13,7 +13,6 @@ import { requestId } from 'hono/request-id';
 import { createHonoServer } from 'react-router-hono-server/node';
 
 import MyAdapter from './adapter';
-import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
 
 // 1. Configuración de Base de Datos
@@ -24,17 +23,19 @@ const pool = new Pool({
 const adapter = MyAdapter(pool);
 const app = new Hono();
 
+// Middlewares base
 app.use(requestId());
 app.use(contextStorage());
 app.use(cors());
 
-// 2. Definición Robusta de la Configuración
-// Forzamos un fallback para el secret para evitar el error de 'undefined' durante la carga
-const authConfig = {
-  secret: process.env.AUTH_SECRET || 'a-very-long-secret-key-that-prevents-initialization-errors',
+// 2. CONFIGURACIÓN DE AUTH - FUERZA BRUTA
+// Definimos el secreto con un fallback inmediato para evitar que sea undefined
+const AUTH_SECRET = process.env.AUTH_SECRET || "secreto_temporal_de_emergencia_1234567890";
+
+const getAuthConfig = (c) => ({
+  secret: AUTH_SECRET,
   adapter: adapter,
   trustHost: true,
-  skipCSRFCheck: skipCSRFCheck,
   providers: [
     Credentials({
       credentials: {
@@ -43,25 +44,25 @@ const authConfig = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-
-        const user = await adapter.getUserByEmail(credentials.email as string);
-        if (!user) return null;
-
-        const matchingAccount = user.accounts?.find(
-          (a: any) => a.provider === 'credentials'
-        );
         
-        if (!matchingAccount?.password) return null;
+        try {
+          const user = await adapter.getUserByEmail(credentials.email);
+          if (!user) return null;
 
-        const isValid = await verify(matchingAccount.password, credentials.password as string);
-        
-        if (isValid) {
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role || 'client' // Inyectamos el rol desde la DB
-          };
+          const matchingAccount = user.accounts?.find(a => a.provider === 'credentials');
+          if (!matchingAccount?.password) return null;
+
+          const isValid = await verify(matchingAccount.password, credentials.password);
+          if (isValid) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: user.role || 'client'
+            };
+          }
+        } catch (e) {
+          console.error("Error en authorize:", e);
         }
         return null;
       },
@@ -69,34 +70,36 @@ const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.role = (user as any).role;
-      }
+      if (user) token.role = user.role;
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).role = token.role;
-      }
+      if (session?.user) session.user.role = token.role;
       return session;
     },
   },
   pages: {
     signIn: '/account/signin',
   },
-};
-
-// 3. Inicialización Inmediata
-initAuthConfig(app, () => authConfig);
-
-// 4. Manejador de Rutas de Autenticación
-// Usamos .all para capturar todos los métodos (GET/POST) de Auth.js
-app.all('/api/auth/*', (c) => {
-  const handler = authHandler();
-  return handler(c);
+  skipCSRFCheck: skipCSRFCheck
 });
 
-// 5. Rutas de la API y Setup
+// 🔥 ESTO ES LO MÁS IMPORTANTE:
+// Inicializamos la configuración pasando la función directamente.
+initAuthConfig(app, getAuthConfig);
+
+// 3. MANEJADOR DE RUTAS AUTH
+// En lugar de usar middlewares complejos, interceptamos todas las peticiones a /api/auth
+app.all('/api/auth/*', async (c) => {
+  // authHandler() devuelve una función que maneja la petición
+  const handler = authHandler();
+  return await handler(c);
+});
+
+// 4. RUTAS DE LA API
+app.route(API_BASENAME, api);
+
+// 5. SETUP DE ADMIN (AUXILIAR)
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
@@ -108,7 +111,7 @@ app.post('/api/admin-setup', async (c) => {
       name,
       email,
       emailVerified: new Date(),
-      role: 'admin' 
+      role: 'admin'
     } as any);
 
     await adapter.linkAccount({
@@ -119,15 +122,12 @@ app.post('/api/admin-setup', async (c) => {
       extraData: { password: hashedPassword },
     } as any);
 
-    return c.json({ success: true, message: "Admin creado correctamente" });
+    return c.json({ success: true });
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500);
   }
 });
 
-app.route(API_BASENAME, api);
-
-// 6. Inicio del Servidor
 export default createHonoServer({
   app,
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
