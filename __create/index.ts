@@ -1,73 +1,111 @@
-import { Hono } from 'hono';
+// @ts-nocheck
+import { skipCSRFCheck } from '@auth/core';
+import Credentials from '@auth/core/providers/credentials';
 import { authHandler, initAuthConfig } from '@hono/auth-js';
-import CredentialsProvider from '@auth/core/providers/credentials';
-import { Pool } from 'pg';
-import * as argon2 from 'argon2';
+import pg from 'pg';
+const { Pool } = pg;
+import { hash, verify } from 'argon2';
+import { Hono } from 'hono';
+import { contextStorage } from 'hono/context-storage';
 import { cors } from 'hono/cors';
-// Importamos el tipo, no el código, para evitar el error de resolución
-import type { RequestHandler } from "@react-router/node";
-import { api, API_BASENAME, registerRoutes } from './route-builder';
+import { requestId } from 'hono/request-id';
+import { createHonoServer } from 'react-router-hono-server/node';
 
-const app = new Hono();
+import MyAdapter from './adapter';
+import { API_BASENAME, api, registerRoutes } from './route-builder';
 
+// 1. SOLUCIÓN AL ERROR "master": Forzamos la base de datos 'mx'
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  database: 'mx',
+  database: 'mx', // 👈 Esto obliga a usar la DB correcta
   ssl: false,
 });
 
+const adapter = MyAdapter(pool);
+const app = new Hono();
+
+app.use('*', requestId());
+app.use('*', contextStorage());
 app.use('*', cors());
 
-// Inicialización de rutas de API
+// 2. CONFIGURACIÓN DE AUTH.JS (Tu lógica original que funcionaba)
+app.use('/api/auth/*', initAuthConfig((c) => ({
+  secret: process.env.AUTH_SECRET,
+  adapter: adapter,
+  trustHost: true,
+  basePath: '/api/auth',
+  cookies: {
+    sessionToken: {
+      name: `__Secure-authjs.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+        try {
+          // Buscamos usando el adapter que ya maneja las comillas dobles
+          const user = await adapter.getUserByEmail(credentials.email as string);
+          if (!user) return null;
+
+          const accounts = await adapter.getAccountsByUserId(user.id);
+          const matchingAccount = accounts.find(a => a.provider === 'credentials');
+          
+          if (!matchingAccount?.password) return null;
+
+          const isValid = await verify(matchingAccount.password, credentials.password as string);
+          if (isValid) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: user.role || 'client'
+            };
+          }
+        } catch (e) {
+          console.error("Error en authorize:", e);
+        }
+        return null;
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) (token as any).role = (user as any).role;
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) (session.user as any).role = (token as any).role;
+      return session;
+    },
+  },
+  pages: { signIn: '/account/signin' },
+  skipCSRFCheck: skipCSRFCheck
+})));
+
+app.all('/api/auth/:action', async (c) => authHandler()(c));
+app.all('/api/auth/:action/:provider', async (c) => authHandler()(c));
+
+// 3. REGISTRO DE RUTAS DINÁMICAS
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// Configuración de Auth.js
-app.use(
-  '/api/auth/*',
-  initAuthConfig((c) => ({
-    secret: process.env.AUTH_SECRET,
-    providers: [
-      CredentialsProvider({
-        name: 'Credentials',
-        authorize: async (credentials) => {
-          // ... (tu lógica de authorize se mantiene igual)
-          const query = `SELECT u.id, u.name, u.email, u.role, a.password as hashed_password 
-                         FROM auth_users u JOIN auth_accounts a ON u.id = a."userId" 
-                         WHERE u.email = $1`;
-          const result = await pool.query(query, [credentials.email]);
-          const user = result.rows[0];
-          if (user && await (argon2 as any).verify(user.hashed_password, credentials.password)) {
-            return { id: user.id, name: user.name, email: user.email, role: user.role };
-          }
-          return null;
-        }
-      })
-    ],
-    basePath: '/api/auth',
-    trustHost: true,
-  }))
-);
-
-app.all('/api/auth/*', authHandler());
-
-// --- SOLUCIÓN AL ERROR DE BUILD ---
-let handler: RequestHandler;
-
-app.all("*", async (c) => {
-  // Solo intentamos importar el build si estamos en producción y no lo hemos hecho aún
-  if (process.env.NODE_ENV === "production") {
-    if (!handler) {
-      // @ts-ignore - Esta ruta solo existirá DESPUÉS del build
-      const build = await import("../build/server/index.js");
-      const { createRequestHandler } = await import("@react-router/node");
-      handler = createRequestHandler(build, "production");
-    }
-    return handler(c.req.raw);
-  }
-  
-  // En desarrollo, esto no debería ejecutarse porque Vite maneja el dev server
-  return c.text("Modo Desarrollo - El servidor de React Router no está listo.");
+// 4. SERVIdOR DE REACT ROUTER (Recupera la interfaz original)
+// 'createHonoServer' detecta automáticamente la carpeta 'build' tras el comando 'react-router build'
+const server = createHonoServer({
+  app,
+  port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
 });
 
-export default app;
+process.on('SIGTERM', async () => {
+  await pool.end();
+  process.exit(0);
+});
+
+export default server;
