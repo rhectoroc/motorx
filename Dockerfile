@@ -16,7 +16,7 @@ RUN bun run build
 # ✅ CORREGIDO: Puerto 80 para EasyPanel
 ENV NODE_ENV=production
 ENV PORT=80
-EXPOSE 80  # ✅ EasyPanel espera 80
+EXPOSE 80
 
 # Comando para arrancar el servidor
 CMD ["bun", "run", "start"]
