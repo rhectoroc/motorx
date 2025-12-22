@@ -12,7 +12,7 @@ import { cors } from 'hono/cors';
 import { requestId } from 'hono/request-id';
 import { createHonoServer } from 'react-router-hono-server/node';
 
-import MyAdapter from './adapter';
+import MyAdapter from './adapter'; 
 import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
 
@@ -26,12 +26,14 @@ const app = new Hono();
 app.use(requestId());
 app.use(contextStorage());
 
-// 🔥 CORRECCIÓN AQUÍ: Aseguramos que la función siempre retorne el objeto
+// 🔥 CONFIGURACIÓN CONSOLIDADA
 initAuthConfig(app, (c) => {
-  const config = {
-    secret: process.env.AUTH_SECRET || 'una-clave-muy-secreta-de-respaldo',
+  // Creamos el objeto explícitamente para asegurar que no sea undefined
+  const authConfig = {
+    secret: process.env.AUTH_SECRET,
     adapter: adapter,
     trustHost: true,
+    skipCSRFCheck: skipCSRFCheck,
     providers: [
       Credentials({
         credentials: {
@@ -40,19 +42,25 @@ initAuthConfig(app, (c) => {
         },
         async authorize(credentials) {
           if (!credentials?.email || !credentials?.password) return null;
-          const user = await adapter.getUserByEmail(credentials.email);
+
+          const user = await adapter.getUserByEmail(credentials.email as string);
           if (!user) return null;
 
-          const matchingAccount = user.accounts?.find(a => a.provider === 'credentials');
+          const matchingAccount = user.accounts?.find(
+            (a: any) => a.provider === 'credentials'
+          );
+          
           if (!matchingAccount?.password) return null;
 
-          const isValid = await verify(matchingAccount.password, credentials.password);
+          const isValid = await verify(matchingAccount.password, credentials.password as string);
+          
           if (isValid) {
+            // ✅ Inyectamos el rol de la base de datos
             return {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role // Vital para el dashboard
+              role: user.role // Admin o Client
             };
           }
           return null;
@@ -61,11 +69,15 @@ initAuthConfig(app, (c) => {
     ],
     callbacks: {
       async jwt({ token, user }) {
-        if (user) token.role = user.role;
+        if (user) {
+          token.role = (user as any).role;
+        }
         return token;
       },
       async session({ session, token }) {
-        if (session.user) session.user.role = token.role;
+        if (session.user) {
+          (session.user as any).role = token.role;
+        }
         return session;
       },
     },
@@ -73,17 +85,47 @@ initAuthConfig(app, (c) => {
       signIn: '/account/signin',
     },
   };
-  return config; // <--- IMPRESCINDIBLE: retornar el objeto
+
+  return authConfig; // 🔥 RETORNO EXPLÍCITO PARA EVITAR EL ERROR DE UNDEFINED
 });
 
-// Manejador de rutas Auth
+// Middleware de Auth
 app.use('/api/auth/*', async (c, next) => {
   if (!isAuthAction(c.req.path)) return next();
-  const handler = authHandler();
-  return handler(c);
+  return authHandler()(c);
 });
 
 app.use(cors());
+
+// Endpoint de rescate para crear admin
+app.post('/api/admin-setup', async (c) => {
+  try {
+    const { name, email, password } = await c.req.json();
+    const userId = crypto.randomUUID();
+    const hashedPassword = await hash(password);
+
+    const newUser = await adapter.createUser({
+      id: userId,
+      name,
+      email,
+      emailVerified: new Date(),
+      role: 'admin' 
+    } as any);
+
+    await adapter.linkAccount({
+      userId: newUser.id,
+      type: 'credentials',
+      provider: 'credentials',
+      providerAccountId: userId,
+      extraData: { password: hashedPassword },
+    } as any);
+
+    return c.json({ success: true, message: "Admin creado en Postgres" });
+  } catch (err: any) {
+    return c.json({ success: false, error: err.message }, 500);
+  }
+});
+
 app.route(API_BASENAME, api);
 
 export default createHonoServer({
