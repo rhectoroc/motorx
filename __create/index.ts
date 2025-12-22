@@ -14,6 +14,7 @@ import { createHonoServer } from 'react-router-hono-server/node';
 import MyAdapter from './adapter';
 import { API_BASENAME, api, registerRoutes } from './route-builder';
 
+// 1. Configuración de Base de Datos
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
@@ -21,19 +22,27 @@ const pool = new Pool({
 const adapter = MyAdapter(pool);
 const app = new Hono();
 
+// Middlewares base
 app.use('*', requestId());
 app.use('*', contextStorage());
 app.use('*', cors());
 
-// Configuración de Auth corregida como Middleware
+// 2. CONFIGURACIÓN DE AUTH.JS
+// El uso de basePath es vital para evitar el error "UnknownAction"
 app.use('/api/auth/*', initAuthConfig((c) => ({
-  secret: process.env.AUTH_SECRET || "secreto_minimo_32_caracteres_de_emergencia",
+  secret: process.env.AUTH_SECRET || "secreto_temporal_de_emergencia_1234567890",
   adapter: adapter,
   trustHost: true,
+  basePath: '/api/auth', // Indica a Auth.js que ignore este prefijo al buscar acciones
   providers: [
     Credentials({
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+        
         try {
           const user = await adapter.getUserByEmail(credentials.email as string);
           if (!user) return null;
@@ -63,7 +72,9 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) (session.user as any).role = (token as any).role;
+      if (session?.user) {
+        (session.user as any).role = (token as any).role;
+      }
       return session;
     },
   },
@@ -73,14 +84,22 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
   skipCSRFCheck: skipCSRFCheck
 })));
 
-// Manejador centralizado de Auth
-app.all('/api/auth/*', (c) => authHandler()(c));
+// 3. MANEJADORES DE RUTAS AUTH (CORREGIDOS)
+// Usamos rutas con parámetros para que Hono pase la "acción" correctamente a Auth.js
+app.all('/api/auth/:action', async (c) => {
+  return await authHandler()(c);
+});
 
-// Registro de rutas dinámicas antes de montar la API
+app.all('/api/auth/:action/:provider', async (c) => {
+  return await authHandler()(c);
+});
+
+// 4. RUTAS DE LA API DINÁMICAS
+// Importante: registrar las rutas antes de montar el middleware de la API
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// Endpoint auxiliar de setup
+// 5. SETUP DE ADMIN (AUXILIAR)
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
@@ -100,7 +119,7 @@ app.post('/api/admin-setup', async (c) => {
       type: 'credentials',
       provider: 'credentials',
       providerAccountId: userId,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     return c.json({ success: true });
