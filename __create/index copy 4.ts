@@ -18,9 +18,6 @@ import { getHTMLForErrorPage } from './get-html-for-error-page';
 import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
 
-// IMPORTACIÓN MANUAL DE LA RUTA DE PERFIL (Para evitar el error de ruta no encontrada)
-import { GET as profileHandler } from '../src/app/api/user/profile/route.js';
-
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
 // Logger con trazabilidad
@@ -63,13 +60,14 @@ if (process.env.CORS_ORIGINS) {
 }
 
 /**
- * CONFIGURACIÓN DE AUTENTICACIÓN
+ * BLOQUE DE AUTENTICACIÓN UNIFICADO
+ * Se eliminó la redundancia de 'app.use' y 'app.all' dispersos.
  */
 if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true, // CRÍTICO: Evita redirecciones a localhost
+    trustHost: true, // Necesario para Easypanel
     pages: { 
       signIn: '/account/signin', 
       signOut: '/account/logout' 
@@ -92,12 +90,8 @@ if (process.env.AUTH_SECRET) {
           const isValid = await verify(matchingAccount.password, password as string);
           
           if (isValid) {
-            return { 
-                id: user.id, 
-                name: user.name, 
-                email: user.email, 
-                role: user.role || 'admin' 
-            };
+            // Retornamos el usuario con el rol explícito para el frontend
+            return { ...user, role: 'admin' };
           }
           return null;
         }
@@ -119,23 +113,9 @@ if (process.env.AUTH_SECRET) {
     }
   })));
 
+  // Único manejador de rutas Auth
   app.all('/api/auth/*', (c) => authHandler()(c));
 }
-
-/**
- * REGISTRO MANUAL DE RUTAS CRÍTICAS
- * Esto asegura que /api/user/profile responda JSON y no el HTML de la página principal
- */
-app.get('/api/user/profile', async (c) => {
-  try {
-    const response = await profileHandler();
-    const data = await response.json();
-    return c.json(data, response.status);
-  } catch (e) {
-    console.error("Error manual route /api/user/profile:", e);
-    return c.json({ error: "API Route not initialized" }, 500);
-  }
-});
 
 // RUTA PARA ADMIN SETUP
 app.post('/api/admin-setup', async (c) => {
@@ -167,7 +147,7 @@ app.post('/api/admin-setup', async (c) => {
   }
 });
 
-// Montaje automático del resto de APIs
+// Montaje de APIs del sistema (vienen de route-builder.ts)
 app.route(API_BASENAME, api);
 
 // Inicialización del servidor
