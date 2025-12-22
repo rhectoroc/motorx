@@ -27,11 +27,11 @@ app.use('*', cors());
 
 // CONFIGURACIÓN DE AUTH.JS
 app.use('/api/auth/*', initAuthConfig((c) => ({
-  secret: process.env.AUTH_SECRET || "secreto_temporal_de_emergencia_1234567890",
+  secret: process.env.AUTH_SECRET,
   adapter: adapter,
-  trustHost: true, 
+  trustHost: true,
   basePath: '/api/auth',
-  // IMPORTANTE: Forzamos el uso de cookies seguras solo si hay HTTPS
+  // Configuración manual de cookies para forzar persistencia tras el proxy
   cookies: {
     sessionToken: {
       name: `__Secure-authjs.session-token`,
@@ -39,7 +39,7 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: true,
+        secure: true, // Requerido para HTTPS en Easypanel
       },
     },
   },
@@ -54,6 +54,7 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
           const accounts = await adapter.getAccountsByUserId(user.id);
           const matchingAccount = accounts.find(a => a.provider === 'credentials');
           
+          // Buscamos 'password' en el nivel raíz de la cuenta
           if (!matchingAccount?.password) return null;
 
           const isValid = await verify(matchingAccount.password, credentials.password as string);
@@ -82,7 +83,6 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Forzamos el dashboard si el login es exitoso
       if (url.includes('/signin')) return `${baseUrl}/dashboard`;
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
@@ -97,7 +97,7 @@ app.all('/api/auth/:action/:provider', async (c) => authHandler()(c));
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// SETUP DE ADMIN
+// SETUP DE ADMIN (CORREGIDO PARA COINCIDIR CON AUTHORIZE)
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
@@ -118,6 +118,7 @@ app.post('/api/admin-setup', async (c) => {
       });
     }
 
+    // Guardamos la contraseña en el campo 'password' directamente
     await adapter.linkAccount({
       userId: userId,
       type: 'credentials',
@@ -126,7 +127,7 @@ app.post('/api/admin-setup', async (c) => {
       password: hashedPassword, 
     });
 
-    return c.json({ success: true, message: "Admin actualizado" });
+    return c.json({ success: true, message: "Credenciales vinculadas correctamente" });
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500);
   }
