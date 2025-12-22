@@ -15,15 +15,11 @@ import { serializeError } from 'serialize-error';
 
 import NeonAdapter from './adapter';
 import { getHTMLForErrorPage } from './get-html-for-error-page';
-import { isAuthAction } from './is-auth-action';
 import { API_BASENAME, api } from './route-builder';
-
-// IMPORTACIÓN MANUAL DE LA RUTA DE PERFIL (Para evitar el error de ruta no encontrada)
-import { GET as profileHandler } from '../src/app/api/user/profile/route.js';
 
 const als = new AsyncLocalStorage<{ requestId: string }>();
 
-// Logger con trazabilidad
+// Logger trazable
 for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
   const original = nodeConsole[method].bind(console);
   console[method] = (...args: unknown[]) => {
@@ -43,7 +39,6 @@ const adapter = NeonAdapter(pool);
 
 const app = new Hono();
 
-// Middlewares Base
 app.use('*', requestId());
 app.use('*', (c, next) => {
   const reqId = c.get('requestId');
@@ -69,35 +64,17 @@ if (process.env.AUTH_SECRET) {
   app.use('/api/auth/*', initAuthConfig((c) => ({
     secret: c.env.AUTH_SECRET,
     basePath: '/api/auth',
-    trustHost: true, // CRÍTICO: Evita redirecciones a localhost
-    pages: { 
-      signIn: '/account/signin', 
-      signOut: '/account/logout' 
-    },
+    trustHost: true,
     skipCSRFCheck,
     session: { strategy: 'jwt' },
     providers: [
       Credentials({
         id: 'credentials-signin',
         authorize: async (credentials) => {
-          const { email, password } = credentials;
-          // @ts-ignore
-          const user = await adapter.getUserByEmail(email as string);
-          if (!user) return null;
-
-          // @ts-ignore
-          const matchingAccount = user.accounts.find(a => a.provider === 'credentials');
-          if (!matchingAccount?.password) return null;
-
-          const isValid = await verify(matchingAccount.password, password as string);
-          
-          if (isValid) {
-            return { 
-                id: user.id, 
-                name: user.name, 
-                email: user.email, 
-                role: user.role || 'admin' 
-            };
+          const user = await adapter.getUserByEmail(credentials.email as string);
+          if (user && user.accounts[0]?.password) {
+            const isValid = await verify(user.accounts[0].password, credentials.password as string);
+            if (isValid) return { id: user.id.toString(), name: user.name, email: user.email, role: user.role || 'admin' };
           }
           return null;
         }
@@ -105,15 +82,11 @@ if (process.env.AUTH_SECRET) {
     ],
     callbacks: {
       async jwt({ token, user }) {
-        if (user) {
-          token.role = (user as any).role;
-        }
+        if (user) token.role = (user as any).role;
         return token;
       },
       async session({ session, token }) {
-        if (session.user) {
-          (session.user as any).role = token.role;
-        }
+        if (session.user) (session.user as any).role = token.role;
         return session;
       }
     }
@@ -122,56 +95,7 @@ if (process.env.AUTH_SECRET) {
   app.all('/api/auth/*', (c) => authHandler()(c));
 }
 
-/**
- * REGISTRO MANUAL DE RUTAS CRÍTICAS
- * Esto asegura que /api/user/profile responda JSON y no el HTML de la página principal
- */
-app.get('/api/user/profile', async (c) => {
-  try {
-    const response = await profileHandler();
-    const data = await response.json();
-    return c.json(data, response.status);
-  } catch (e) {
-    console.error("Error manual route /api/user/profile:", e);
-    return c.json({ error: "API Route not initialized" }, 500);
-  }
-});
-
-// RUTA PARA ADMIN SETUP
-app.post('/api/admin-setup', async (c) => {
-  try {
-    const { name, email, password } = await c.req.json();
-    const userId = crypto.randomUUID();
-
-    // @ts-ignore
-    const newUser = await adapter.createUser({
-      id: userId,
-      name,
-      email,
-      emailVerified: new Date(),
-    });
-
-    // @ts-ignore
-    await adapter.linkAccount({
-      userId: newUser.id,
-      type: 'credentials',
-      provider: 'credentials',
-      providerAccountId: userId,
-      extraData: { password: await hash(password) },
-    });
-
-    return c.json({ success: true });
-  } catch (err: any) {
-    console.error('Error en admin-setup:', err);
-    return c.json({ error: 'Error al crear administrador', details: err.message }, 500);
-  }
-});
-
-// Montaje automático del resto de APIs
+// Montaje de APIs (Esto incluye automáticamente src/app/api/user/profile/route.js)
 app.route(API_BASENAME, api);
 
-// Inicialización del servidor
-await createHonoServer({
-  app,
-  defaultLogger: false,
-});
+await createHonoServer({ app, defaultLogger: false });
