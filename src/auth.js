@@ -5,13 +5,13 @@ import { verify } from 'argon2';
 
 const { Pool } = pg;
 
-// Configuración del Pool de conexiones
+// Configuración del Pool de conexiones centralizado
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
 /**
- * Adaptador simplificado para manejar la base de datos centralizada
+ * Adaptador para manejar la persistencia en PostgreSQL con tipos UUID
  */
 function Adapter(client) {
   return {
@@ -20,7 +20,7 @@ function Adapter(client) {
       const sql = `
         INSERT INTO auth_users (name, email, image, role, is_main_client)
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING id, name, email, role, is_main_client`;
+        RETURNING id, name, email, role`;
       const result = await client.query(sql, [
         name,
         email,
@@ -43,6 +43,7 @@ function Adapter(client) {
       if (result.rowCount === 0) return null;
       
       const userData = result.rows[0];
+      // Buscamos la cuenta vinculada para la validación de contraseña
       const accountsData = await client.query(
         'SELECT * FROM auth_accounts WHERE "userId" = $1',
         [userData.id]
@@ -77,15 +78,16 @@ export const { auth } = CreateAuth({
         const user = await adapter.getUserByEmail(email);
         if (!user) return null;
 
+        // Buscamos la cuenta que tenga el proveedor de credenciales
         const matchingAccount = user.accounts.find(a => a.provider === 'credentials');
         if (!matchingAccount || !matchingAccount.password) return null;
 
+        // Verificación de hash con argon2
         const isValid = await verify(matchingAccount.password, password);
         
         if (isValid) {
-            // Retornamos el objeto con el rol de la base de datos
             return {
-                id: user.id.toString(), 
+                id: user.id, // Se mantiene como UUID string
                 name: user.name,
                 email: user.email,
                 role: user.role || 'admin'
@@ -97,7 +99,7 @@ export const { auth } = CreateAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // Guardamos el rol en el JWT
+      // Inyectamos el rol en el token JWT durante el login
       if (user) {
         token.role = user.role;
         token.id = user.id;
@@ -105,7 +107,7 @@ export const { auth } = CreateAuth({
       return token;
     },
     async session({ session, token }) {
-      // Pasamos el rol a la sesión que lee el Dashboard (page.jsx)
+      // Exponemos el rol en la sesión para que el frontend (Dashboard) lo detecte
       if (session.user) {
         session.user.role = token.role;
         session.user.id = token.id;
