@@ -177,6 +177,26 @@ app.get('/api/user/profile', async (c) => {
   }
 });
 
+// ✅ ERROR HANDLER - Elimina /api/auth/error vacío
+app.onError((err: any, c) => {
+  console.error('[AUTH ERROR]', err.message || err);
+  return c.json({ 
+    error: 'Login falló',
+    message: 'Email o password incorrecto',
+    userExists: true  // Para debug
+  }, 401);
+});
+// ✅ RUTA /api/auth/error explícita
+app.all('/api/auth/error', (c) => {
+  console.log('[API/AUTH/ERROR HIT]');
+  return c.html(`
+    <h1>Error de Autenticación</h1>
+    <p>Usuario existe pero credenciales inválidas.</p>
+    <p>Email: rhectoroc@gmail.com</p>
+    <p>¿Password correcto?</p>
+    <a href="/account/signin">Volver al login</a>
+  `);
+});
 // 6. Servidor
 const server = createHonoServer({
   app,
