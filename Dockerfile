@@ -12,13 +12,11 @@ RUN bun install
 # Copiar el resto del código
 COPY . .
 RUN bun run build
-# Añadimos variables para desactivar comprobaciones que bloquean el build en CI
-ENV NODE_ENV=production
-ENV PORT=3000
-# Exponer el puerto que configuraste en vite.config.ts (4000)
-EXPOSE 3000
 
-# Comando para arrancar el servidor de producción
-# Nota: Asegúrate de tener un script "start" en package.json que use react-router-serve
-#CMD ["bun", "./build/server/index.js"]
+# ✅ CORREGIDO: Puerto 80 para EasyPanel
+ENV NODE_ENV=production
+ENV PORT=80
+EXPOSE 80  # ✅ EasyPanel espera 80
+
+# Comando para arrancar el servidor
 CMD ["bun", "run", "start"]
