@@ -14,10 +14,11 @@ import { createHonoServer } from 'react-router-hono-server/node';
 import MyAdapter from './adapter';
 import { API_BASENAME, api, registerRoutes } from './route-builder';
 
-// 1. SOLUCIÓN AL ERROR "master": Forzamos la base de datos 'mx'
+// 1. CONEXIÓN FORZADA A LA DB 'mx'
+// Esto evita el error "database master does not exist" de tus logs
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  database: 'mx', // 👈 Esto obliga a usar la DB correcta
+  database: 'mx', 
   ssl: false,
 });
 
@@ -28,7 +29,7 @@ app.use('*', requestId());
 app.use('*', contextStorage());
 app.use('*', cors());
 
-// 2. CONFIGURACIÓN DE AUTH.JS (Tu lógica original que funcionaba)
+// 2. CONFIGURACIÓN DE AUTH.JS
 app.use('/api/auth/*', initAuthConfig((c) => ({
   secret: process.env.AUTH_SECRET,
   adapter: adapter,
@@ -50,7 +51,6 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
         try {
-          // Buscamos usando el adapter que ya maneja las comillas dobles
           const user = await adapter.getUserByEmail(credentials.email as string);
           if (!user) return null;
 
@@ -84,6 +84,10 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
       if (session?.user) (session.user as any).role = (token as any).role;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      if (url.includes('/signin')) return `${baseUrl}/dashboard`;
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   pages: { signIn: '/account/signin' },
   skipCSRFCheck: skipCSRFCheck
@@ -92,12 +96,46 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
 app.all('/api/auth/:action', async (c) => authHandler()(c));
 app.all('/api/auth/:action/:provider', async (c) => authHandler()(c));
 
-// 3. REGISTRO DE RUTAS DINÁMICAS
+// 3. RUTAS DINÁMICAS Y SETUP
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// 4. SERVIdOR DE REACT ROUTER (Recupera la interfaz original)
-// 'createHonoServer' detecta automáticamente la carpeta 'build' tras el comando 'react-router build'
+// RUTA DE ADMIN-SETUP (Habilitada para crear tu usuario inicial)
+app.post('/api/admin-setup', async (c) => {
+  try {
+    const { name, email, password } = await c.req.json();
+    const hashedPassword = await hash(password);
+    let user = await adapter.getUserByEmail(email);
+    let userId: string;
+
+    if (user) {
+      userId = user.id;
+    } else {
+      userId = crypto.randomUUID();
+      user = await adapter.createUser({
+        id: userId,
+        name,
+        email,
+        emailVerified: new Date(),
+        role: 'admin'
+      });
+    }
+
+    await adapter.linkAccount({
+      userId: userId,
+      type: 'credentials',
+      provider: 'credentials',
+      providerAccountId: userId,
+      password: hashedPassword, 
+    });
+
+    return c.json({ success: true, message: "Admin configurado. Ya puedes loguearte." });
+  } catch (err: any) {
+    return c.json({ success: false, error: err.message }, 500);
+  }
+});
+
+// 4. INICIO DEL SERVIDOR (Recupera la interfaz original)
 const server = createHonoServer({
   app,
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
@@ -108,4 +146,6 @@ process.on('SIGTERM', async () => {
   process.exit(0);
 });
 
-export default server;
+export default server; {
+  await registerRoutes();
+}
