@@ -28,12 +28,12 @@ app.use('*', contextStorage());
 app.use('*', cors());
 
 // 2. CONFIGURACIÓN DE AUTH.JS (Como Middleware)
-// El uso de basePath es vital para evitar el error "UnknownAction"
+// Se añade trustHost y basePath para resolver problemas de redirección en producción
 app.use('/api/auth/*', initAuthConfig((c) => ({
   secret: process.env.AUTH_SECRET || "secreto_temporal_de_emergencia_1234567890",
   adapter: adapter,
-  trustHost: true,
-  basePath: '/api/auth', // Indica a Auth.js que ignore este prefijo al buscar acciones
+  trustHost: true, // Crucial para Easypanel/Proxies
+  basePath: '/api/auth',
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -44,7 +44,7 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
           if (!user) return null;
 
           const matchingAccount = user.accounts?.find(a => a.provider === 'credentials');
-          // Buscamos la contraseña directamente en la cuenta
+          // Validamos que exista la contraseña en la cuenta vinculada
           if (!matchingAccount?.password) return null;
 
           const isValid = await verify(matchingAccount.password, credentials.password as string);
@@ -74,6 +74,11 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // Si la URL es el login o raíz, forzamos ir al dashboard tras éxito
+      if (url.includes('/signin') || url === baseUrl) return `${baseUrl}/dashboard`;
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   pages: {
     signIn: '/account/signin',
@@ -82,30 +87,28 @@ app.use('/api/auth/*', initAuthConfig((c) => ({
 })));
 
 // 3. MANEJADORES DE RUTAS AUTH
-// Usamos rutas con parámetros para que Auth.js reciba la "acción" (session, callback, etc.) correctamente
+// Capturan las acciones de Auth.js (session, callback, signin, etc.)
 app.all('/api/auth/:action', async (c) => authHandler()(c));
 app.all('/api/auth/:action/:provider', async (c) => authHandler()(c));
 
 // 4. RUTAS DE LA API DINÁMICAS
-// Importante: registrar las rutas antes de montar la API
+// Se deben registrar antes de montar la ruta base de la API
 await registerRoutes();
 app.route(API_BASENAME, api);
 
-// 5. SETUP DE ADMIN MEJORADO (Evita error de duplicidad de Email)
+// 5. SETUP DE ADMIN (Lógica de Actualización/Upsert)
 app.post('/api/admin-setup', async (c) => {
   try {
     const { name, email, password } = await c.req.json();
     const hashedPassword = await hash(password);
     
-    // Verificar si el usuario ya existe para evitar "duplicate key"
+    // Evitamos "duplicate key" verificando existencia previa
     let user = await adapter.getUserByEmail(email);
     let userId: string;
 
     if (user) {
       userId = user.id;
-      // Si el usuario existe, nos aseguramos de que el rol sea admin
-      // Nota: Dependiendo de tu adaptador, podrías necesitar una función updateUser.
-      console.log(`Usuario ${email} encontrado, actualizando cuenta.`);
+      console.log(`Usuario ${email} encontrado, actualizando...`);
     } else {
       userId = crypto.randomUUID();
       user = await adapter.createUser({
@@ -118,26 +121,35 @@ app.post('/api/admin-setup', async (c) => {
       console.log(`Nuevo usuario ${email} creado.`);
     }
 
-    // Vincular o actualizar la contraseña en la cuenta de credenciales
+    // Vinculamos o sobreescribimos la cuenta con la nueva contraseña
     await adapter.linkAccount({
       userId: userId,
       type: 'credentials',
       provider: 'credentials',
       providerAccountId: userId,
-      password: hashedPassword, // Se guarda aquí para que authorize() lo encuentre
+      password: hashedPassword, 
     });
 
     return c.json({ 
       success: true, 
-      message: user ? "Credenciales de administrador actualizadas" : "Administrador creado con éxito" 
+      message: user ? "Credenciales actualizadas correctamente" : "Admin creado" 
     });
   } catch (err: any) {
-    console.error("Error en setup:", err);
+    console.error("Error en admin-setup:", err);
     return c.json({ success: false, error: err.message }, 500);
   }
 });
 
-export default createHonoServer({
+// 6. MANEJO DE CIERRE (Graceful Shutdown para evitar SIGTERM brusco)
+const server = createHonoServer({
   app,
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
 });
+
+process.on('SIGTERM', async () => {
+  console.log('Cerrando pool de base de datos...');
+  await pool.end();
+  process.exit(0);
+});
+
+export default server;
