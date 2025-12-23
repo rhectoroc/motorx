@@ -7,14 +7,14 @@ function useAuth() {
     : null;
 
   const signInWithCredentials = useCallback((options) => {
-    return signIn("credentials-signin", {
+    return signIn("credentials", {
       ...options,
       callbackUrl: callbackUrl ?? options.callbackUrl
     });
   }, [callbackUrl])
 
   const signUpWithCredentials = useCallback((options) => {
-    return signIn("credentials-signup", {
+    return signIn("credentials", {
       ...options,
       callbackUrl: callbackUrl ?? options.callbackUrl
     });
