@@ -24,7 +24,7 @@ export async function GET() {
 
     // Consulta directa a la tabla de usuarios
     const result = await pool.query(
-      'SELECT id, name, email, role, image FROM authusers WHERE id = $1',
+      'SELECT id, name, email, role, image FROM auth_users WHERE id = $1',
       [userId]
     );
 
@@ -64,7 +64,7 @@ export async function PUT(request) {
 
     // Actualizamos solo el nombre por seguridad, como ejemplo
     const updateResult = await pool.query(
-      'UPDATE authusers SET name = $1 WHERE id = $2 RETURNING id, name, email, role',
+      'UPDATE auth_users SET name = $1 WHERE id = $2 RETURNING id, name, email, role',
       [body.name, userId]
     );
 
