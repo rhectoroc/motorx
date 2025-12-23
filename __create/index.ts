@@ -197,6 +197,37 @@ app.all('/api/auth/error', (c) => {
     <a href="/account/signin">Volver al login</a>
   `);
 });
+
+// 🔍 DEBUG COMPLETO + HEALTHCHECK
+console.log('🚀 Starting MotorX server...');
+console.log('DB:', process.env.DATABASE_URL ? 'OK' : 'MISSING');
+console.log('AUTH_SECRET:', process.env.AUTH_SECRET ? 'OK' : 'MISSING');
+
+// HEALTHCHECK EasyPanel
+app.get('/health', (c) => {
+  console.log('✅ HEALTHCHECK OK');
+  return c.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// DEBUG TODAS rutas auth
+app.all('/api/auth/:path*', async (c) => {
+  console.log(`🔍 AUTH ${c.req.method} ${c.req.url}`);
+  try {
+    const result = await authHandler(c);
+    console.log(`✅ AUTH ${c.req.method} ${c.req.url} 200`);
+    return result;
+  } catch (error) {
+    console.error(`❌ AUTH ERROR ${c.req.url}:`, error.message);
+    return c.json({ error: error.message }, 500);
+  }
+});
+
+// DEBUG Profile
+app.get('/api/user/profile', async (c) => {
+  console.log('🔍 /api/user/profile called');
+  // Tu código existente...
+});
+
 // 6. Servidor
 const server = createHonoServer({
   app,
