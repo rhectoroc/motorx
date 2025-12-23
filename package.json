@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "react-router dev",
 		"typecheck": "react-router typegen && tsc --noEmit",
-		"build": "bun build index.ts --outdir build/server --target node",
+		"build": "react-router build",
 		"start": "bun ./build/server/index.js"
 	},
 	"dependencies": {
