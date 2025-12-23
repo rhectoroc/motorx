@@ -1,10 +1,11 @@
 import { Hono } from 'hono'
+import { logger } from 'hono/logger'
 import { requestId } from 'hono/request-id'
 import { contextStorage } from 'hono/context-storage'
 import { cors } from 'hono/cors'
+import { createHonoServer } from 'react-router-hono-server/node'
+import { API_BASENAME } from '@react-router/node'
 import { Pool } from 'pg'
-
-// Tu auth existente (sin nuevos imports)
 import { auth } from '@/auth'
 
 const pool = new Pool({
@@ -13,53 +14,73 @@ const pool = new Pool({
 
 const app = new Hono()
 
-console.log('🚀 MotorX Starting...')
+// 🔍 DEBUG START
+console.log('🚀 MotorX Server Starting...')
+console.log('DB:', !!process.env.DATABASE_URL)
+console.log('AUTH_SECRET:', !!process.env.AUTH_SECRET)
 
-// 1. MIDDLEWARE
-app.use('*', cors())
+// 1️⃣ MIDDLEWARE (ORIGINAL)
 app.use('*', requestId())
+app.use('*', contextStorage())
+app.use('*', cors())
 
-// 2. HEALTHCHECK (EVITA SIGTERM)
+// 2️⃣ HEALTHCHECK (ANTI-SIGTERM)
 app.get('/health', (c) => {
-  console.log('✅ HEALTH OK')
-  return c.json({ status: 'ok' })
+  console.log('✅ HEALTHCHECK OK')
+  return c.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
-// 3. USER PROFILE (SIMPLE)
+// 3️⃣ API USER PROFILE (FIX auth_users)
 app.get('/api/user/profile', async (c) => {
-  console.log('🔍 Profile hit')
+  console.log('🔍 Profile API called')
   try {
-    // @ts-ignore
     const session = await auth()
-    if (!session?.user) return c.json({ error: 'Unauthorized' }, 401)
-    
+    if (!session?.user?.id) {
+      return c.json({ error: 'Unauthorized' }, 401)
+    }
+
     const result = await pool.query(
-      'SELECT id, name, email, role FROM auth_users WHERE id = $1',
+      'SELECT id, name, email, role, image FROM auth_users WHERE id = $1',
       [session.user.id]
     )
-    return c.json({ user: result.rows[0] || { role: 'client' } })
-  } catch (e) {
-    console.error('Profile error:', e)
-    return c.json({ error: 'Error' }, 500)
+
+    return c.json({
+      user: {
+        ...result.rows[0],
+        role: result.rows[0]?.role || 'client'
+      }
+    })
+  } catch (error) {
+    console.error('Profile error:', error)
+    return c.json({ error: 'Server error' }, 500)
   }
 })
 
-// 4. AUTH DEBUG (SIMPLE - sin @hono/auth-js imports)
+// 4️⃣ AUTH ROUTES (CRÍTICO - ANTES React Router)
 app.all('/api/auth/:path*', async (c) => {
   console.log(`🔍 AUTH ${c.req.method} ${c.req.url}`)
-  // Tu auth handler original aquí o simple response
-  return c.json({ debug: 'Auth route', path: c.req.param('path') })
+  try {
+    // Tu auth handler original aquí
+    const result = await auth(c.req.raw)
+    return c.json(result)
+  } catch (error) {
+    console.error(`❌ AUTH ERROR:`, error.message)
+    return c.json({ error: error.message }, 401)
+  }
 })
 
-// 5. React Router ORIGINAL (sin tocar)
-const { registerRoutes, api } = await createHonoServer(app)
+// 5️⃣ REACT ROUTER (ORIGINAL - NO TOCAR)
+const { registerRoutes, api } = await createHonoServer(app, {
+  getLoadContext: async (args) => {
+    return {
+      auth,
+      pool,
+      ...args
+    }
+  }
+})
+
 await registerRoutes()
-app.route('/api/*', api) // Ajuste mínimo
+app.route(API_BASENAME, api)
 
 export default app
-async function createHonoServer(app: Hono) {
-  // Importa tu route-builder original aquí
-  const { registerRoutes } = await import('../__create/route-builder.js')
-  const api = app.clone()
-  return { registerRoutes, api }
-}
