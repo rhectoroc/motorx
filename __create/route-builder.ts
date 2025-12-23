@@ -10,9 +10,11 @@ const api = new Hono();
 
 // Determinamos si estamos en producción para ajustar la ruta de búsqueda
 const isProd = process.env.NODE_ENV === 'production';
+
 const __dirname = isProd 
-  ? resolve(process.cwd(), 'build/server/src/app/api') 
+  ? resolve(process.cwd(), 'src/app/api')  // ← Cambiado de 'build/server/src/app/api' a 'src/app/api'
   : join(fileURLToPath(new URL('.', import.meta.url)), '../src/app/api');
+// Reemplazamos la función global fetch con nuestra versión actualizada
 
 if (globalThis.fetch) {
   globalThis.fetch = updatedFetch;
