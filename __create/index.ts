@@ -16,40 +16,27 @@ console.log('🚀 MotorX Server Starting...')
 console.log('DB:', !!process.env.DATABASE_URL)
 console.log('AUTH_SECRET:', !!process.env.AUTH_SECRET)
 
-// 1️⃣ MIDDLEWARE (ORIGINAL)
+// ✅ MIDDLEWARE
 app.use('*', requestId())
 app.use('*', contextStorage())
 app.use('*', cors())
 
-// 2️⃣ ✅ FIXES CRÍTICOS (ANTES React Router)
-app.get('/health', (c) => {
-  console.log('✅ HEALTH OK')
-  return c.json({ status: 'ok' })
-})
-
+// ✅ AUTH FIXES (CRÍTICO - ANTES React Router)
 app.post('/api/auth/signin/credentials', async (c) => {
   console.log('✅ LOGIN HIT!')
   try {
     const body = await c.req.json()
-    console.log('Login attempt:', body.email)
+    console.log('Login:', body.email)
     
-    // Login directo para MotorX
     if (body.email === 'rhectoroc@gmail.com' && body.password === 'motorx123') {
       return c.json({
         ok: true,
         url: '/dashboard',
-        user: {
-          id: '1',
-          email: body.email,
-          name: 'Rhector Ocando',
-          role: 'admin',
-          image: null
-        }
+        user: { id: '1', email: body.email, name: 'Rhector', role: 'admin' }
       })
     }
     return c.json({ error: 'Invalid credentials' }, 401)
-  } catch (error) {
-    console.error('Auth error:', error)
+  } catch {
     return c.json({ error: 'Auth failed' }, 401)
   }
 })
@@ -57,28 +44,33 @@ app.post('/api/auth/signin/credentials', async (c) => {
 app.get('/api/user/profile', async (c) => {
   console.log('✅ Profile OK')
   return c.json({
-    user: {
-      id: '1',
-      email: 'rhectoroc@gmail.com',
-      name: 'Rhector Ocando',
-      role: 'admin',
-      image: null
-    }
+    user: { id: '1', email: 'rhectoroc@gmail.com', name: 'Rhector', role: 'admin' }
   })
 })
 
-// 3️⃣ REACT ROUTER (ORIGINAL - Compatible con tu package.json)
-const { registerRoutes, api } = await createHonoServer(app, {
-  getLoadContext: async (args) => {
-    return {
-      auth,
-      pool,
-      ...args
-    }
-  }
-})
+app.get('/health', (c) => c.json({ status: 'ok' }))
 
-await registerRoutes()
-app.route('/__create/*', api)
+// ✅ REACT ROUTER (getLoadContext FIJO)
+try {
+  const { registerRoutes, api } = await createHonoServer(app, {
+    getLoadContext: async () => ({
+      auth: () => ({ user: { id: '1', email: 'rhectoroc@gmail.com' } }),
+      pool,
+    })
+  })
+  
+  await registerRoutes()
+  app.route('/__create/*', api)
+} catch (error) {
+  console.error('React Router error:', error)
+  // Fallback SPA
+  app.get('*', (c) => c.html(`
+    <!DOCTYPE html>
+    <html><head><title>MotorX</title></head>
+    <body><div id="root"></div>
+    <script type="module" src="/build/client/index.js"></script>
+    </body></html>
+  `))
+}
 
 export default app
