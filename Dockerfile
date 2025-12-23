@@ -1,8 +1,9 @@
-FROM oven/bun:1-alpine
+FROM oven/bun:latest
 WORKDIR /app
-COPY package.json bun.lockb ./
-RUN bun install --production=false
+COPY package.json bun.lock ./
+RUN bun install
 COPY . .
-RUN rm -rf build/ && bun run build
+RUN bun run build
 EXPOSE 80
-CMD ["bun", "build/server/index.js"]
+ENV PORT=80
+CMD ["bun", "run", "start"]
