@@ -1,12 +1,14 @@
 import { Hono } from 'hono'
+import { logger } from 'hono/logger'
 import { requestId } from 'hono/request-id'
 import { contextStorage } from 'hono/context-storage'
 import { cors } from 'hono/cors'
+import { createHonoServer } from 'react-router-hono-server/node'
+import { API_BASENAME } from '@react-router/node'
 import { Pool } from 'pg'
-import { createRouteManifest } from '@react-router/node'
-import { serveStatic } from '@react-router/node/server'
 import { authHandler } from '@hono/auth-js/handler'
 import { auth } from '@/auth'
+import { initAuthConfig } from '@/auth'
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -14,45 +16,59 @@ const pool = new Pool({
 
 const app = new Hono()
 
-// DEBUG
-console.log('🚀 MotorX Starting...')
-console.log('DB OK:', !!process.env.DATABASE_URL)
-console.log('AUTH OK:', !!process.env.AUTH_SECRET)
+// 🔍 DEBUG STARTUP
+console.log('🚀 MotorX Server Starting...')
+console.log('✅ DB:', !!process.env.DATABASE_URL)
+console.log('✅ AUTH_SECRET:', !!process.env.AUTH_SECRET)
 
-// 1. MIDDLEWARE
-app.use('*', cors())
+// 1️⃣ MIDDLEWARE (mantener original)
 app.use('*', requestId())
+app.use('*', contextStorage())
+app.use('*', cors())
 
-// 2. HEALTHCHECK (ANTI-SIGTERM)
+// 2️⃣ HEALTHCHECK (ANTI-SIGTERM)
 app.get('/health', (c) => {
   console.log('✅ HEALTHCHECK PASS')
-  return c.json({ status: 'ok' })
+  return c.json({ status: 'ok', uptime: process.uptime() })
 })
 
-// 3. API USER PROFILE
+// 3️⃣ API USER PROFILE (CRÍTICO para dashboard)
 app.get('/api/user/profile', async (c) => {
-  console.log('🔍 Profile API hit')
+  console.log('🔍 /api/user/profile')
   try {
     const session = await auth()
-    if (!session?.user?.id) return c.json({ error: 'Unauthorized' }, 401)
+    if (!session?.user?.id) {
+      return c.json({ error: 'Unauthorized' }, 401)
+    }
     
     const result = await pool.query(
-      'SELECT id, name, email, role FROM auth_users WHERE id = $1',
+      'SELECT id, name, email, role, image FROM auth_users WHERE id = $1',
       [session.user.id]
     )
-    return c.json({ user: result.rows[0] || { role: 'client' } })
-  } catch (e) {
-    console.error('Profile error:', e)
+    
+    return c.json({
+      user: {
+        ...result.rows[0],
+        role: result.rows[0]?.role || 'client'
+      }
+    })
+  } catch (error) {
+    console.error('Profile error:', error)
     return c.json({ error: 'Server error' }, 500)
   }
 })
 
-// 4. AUTH ENDPOINTS (CRÍTICO - Intercepta ANTES React Router)
+// 4️⃣ AUTH ROUTES (CRÍTICO - ANTES React Router)
+initAuthConfig({
+  trustHost: true,
+  basePath: '/api/auth'
+})
+
 app.all('/api/auth/:path*', async (c) => {
   console.log(`🔍 AUTH ${c.req.method} ${c.req.url}`)
   try {
     const result = await authHandler(c)
-    console.log(`✅ AUTH SUCCESS ${c.req.url}`)
+    console.log(`✅ AUTH ${c.req.method} ${c.req.url} OK`)
     return result
   } catch (error) {
     console.error(`❌ AUTH ERROR ${c.req.url}:`, error.message)
@@ -60,27 +76,18 @@ app.all('/api/auth/:path*', async (c) => {
   }
 })
 
-// 5. REACT ROUTER (ÚLTIMO - File-based routes)
-serveStatic(app, {
-  path: './build/client',
-  prefix: '/assets'
+// 5️⃣ REACT ROUTER (ÚLTIMO - TU CÓDIGO ORIGINAL)
+const { registerRoutes, api } = await createHonoServer(app, {
+  getLoadContext: async (args) => {
+    return {
+      auth,
+      pool,
+      ...args
+    }
+  }
 })
 
-app.all('*', async (c) => {
-  const manifest = await createRouteManifest('./build/server/routes/**/*.{js,ts}')
-  return c.html(`
-    <!DOCTYPE html>
-    <html>
-    <head><title>MotorX</title></head>
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/assets/entry.client.js"></script>
-    </body>
-    </html>
-  `)
-})
+await registerRoutes()
+app.route(API_BASENAME, api)
 
-export default {
-  port: 80,
-  fetch: app.fetch
-}
+export default app
