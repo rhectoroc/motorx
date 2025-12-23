@@ -1,4 +1,4 @@
-// _create/index.ts - VERSIÓN COMPLETA CORREGIDA
+// _create/index.ts - VERSIÓN CORREGIDA (sin export dentro de if)
 import { AsyncLocalStorage } from 'node:async_hooks';
 import nodeConsole from 'node:console';
 import { skipCSRFCheck } from '@auth/core';
@@ -47,11 +47,6 @@ console.log('DB:', !!process.env.DATABASE_URL);
 console.log('AUTH_SECRET:', !!process.env.AUTH_SECRET);
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('PORT:', process.env.PORT || 3000);
-
-// Verificar si estamos en build o runtime
-if (process.env.VITE_IS_BUILDING) {
-  console.log('📦 En fase de build, omitiendo inicialización del servidor');
-}
 
 const app = new Hono();
 
@@ -361,29 +356,12 @@ app.onError((err, c) => {
   return c.html(getHTMLForErrorPage(serializeError(err)), 500);
 });
 
-// ========== EXPORTACIÓN CON createHonoServer ==========
-// ¡IMPORTANTE! Esto es lo que falta en tu código actual
-// react-router-hono-server espera esto
+// ========== CONFIGURACIÓN FINAL Y EXPORT ==========
 const port = Number(process.env.PORT) || 3000;
 const hostname = '0.0.0.0';
 
-console.log(`✅ Exportando servidor en puerto ${port}, host ${hostname}`);
+console.log(`✅ Configuración completada en puerto ${port}, host ${hostname}`);
 
-// Solo crear servidor si no estamos en fase de build
-if (!process.env.VITE_IS_BUILDING && !process.env.REACT_ROUTER_BUILD) {
-  console.log(`🚀 Iniciando servidor...`);
-  
-  const server = await createHonoServer({
-    app,
-    port,
-    hostname,
-    defaultLogger: false,
-  });
-  
-  console.log(`✅ Servidor iniciado en http://${hostname}:${port}`);
-  
-  export default server;
-} else {
-  console.log('📦 En fase de build, solo exportando app');
-  export default app;
-}
+// Exportar la app directamente
+// react-router-hono-server manejará la creación del servidor
+export default app;
