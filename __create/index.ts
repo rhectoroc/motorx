@@ -1,4 +1,6 @@
-// index.ts - Configuración de Auth.js corregida
+// _create/index.ts - VERSIÓN COMPLETA CORREGIDA
+import { AsyncLocalStorage } from 'node:async_hooks';
+import nodeConsole from 'node:console';
 import { skipCSRFCheck } from '@auth/core';
 import Credentials from '@auth/core/providers/credentials';
 import { authHandler, initAuthConfig } from '@hono/auth-js';
@@ -6,192 +8,382 @@ import pg from 'pg';
 const { Pool } = pg;
 import { hash, verify } from 'argon2';
 import { Hono } from 'hono';
+import { serveStatic } from 'hono/bun';
 import { contextStorage } from 'hono/context-storage';
 import { cors } from 'hono/cors';
+import { proxy } from 'hono/proxy';
 import { requestId } from 'hono/request-id';
 import { createHonoServer } from 'react-router-hono-server/node';
+import { serializeError } from 'serialize-error';
+import NeonAdapter from './adapter';
+import { getHTMLForErrorPage } from './get-html-for-error-page';
+import { isAuthAction } from './is-auth-action';
+import { API_BASENAME, api } from './route-builder';
 
-import MyAdapter from './adapter';
-import { API_BASENAME, api, registerRoutes } from './route-builder';
-
-// 1. Configuración de Base de Datos - IMPORTANTE: agregar database
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  // Asegurar que use la BD correcta
-  ...(process.env.DATABASE_URL?.includes('postgresql://') ? {} : {
-    database: 'mx'
-  })
-});
-
-const adapter = MyAdapter(pool);
-const app = new Hono();
-
-// Middlewares base
-app.use('*', requestId());
-app.use('*', contextStorage());
-app.use('*', cors());
-
-// ✅ AUTH MOCK EMERGENCIA (AGREGAR ANTES de authHandler)
-app.post('/api/auth/signin/credentials', async (c) => {
-  console.log('✅ LOGIN EMERGENCIA!');
-  const body = await c.req.json();
-  if (body.email === 'rhectoroc@gmail.com' && body.password === 'motorx123') {
-    return c.json({
-      ok: true,
-      url: '/dashboard',
-      user: { id: '1', email: body.email, name: 'Rhector', role: 'admin' }
-    });
+// ========== CONFIGURACIÓN DE LOGS ==========
+declare module 'hono' {
+  interface ContextVariableMap {
+    requestId: string;
   }
-  return c.json({ error: 'Invalid credentials' }, 401);
-});
-
-// 2. CONFIGURACIÓN DE AUTH.JS CORREGIDA
-app.use('/api/auth/*', initAuthConfig((c) => ({
-  trustHost: true,
-  adapter,
-  providers: [
-    Credentials({
-      id: 'credentials',
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        const { email, password } = credentials;
-        if (!email || !password) return null;
-
-        try {
-          // Buscar usuario por email
-          const result = await pool.query(
-            'SELECT * FROM auth_users WHERE email = $1',
-            [email]
-          );
-          
-          if (result.rows.length === 0) return null;
-          const user = result.rows[0];
-
-          // Buscar cuenta de credentials
-          const accountResult = await pool.query(
-            'SELECT * FROM auth_accounts WHERE "userId" = $1 AND provider = $2',
-            [user.id, 'credentials']
-          );
-
-          if (accountResult.rows.length === 0) return null;
-          const account = accountResult.rows[0];
-
-          // Verificar password
-          const isValid = await verify(account.password || '', password);
-          if (!isValid) return null;
-
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role || 'admin'
-          };
-        } catch (error) {
-          console.error('Error en authorize:', error);
-          return null;
-        }
-      },
-    }),
-  ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = user.role;
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role;
-        session.user.id = token.id;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/account/signin',
-    signOut: '/account/logout',
-  },
-  session: { strategy: 'jwt' },
-  skipCSRFCheck,
-})));
-
-app.all('/api/auth/:action', async (c) => {
-  return await authHandler()(c);
-});
-
-app.all('/api/auth/:action/:provider', async (c) => {
-  return await authHandler()(c);
-});
-
-// 3. Registrar rutas API
-try {
-  await registerRoutes();
-  app.route(API_BASENAME, api);
-  console.log('✅ Rutas API registradas correctamente');
-} catch (error) {
-  console.error('❌ Error registrando rutas:', error);
 }
 
-// 4. SETUP DE ADMIN
-app.post('/api/admin-setup', async (c) => {
-  try {
-    const { email, password } = await c.req.json();
-    
-    // Verificar si ya existe
-    const userResult = await pool.query(
-      'SELECT * FROM auth_users WHERE email = $1',
-      [email]
-    );
+const als = new AsyncLocalStorage<{ requestId: string }>();
 
-    if (userResult.rows.length > 0) {
-      return c.json({ error: 'Usuario ya existe' }, 400);
+for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
+  const original = nodeConsole[method].bind(console);
+  console[method] = (...args: unknown[]) => {
+    const store = als.getStore();
+    if (store?.requestId) {
+      original(`[traceId:${store.requestId}]`, ...args);
+    } else {
+      original(...args);
     }
+  };
+}
 
-    // Crear usuario
-    const hashedPassword = await hash(password);
-    const newUser = await pool.query(
-      `INSERT INTO auth_users (name, email, "emailVerified", role)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id`,
-      ['Admin', email, new Date(), 'admin']
-    );
+// ========== INICIALIZACIÓN ==========
+console.log('🚀 MotorX Server Starting...');
+console.log('DB:', !!process.env.DATABASE_URL);
+console.log('AUTH_SECRET:', !!process.env.AUTH_SECRET);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('PORT:', process.env.PORT || 3000);
 
-    // Crear cuenta
-    await pool.query(
-      `INSERT INTO auth_accounts 
-       ("userId", provider, type, "providerAccountId", password)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [newUser.rows[0].id, 'credentials', 'credentials', email, hashedPassword]
-    );
+// Verificar si estamos en build o runtime
+if (process.env.VITE_IS_BUILDING) {
+  console.log('📦 En fase de build, omitiendo inicialización del servidor');
+}
 
-    return c.json({ success: true });
+const app = new Hono();
+
+// ========== MIDDLEWARES ==========
+app.use(contextStorage());
+app.use(requestId());
+app.use(async (c, next) => {
+  const id = c.get('requestId');
+  return als.run({ requestId: String(id) }, next);
+});
+app.use(cors());
+
+// ========== SERVIR ARCHIVOS ESTÁTICOS ==========
+console.log('📁 Configurando archivos estáticos...');
+app.use('/build/*', serveStatic({ 
+  root: './',
+  onNotFound: (path) => console.warn(`Archivo estático no encontrado: ${path}`)
+}));
+app.use('/assets/*', serveStatic({ 
+  root: './build/client',
+  onNotFound: (path) => console.warn(`Asset no encontrado: ${path}`)
+}));
+
+// ========== BASE DE DATOS ==========
+console.log('🗄️ Configurando base de datos...');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
+
+// Verificar conexión
+pool.on('connect', () => {
+  console.log('✅ Conectado a PostgreSQL');
+});
+
+pool.on('error', (err) => {
+  console.error('❌ Error de PostgreSQL:', err);
+});
+
+// ========== ENDPOINTS DE DEBUG ==========
+app.get('/health', (c) => {
+  return c.json({ 
+    status: 'healthy',
+    service: 'motorx',
+    timestamp: new Date().toISOString(),
+    node: process.version
+  });
+});
+
+app.get('/debug', (c) => {
+  return c.json({
+    env: process.env.NODE_ENV,
+    port: process.env.PORT || 3000,
+    db_configured: !!process.env.DATABASE_URL,
+    auth_configured: !!process.env.AUTH_SECRET,
+    build_exists: true,
+    runtime: 'bun'
+  });
+});
+
+// ========== AUTENTICACIÓN ==========
+if (process.env.AUTH_SECRET) {
+  console.log('🔐 Configurando autenticación...');
+  
+  app.use(
+    '*',
+    initAuthConfig((c) => ({
+      secret: process.env.AUTH_SECRET,
+      adapter: NeonAdapter(pool as any),
+      trustHost: true,
+      skipCSRFCheck: skipCSRFCheck,
+      providers: [
+        Credentials({
+          id: 'credentials',
+          name: 'Credentials',
+          credentials: {
+            email: { label: 'Email', type: 'email' },
+            password: { label: 'Password', type: 'password' },
+          },
+          authorize: async (credentials) => {
+            const { email, password } = credentials;
+            console.log(`🔐 Intento de login para: ${email}`);
+            
+            if (!email || !password) return null;
+            const adapter = NeonAdapter(pool as any);
+            const user = await adapter.getUserByEmail(email as string);
+            if (!user) {
+              console.log(`❌ Usuario no encontrado: ${email}`);
+              return null;
+            }
+            const account = user.accounts.find((a: any) => a.provider === 'credentials');
+            if (!account || !account.password) {
+              console.log(`❌ No hay cuenta credentials para: ${email}`);
+              return null;
+            }
+            const isValid = await verify(account.password, password as string);
+            if (isValid) {
+              console.log(`✅ Login exitoso: ${email}`);
+              return {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                image: user.image,
+                role: user.role || 'user'
+              };
+            } else {
+              console.log(`❌ Password incorrecto: ${email}`);
+              return null;
+            }
+          },
+        }),
+      ],
+      callbacks: {
+        async jwt({ token, user }) {
+          if (user) {
+            token.id = user.id;
+            token.email = user.email;
+            token.role = user.role || 'user';
+          }
+          return token;
+        },
+        async session({ session, token }) {
+          if (session.user) {
+            session.user.id = token.id as string;
+            session.user.email = token.email as string;
+            session.user.role = token.role as string;
+          }
+          return session;
+        },
+      },
+      pages: {
+        signIn: '/account/signin',
+        signOut: '/account/logout',
+      },
+      session: { 
+        strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60 // 30 días
+      },
+    }))
+  );
+} else {
+  console.warn('⚠️ AUTH_SECRET no configurado - Autenticación deshabilitada');
+}
+
+// ========== INTEGRACIONES ==========
+app.all('/integrations/:path{.+}', async (c) => {
+  console.log(`🔌 Proxy de integración: ${c.req.path}`);
+  
+  const queryParams = c.req.query();
+  const url = `${process.env.NEXT_PUBLIC_CREATE_BASE_URL ?? 'https://www.create.xyz'}/integrations/${c.req.param('path')}${
+    Object.keys(queryParams).length > 0 
+      ? `?${new URLSearchParams(queryParams).toString()}` 
+      : ''
+  }`;
+
+  return proxy(url, {
+    method: c.req.method,
+    body: c.req.raw.body ?? null,
+    // @ts-ignore
+    duplex: 'half',
+    redirect: 'manual',
+    headers: {
+      ...c.req.header(),
+      'X-Forwarded-For': process.env.NEXT_PUBLIC_CREATE_HOST ?? '',
+      'x-createxyz-host': process.env.NEXT_PUBLIC_CREATE_HOST ?? '',
+      Host: process.env.NEXT_PUBLIC_CREATE_HOST ?? '',
+      'x-createxyz-project-group-id': process.env.NEXT_PUBLIC_PROJECT_GROUP_ID ?? '',
+    },
+  });
+});
+
+// ========== AUTH HANDLER ==========
+app.use('/api/auth/*', async (c, next) => {
+  console.log(`🔐 Ruta de auth: ${c.req.path}`);
+  
+  if (isAuthAction(c.req.path)) {
+    return authHandler()(c, next);
+  }
+  await next();
+});
+
+// ========== API ROUTES ==========
+app.route(API_BASENAME, api);
+
+// ========== LOGIN DE EMERGENCIA ==========
+app.post('/api/auth/emergency-login', async (c) => {
+  console.log('🚨 LOGIN DE EMERGENCIA SOLICITADO');
+  
+  try {
+    const body = await c.req.json();
+    const { email, password } = body;
+    
+    if (email === 'rhectoroc@gmail.com' && password === 'motorx123') {
+      console.log('✅ Login de emergencia exitoso');
+      return c.json({
+        success: true,
+        user: {
+          id: 'emergency-1',
+          email: email,
+          name: 'Usuario de Emergencia',
+          role: 'admin'
+        },
+        redirectTo: '/dashboard'
+      });
+    }
+    
+    return c.json({ 
+      success: false, 
+      error: 'Credenciales inválidas' 
+    }, 401);
   } catch (error) {
-    console.error('Error en admin-setup:', error);
-    return c.json({ error: 'Error interno' }, 500);
+    return c.json({ 
+      success: false, 
+      error: 'Error procesando login' 
+    }, 500);
   }
 });
 
-// 5. SPA CATCH-ALL
-app.get('*', (c) => c.html(`
-<!DOCTYPE html>
-<html><head><title>MotorX</title></head>
-<body><div id="root"></div>
-<script type="module" src="/build/client/index.js"></script>
-</body></html>
-`));
+// ========== RUTA RAIZ - SERVIR FRONTEND ==========
+app.get('/', async (c) => {
+  console.log('🌐 Solicitud a ruta raíz');
+  
+  try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    
+    const indexPath = path.resolve(process.cwd(), 'build/client/index.html');
+    const html = await fs.readFile(indexPath, 'utf-8');
+    
+    console.log('✅ Sirviendo index.html del build');
+    return c.html(html);
+  } catch (error: any) {
+    console.error('❌ Error cargando index.html:', error.message);
+    
+    // Fallback HTML
+    return c.html(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>MotorX</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style>
+            body { 
+              font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+              margin: 0; padding: 2rem;
+              display: flex; justify-content: center; align-items: center;
+              min-height: 100vh; background: #f5f5f5;
+            }
+            .container { 
+              background: white; padding: 3rem; border-radius: 10px;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;
+              max-width: 500px;
+            }
+            h1 { color: #333; margin-bottom: 1rem; }
+            .status { color: #666; margin: 1rem 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>🚀 MotorX</h1>
+            <p class="status">Cargando aplicación...</p>
+            <p>Si esto persiste, verifica que el build se completó correctamente.</p>
+            <script type="module" src="/build/client/index.js"></script>
+          </div>
+        </body>
+      </html>
+    `);
+  }
+});
 
-// 6. Exportar con puerto dinámico
-const port = parseInt(process.env.PORT || '80');
-console.log(`🚀 Servidor iniciando en puerto ${port}...`);
+// ========== CATCH-ALL PARA SPA ==========
+app.get('*', async (c) => {
+  const pathname = new URL(c.req.url).pathname;
+  
+  // Ignorar rutas específicas
+  if (
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/auth/') ||
+    pathname.startsWith('/build/') ||
+    pathname.startsWith('/assets/') ||
+    pathname.startsWith('/integrations/') ||
+    pathname.startsWith('/debug') ||
+    pathname.startsWith('/health')
+  ) {
+    return c.next();
+  }
+  
+  console.log(`🌐 Ruta SPA: ${pathname} -> sirviendo index.html`);
+  
+  // Servir el mismo index.html para SPA
+  try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    const indexPath = path.resolve(process.cwd(), 'build/client/index.html');
+    const html = await fs.readFile(indexPath, 'utf-8');
+    return c.html(html);
+  } catch (error: any) {
+    console.error('❌ Error sirviendo SPA:', error.message);
+    return c.next(); // Dejar que otros handlers manejen
+  }
+});
 
-export default {
-  port,
-  hostname: '0.0.0.0',
-  fetch: app.fetch
-};
+// ========== ERROR HANDLER ==========
+app.onError((err, c) => {
+  console.error('❌ Error no manejado:', err);
+  return c.html(getHTMLForErrorPage(serializeError(err)), 500);
+});
+
+// ========== EXPORTACIÓN CON createHonoServer ==========
+// ¡IMPORTANTE! Esto es lo que falta en tu código actual
+// react-router-hono-server espera esto
+const port = Number(process.env.PORT) || 3000;
+const hostname = '0.0.0.0';
+
+console.log(`✅ Exportando servidor en puerto ${port}, host ${hostname}`);
+
+// Solo crear servidor si no estamos en fase de build
+if (!process.env.VITE_IS_BUILDING && !process.env.REACT_ROUTER_BUILD) {
+  console.log(`🚀 Iniciando servidor...`);
+  
+  const server = await createHonoServer({
+    app,
+    port,
+    hostname,
+    defaultLogger: false,
+  });
+  
+  console.log(`✅ Servidor iniciado en http://${hostname}:${port}`);
+  
+  export default server;
+} else {
+  console.log('📦 En fase de build, solo exportando app');
+  export default app;
+}
