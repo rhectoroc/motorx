@@ -1,60 +1,30 @@
-# .dockerignore
 node_modules
 npm-debug.log
 yarn-debug.log
 yarn-error.log
-
-# Logs
-logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory
-coverage
-*.lcov
-
-# Build artifacts
+.env
+.env.local
+.env.production
+.env.development
 dist
 build
 .out
 .next
 .nuxt
-
-# Environment variables
-.env
-.env*.local
-.env.production
-.env.development
-
-# IDE
+.DS_Store
+Thumbs.db
 .vscode
 .idea
 *.swp
 *.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Tests
 __tests__
 test
 *.spec.ts
 *.spec.js
-
-# Source maps
 *.map
-
-# Docker
-Dockerfile
 docker-compose.yml
+Dockerfile
 .dockerignore
-
-# Temporary files
-tmp
-temp
+.git
+.gitignore
+README.md
