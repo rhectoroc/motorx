@@ -33,7 +33,7 @@ function Navbar() {
 
                     {/* Client Portal Button - Icon Only */}
                     <a
-                        href="https://app.motorx.com/account/signin"
+                        href="https://motorx-appmx.1bigxc.easypanel.host/account/signin"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center w-12 h-12 bg-gradient-red text-white rounded-lg shadow-glow-red hover:scale-105 transition-transform"
