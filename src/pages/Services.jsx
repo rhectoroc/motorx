@@ -1,0 +1,227 @@
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Check, Sparkles } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { allServices } from '../data/services';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+function Services() {
+    useEffect(() => {
+        // Hero title animation with infinite pulse
+        gsap.fromTo('.services-hero-title',
+            {
+                opacity: 0,
+                y: 50
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                onComplete: () => {
+                    // Infinite scale pulse animation
+                    gsap.to('.services-hero-title', {
+                        scale: 1.05,
+                        duration: 2,
+                        ease: 'sine.inOut',
+                        yoyo: true,
+                        repeat: -1
+                    });
+                }
+            }
+        );
+
+        gsap.fromTo('.services-hero-subtitle',
+            {
+                opacity: 0,
+                y: 30
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: 'power3.out',
+                clearProps: 'all'
+            }
+        );
+
+        // Service cards stagger animation
+        gsap.fromTo('.service-card',
+            {
+                opacity: 0,
+                y: 60,
+                scale: 0.9
+            },
+            {
+                scrollTrigger: {
+                    trigger: '.services-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: 'back.out(1.2)',
+                clearProps: 'all'
+            }
+        );
+
+        // Animate features and benefits on hover
+        const cards = document.querySelectorAll('.service-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card.querySelectorAll('.feature-item'), {
+                    x: 5,
+                    stagger: 0.05,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelectorAll('.feature-item'), {
+                    x: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
+    }, []);
+
+    const getIcon = (iconName) => {
+        const Icon = LucideIcons[iconName];
+        return Icon ? <Icon className="w-12 h-12" /> : null;
+    };
+
+    return (
+        <div className="bg-motorx-black min-h-screen">
+            {/* Hero Section */}
+            <section className="relative py-32 px-4 bg-gradient-to-b from-motorx-gray-900 via-motorx-black to-motorx-black overflow-hidden">
+                {/* Animated Background */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-20 left-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                </div>
+
+                <div className="max-w-7xl mx-auto text-center relative z-10">
+                    <h1 className="services-hero-title text-5xl md:text-7xl font-bold mb-6">
+                        Our <span className="text-motorx-red">Services</span>
+                    </h1>
+                    <p className="services-hero-subtitle text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
+                        Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered.
+                    </p>
+                </div>
+            </section>
+
+            {/* Services Grid */}
+            <section className="py-20 px-4">
+                <div className="max-w-7xl mx-auto">
+                    <div className="services-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {allServices.map((service, index) => (
+                            <div
+                                key={service.id}
+                                className="service-card glass-card p-8 hover:scale-105 hover:shadow-2xl hover:shadow-motorx-red/20 transition-all duration-500 group flex flex-col relative overflow-hidden"
+                            >
+                                {/* Hover Glow Effect */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/0 via-motorx-red/5 to-motorx-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                {/* Content */}
+                                <div className="relative z-10">
+                                    {/* Icon & Title */}
+                                    <div className="text-motorx-red mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                                        {getIcon(service.icon)}
+                                    </div>
+                                    <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors">{service.title}</h3>
+                                    <p className="text-motorx-red text-sm mb-4 uppercase tracking-wider">{service.subtitle}</p>
+                                    <p className="text-motorx-gray-300 mb-6 flex-grow leading-relaxed">{service.description}</p>
+
+                                    {/* Features */}
+                                    <div className="mb-6">
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
+                                            <Check className="w-4 h-4 text-motorx-red" />
+                                            Features
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {service.features.map((feature, idx) => (
+                                                <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
+                                                    <Check className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
+                                                    <span>{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Benefits */}
+                                    <div className="mb-6">
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
+                                            <Sparkles className="w-4 h-4 text-motorx-red" />
+                                            Benefits
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {service.benefits.map((benefit, idx) => (
+                                                <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
+                                                    <ArrowRight className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
+                                                    <span>{benefit}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Pricing */}
+                                    <div className="mb-6 p-4 bg-motorx-gray-900/50 rounded-lg border border-motorx-red/20 group-hover:border-motorx-red/50 transition-colors">
+                                        <p className="text-sm text-motorx-gray-400 mb-1">Starting at</p>
+                                        <p className="text-2xl font-bold text-motorx-red">{service.pricing}</p>
+                                    </div>
+
+                                    {/* CTA */}
+                                    {service.link !== '/services' ? (
+                                        <Link
+                                            to={service.link}
+                                            className="btn-primary w-full text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
+                                        >
+                                            Learn More
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                                        </Link>
+                                    ) : (
+                                        <button className="btn-secondary w-full" disabled>
+                                            Current Page
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20 px-4 bg-gradient-to-b from-motorx-black to-motorx-gray-900">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                        Ready to Get <span className="text-motorx-red">Started</span>?
+                    </h2>
+                    <p className="text-xl text-motorx-gray-300 mb-8">
+                        Join thousands of satisfied customers and experience the Motor X difference today.
+                    </p>
+                    <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                        Contact Us Now
+                        <ArrowRight className="w-5 h-5" />
+                    </Link>
+                </div>
+            </section>
+        </div>
+    );
+}
+
+export default Services;

@@ -1,88 +1,556 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Check } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 import gsap from 'gsap';
-import ThreeBackground from '../components/ThreeBackground';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { services, stats, registrationSteps, auctions } from '../data/services';
+import heroBackground1 from '../assets/hero-background.png';
+import heroBackground2 from '../assets/hero-background-2.png';
+import heroBackground3 from '../assets/hero-background-3.png';
+import iaaLogo from '../assets/auction-logos/iaa-logo.png';
+import copartLogo from '../assets/auction-logos/copart-logo.png';
+import manheimLogo from '../assets/auction-logos/manheim-logo.png';
+import adesaLogo from '../assets/auction-logos/adesa-logo.png';
+import impactAutoLogo from '../assets/auction-logos/impact-auto-logo.png';
+import acvLogo from '../assets/auction-logos/acv-logo.png';
+import edgePipelineLogo from '../assets/auction-logos/edge-pipeline-logo.png';
+import salvatoLogo from '../assets/auction-logos/salvato-logo.png';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 function Home() {
+    const heroRef = useRef(null);
     const titleRef = useRef(null);
-    const subtitleRef = useRef(null);
+    const [currentBg, setCurrentBg] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const backgrounds = [heroBackground1, heroBackground2, heroBackground3];
 
     useEffect(() => {
-        // Animación del título con GSAP
-        gsap.fromTo(
-            titleRef.current,
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
-        );
+        // Background carousel with slide effect
+        const interval = setInterval(() => {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCurrentBg((prev) => (prev + 1) % backgrounds.length);
+                setIsTransitioning(false);
+            }, 800); // Match transition duration
+        }, 6000); // Change every 6 seconds
 
-        // Animación del subtítulo con blur reveal
-        gsap.fromTo(
-            subtitleRef.current,
-            { opacity: 0, scale: 1.2, filter: 'blur(20px)' },
-            { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 2, delay: 0.5, ease: 'power3.out' }
-        );
+        return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        // GSAP animations - Choreographed title letters
+        const ctx = gsap.context(() => {
+            // Create timeline for better control
+            const tl = gsap.timeline();
+
+            // Animate ALL letters together with stagger
+            tl.from('.hero-letter', {
+                opacity: 0,
+                y: 80,
+                rotationX: -90,
+                scale: 0.3,
+                duration: 0.6,
+                ease: 'back.out(1.5)',
+                stagger: 0.025,
+            });
+
+            tl.from('.hero-subtitle', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+            }, '-=0.3');
+
+            tl.from('.hero-cta', {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+            }, '-=0.5');
+        }, heroRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    // Services Section Animations - Separate useEffect
+    useEffect(() => {
+        const cards = gsap.utils.toArray('.service-card');
+
+        cards.forEach((card, index) => {
+            const isEven = index % 2 === 0;
+
+            // Animate service card on scroll
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    toggleActions: 'play none none reverse',
+                    markers: false // Set to true for debugging
+                },
+                opacity: 0,
+                x: isEven ? -100 : 100,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            // Animate video container with parallax
+            const videoContainer = card.querySelector('.video-container');
+            if (videoContainer) {
+                gsap.to(videoContainer, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    },
+                    y: -50,
+                    ease: 'none'
+                });
+            }
+
+            // Stagger animate benefits
+            gsap.from(card.querySelectorAll('.benefit-item'), {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 70%'
+                },
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: 'back.out(1.2)'
+            });
+
+            // Animate floating stats
+            gsap.from(card.querySelectorAll('.floating-stat'), {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 75%'
+                },
+                scale: 0,
+                rotation: 180,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: 'back.out(1.7)'
+            });
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
+    }, []);
+
+    const getIcon = (iconName) => {
+        const Icon = LucideIcons[iconName];
+        return Icon ? <Icon className="w-6 h-6" /> : null;
+    };
+
+    const handleIndicatorClick = (index) => {
+        if (index !== currentBg) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCurrentBg(index);
+                setIsTransitioning(false);
+            }, 800);
+        }
+    };
+
     return (
-        <div className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative h-screen flex items-center justify-center overflow-hidden">
-                {/* Three.js Background */}
-                <ThreeBackground />
+        <div className="bg-motorx-black">
+            {/* Hero Section with Slide Carousel */}
+            <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+                {/* Carousel Background with Slide + Parallax */}
+                <div className="absolute inset-0 z-0">
+                    {backgrounds.map((bg, index) => {
+                        const offset = index - currentBg;
+                        return (
+                            <div
+                                key={index}
+                                className="absolute inset-0 transition-all duration-1000 ease-in-out"
+                                style={{
+                                    transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
+                                    filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
+                                    opacity: index === currentBg ? 0.5 : 0.3,
+                                }}
+                            >
+                                <div
+                                    className="w-full h-full bg-cover bg-center"
+                                    style={{
+                                        backgroundImage: `url(${bg})`,
+                                    }}
+                                />
+                            </div>
+                        );
+                    })}
+                    <div className="absolute inset-0 bg-gradient-to-b from-motorx-black/70 via-motorx-black/50 to-motorx-black pointer-events-none"></div>
+                </div>
 
-                {/* Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-motorx-gray-900 to-motorx-red/20 opacity-80 pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-glow opacity-50 pointer-events-none" />
-
-                {/* Content */}
-                <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-                    <h1 ref={titleRef} className="text-5xl md:text-7xl font-black text-motorx-white mb-6">
-                        Precision in{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-red">Motion</span>
+                {/* Hero Content */}
+                <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        {'Logistics '.split('').map((char, i) => (
+                            <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
+                                {char === ' ' ? '\u00A0' : char}
+                            </span>
+                        ))}
+                        <span className="text-motorx-red">
+                            {'Cloud'.split('').map((char, i) => (
+                                <span key={i} className="hero-letter hero-letter-red inline-block" style={{ display: 'inline-block' }}>
+                                    {char === ' ' ? '\u00A0' : char}
+                                </span>
+                            ))}
+                        </span>
                     </h1>
-
-                    <p ref={subtitleRef} className="text-2xl md:text-4xl text-motorx-gray-300 mb-12">
-                        Access Hundreds of Auctions <br />
-                        and Hundred Thousands of Vehicles
+                    <p className="hero-subtitle text-xl md:text-3xl text-motorx-gray-300 mb-8 max-w-3xl mx-auto">
+                        Where Vehicles Never Stop Moving
                     </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="/dispatch" className="btn-primary">
+                    <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link to="/subscription" className="btn-primary">
                             Get Started
-                        </a>
-                        <a href="/contact" className="btn-secondary">
+                            <ArrowRight className="inline-block ml-2 w-5 h-5" />
+                        </Link>
+                        <Link to="/contact" className="btn-secondary">
                             Contact Us
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                    {backgrounds.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleIndicatorClick(index)}
+                            className={`transition-all duration-500 ${currentBg === index
+                                ? 'bg-motorx-red w-8 h-2'
+                                : 'bg-motorx-white/30 hover:bg-motorx-white/50 w-2 h-2'
+                                } rounded-full`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                </div>
+
                 {/* Scroll Indicator */}
-                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div className="w-6 h-10 border-2 border-motorx-white rounded-full flex justify-center pt-2">
-                        <div className="w-1 h-3 bg-motorx-red rounded-full" />
+                <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <div className="w-6 h-10 border-2 border-motorx-white/30 rounded-full flex justify-center">
+                        <div className="w-1 h-3 bg-motorx-white/50 rounded-full mt-2"></div>
                     </div>
                 </div>
             </section>
 
-            {/* Services Section (placeholder) */}
-            <section className="py-20 bg-motorx-gray-900">
-                <div className="max-w-7xl mx-auto px-4">
-                    <h2 className="text-4xl font-bold text-center text-motorx-white mb-12">
-                        Our Services
+            {/* Services Section - Rediseñada con Marketing Moderno */}
+            <section className="py-32 px-4 bg-gradient-to-b from-motorx-black via-motorx-gray-900 to-motorx-black relative overflow-hidden">
+                {/* Background Effects */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-20 left-10 w-72 h-72 bg-motorx-red rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl"></div>
+                </div>
+
+                <div className="max-w-7xl mx-auto relative z-10">
+                    {/* Header */}
+                    <div className="text-center mb-20">
+                        <h2 className="text-5xl md:text-7xl font-bold mb-6">
+                            Our <span className="text-motorx-red">Services</span>
+                        </h2>
+                        <p className="text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
+                            Premium automotive solutions designed to save you time and money
+                        </p>
+                    </div>
+
+                    {/* Services Grid - Alternating Layout */}
+                    <div className="space-y-32">
+                        {services.map((service, index) => {
+                            const isEven = index % 2 === 0;
+                            return (
+                                <div
+                                    key={service.id}
+                                    className={`service-card flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                                        } gap-12 items-center`}
+                                >
+                                    {/* Visual Side - Icon + Stats */}
+                                    <div className="lg:w-1/2">
+                                        <div className="relative video-container">
+                                            {/* Video Background with Icon Overlay */}
+                                            <div className={`${index === 0 ? 'w-96 h-64' : 'w-64 h-64'} mx-auto relative`}>
+                                                <div className="absolute inset-0 bg-gradient-to-br from-motorx-red to-motorx-red-dark rounded-3xl rotate-6 blur-2xl opacity-30 animate-pulse"></div>
+                                                <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
+                                                    {/* Video Background */}
+                                                    <video
+                                                        autoPlay
+                                                        loop
+                                                        muted
+                                                        playsInline
+                                                        className={`absolute inset-0 w-full h-full object-cover ${index === 0 ? 'opacity-100' : 'opacity-20'}`}
+                                                    >
+                                                        <source src={index === 0 ? "/Camión_MotorX.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"} type="video/mp4" />
+                                                    </video>
+                                                    {/* Icon Overlay - Solo para servicios que no son Dispatch */}
+                                                    {index !== 0 && (
+                                                        <div className="relative z-10 w-full h-full flex items-center justify-center text-motorx-red">
+                                                            {getIcon(service.icon)}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Stats */}
+                                            <div className="floating-stat absolute -top-8 -right-8 glass-card px-6 py-4 rounded-2xl animate-float">
+                                                <div className="text-3xl font-bold text-motorx-red">12+</div>
+                                                <div className="text-sm text-motorx-gray-300">Years</div>
+                                            </div>
+                                            <div className="floating-stat absolute -bottom-8 -left-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
+                                                <div className="text-3xl font-bold text-motorx-red">24/7</div>
+                                                <div className="text-sm text-motorx-gray-300">Support</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Content Side */}
+                                    <div className="lg:w-1/2">
+                                        {/* Badge */}
+                                        <div className="inline-block mb-4 px-4 py-1 bg-motorx-red/20 border border-motorx-red rounded-full">
+                                            <span className="text-motorx-red text-sm font-semibold uppercase tracking-wider">
+                                                {service.subtitle}
+                                            </span>
+                                        </div>
+
+                                        {/* Title */}
+                                        <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-motorx-white to-motorx-gray-300 bg-clip-text text-transparent">
+                                            {service.title}
+                                        </h3>
+
+                                        {/* Description */}
+                                        <p className="text-lg text-motorx-gray-300 mb-8 leading-relaxed">
+                                            {service.description}
+                                        </p>
+
+                                        {/* Benefits Grid */}
+                                        <div className="grid grid-cols-2 gap-4 mb-8">
+                                            {service.benefits.map((benefit, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="benefit-item flex items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
+                                                >
+                                                    <Check className="w-5 h-5 text-motorx-red flex-shrink-0 mt-0.5" />
+                                                    <span className="text-sm text-motorx-gray-300">{benefit}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Pricing + CTA */}
+                                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                                            <div>
+                                                <div className="text-sm text-motorx-gray-400 mb-1">Starting at</div>
+                                                <div className="text-3xl font-bold text-motorx-red">{service.pricing}</div>
+                                            </div>
+                                            <Link
+                                                to={service.link}
+                                                className="btn-primary group"
+                                            >
+                                                Get Started Now
+                                                <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                                            </Link>
+                                        </div>
+
+                                        {/* Trust Indicator */}
+                                        <div className="mt-6 flex items-center gap-2 text-sm text-motorx-gray-400">
+                                            <Check className="w-4 h-4 text-green-500" />
+                                            <span>No hidden fees • Cancel anytime • 100% Transparent</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* CTA Banner */}
+                    <div className="mt-32 text-center">
+                        <div className="glass-card p-12 rounded-3xl bg-gradient-to-br from-motorx-red/10 to-transparent border-2 border-motorx-red/30">
+                            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                                Ready to Transform Your Auto Business?
+                            </h3>
+                            <p className="text-xl text-motorx-gray-300 mb-8 max-w-2xl mx-auto">
+                                Join 1000+ dealers who trust Motor X for their automotive needs
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Link to="/services" className="btn-primary text-lg px-8 py-4">
+                                    View All Services
+                                </Link>
+                                <Link to="/contact" className="btn-secondary text-lg px-8 py-4">
+                                    Talk to an Expert
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Custom Animations */}
+                <style jsx>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+          }
+          @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+          }
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+          .animate-float-delayed {
+            animation: float-delayed 3s ease-in-out infinite 1.5s;
+          }
+        `}</style>
+            </section>
+
+            {/* Stats Section */}
+            <section className="py-20 px-4 bg-motorx-gray-900">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {stats.map((stat, idx) => (
+                            <div key={idx} className="text-center">
+                                <div className="text-motorx-red mb-4 flex justify-center">
+                                    {getIcon(stat.icon)}
+                                </div>
+                                <div className="text-4xl md:text-5xl font-bold text-motorx-red mb-2">
+                                    {stat.value}
+                                </div>
+                                <div className="text-motorx-gray-300">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+
+
+            {/* Registration Process */}
+            <section className="py-20 px-4 bg-motorx-gray-900">
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+                        Start Your <span className="text-motorx-red">Registration</span>
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Service cards will go here */}
-                        <div className="glass-card p-8 text-center">
-                            <h3 className="text-2xl font-bold text-motorx-red mb-4">Dispatch</h3>
-                            <p className="text-motorx-gray-300">Fast and reliable vehicle transportation</p>
+                    <p className="text-center text-motorx-gray-300 mb-16">
+                        You will need before we start:
+                    </p>
+                    <div className="grid md:grid-cols-5 gap-8">
+                        {registrationSteps.map((step) => (
+                            <div key={step.step} className="text-center">
+                                <div className="glass-card p-6 mb-4 h-full flex flex-col items-center justify-center">
+                                    <div className="w-12 h-12 rounded-full bg-motorx-red flex items-center justify-center text-xl font-bold mb-4">
+                                        {step.step}
+                                    </div>
+                                    <div className="text-motorx-red mb-3">
+                                        {getIcon(step.icon)}
+                                    </div>
+                                    <h3 className="font-bold mb-2">{step.title}</h3>
+                                    <p className="text-sm text-motorx-gray-300">{step.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="text-center mt-12">
+                        <Link to="/subscription" className="btn-primary">
+                            Find Out More
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Auctions Section - Marquesina Animada */}
+            <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden">
+                <div className="max-w-7xl mx-auto text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                        Trusted <span className="text-motorx-red">Auction Partners</span>
+                    </h2>
+                    <p className="text-motorx-gray-300 text-lg">
+                        Access to 100+ premium auctions nationwide
+                    </p>
+                </div>
+
+                {/* Marquesina Infinita */}
+                <div className="relative">
+                    <div className="marquee-container">
+                        <div className="marquee-content">
+                            {/* Primera copia de logos */}
+                            <img src={iaaLogo} alt="IAA" className="marquee-logo" />
+                            <img src={copartLogo} alt="Copart" className="marquee-logo" />
+                            <img src={manheimLogo} alt="Manheim" className="marquee-logo" />
+                            <img src={adesaLogo} alt="ADESA" className="marquee-logo" />
+                            <img src={impactAutoLogo} alt="Impact Auto" className="marquee-logo" />
+                            <img src={acvLogo} alt="ACV Auctions" className="marquee-logo" />
+                            <img src={edgePipelineLogo} alt="Edge Pipeline" className="marquee-logo" />
+                            <img src={salvatoLogo} alt="SALVATO" className="marquee-logo" />
+                            {/* Segunda copia para efecto infinito */}
+                            <img src={iaaLogo} alt="IAA" className="marquee-logo" />
+                            <img src={copartLogo} alt="Copart" className="marquee-logo" />
+                            <img src={manheimLogo} alt="Manheim" className="marquee-logo" />
+                            <img src={adesaLogo} alt="ADESA" className="marquee-logo" />
+                            <img src={impactAutoLogo} alt="Impact Auto" className="marquee-logo" />
+                            <img src={acvLogo} alt="ACV Auctions" className="marquee-logo" />
+                            <img src={edgePipelineLogo} alt="Edge Pipeline" className="marquee-logo" />
+                            <img src={salvatoLogo} alt="SALVATO" className="marquee-logo" />
                         </div>
-                        <div className="glass-card p-8 text-center">
-                            <h3 className="text-2xl font-bold text-motorx-red mb-4">Single Bid</h3>
-                            <p className="text-motorx-gray-300">One-time auction services</p>
-                        </div>
-                        <div className="glass-card p-8 text-center">
-                            <h3 className="text-2xl font-bold text-motorx-red mb-4">Subscription</h3>
-                            <p className="text-motorx-gray-300">Recurring services with exclusive benefits</p>
-                        </div>
+                    </div>
+                </div>
+
+                {/* Custom CSS para marquesina */}
+                <style jsx>{`
+                    .marquee-container {
+                        width: 100%;
+                        overflow: hidden;
+                        position: relative;
+                        background: linear-gradient(90deg, 
+                            rgba(23, 23, 23, 1) 0%, 
+                            rgba(23, 23, 23, 0) 10%, 
+                            rgba(23, 23, 23, 0) 90%, 
+                            rgba(23, 23, 23, 1) 100%);
+                        padding: 2rem 0;
+                    }
+                    .marquee-content {
+                        display: flex;
+                        animation: scroll 30s linear infinite;
+                    }
+                    .marquee-logo {
+                        height: 80px;
+                        width: auto;
+                        margin: 0 4rem;
+                        flex-shrink: 0;
+                        filter: brightness(0.9);
+                        transition: filter 0.3s;
+                    }
+                    .marquee-logo:hover {
+                        filter: brightness(1.2);
+                    }
+                    @keyframes scroll {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+                    .marquee-container:hover .marquee-content {
+                        animation-play-state: paused;
+                    }
+                `}</style>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20 px-4 bg-gradient-to-r from-motorx-red-dark to-motorx-red">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                        Contact Us NOW
+                    </h2>
+                    <p className="text-2xl mb-8 opacity-90">
+                        AND DRIVE AWAY WITH YOUR NEW CAR!
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="mailto:bid@motorxcars.com" className="btn-secondary border-white hover:bg-white/20">
+                            bid@motorxcars.com
+                        </a>
+                        <Link to="/contact" className="btn-secondary border-white hover:bg-white/20">
+                            Get in Touch
+                        </Link>
                     </div>
                 </div>
             </section>
