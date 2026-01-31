@@ -331,7 +331,7 @@ function Home() {
 
                                         {/* Benefits Grid */}
                                         <div className="grid grid-cols-2 gap-4 mb-8">
-                                            {(t(`services.${service.id}.benefits`, { returnObjects: true }) || []).map((benefit, idx) => (
+                                            {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
                                                 <div
                                                     key={idx}
                                                     className="benefit-item flex items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"

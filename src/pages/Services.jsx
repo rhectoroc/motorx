@@ -155,7 +155,7 @@ function Services() {
                                             {t('common.features')}
                                         </h4>
                                         <ul className="space-y-2">
-                                            {(t(`services.${service.id}.features`, { returnObjects: true }) || []).map((feature, idx) => (
+                                            {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
                                                 <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
                                                     <Check className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
                                                     <span>{feature}</span>
@@ -171,7 +171,7 @@ function Services() {
                                             {t('common.benefits')}
                                         </h4>
                                         <ul className="space-y-2">
-                                            {(t(`services.${service.id}.benefits`, { returnObjects: true }) || []).map((benefit, idx) => (
+                                            {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
                                                 <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
                                                     <ArrowRight className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0 rtl:rotate-180" />
                                                     <span>{benefit}</span>
