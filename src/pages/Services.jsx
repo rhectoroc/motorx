@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, Check, Sparkles } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import gsap from 'gsap';
@@ -10,6 +11,7 @@ import { allServices } from '../data/services';
 gsap.registerPlugin(ScrollTrigger);
 
 function Services() {
+    const { t } = useTranslation();
     useEffect(() => {
         // Hero title animation with infinite pulse
         gsap.fromTo('.services-hero-title',
@@ -116,10 +118,10 @@ function Services() {
 
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <h1 className="services-hero-title text-5xl md:text-7xl font-bold mb-6">
-                        Our <span className="text-motorx-red">Services</span>
+                        {t('servicesPage.hero.title').split(' ')[0]} <span className="text-motorx-red">{t('servicesPage.hero.title').split(' ')[1]}</span>
                     </h1>
                     <p className="services-hero-subtitle text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
-                        Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered.
+                        {t('servicesPage.hero.subtitle')}
                     </p>
                 </div>
             </section>
@@ -142,15 +144,15 @@ function Services() {
                                     <div className="text-motorx-red mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
                                         {getIcon(service.icon)}
                                     </div>
-                                    <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors">{service.title}</h3>
-                                    <p className="text-motorx-red text-sm mb-4 uppercase tracking-wider">{service.subtitle}</p>
-                                    <p className="text-motorx-gray-300 mb-6 flex-grow leading-relaxed">{service.description}</p>
+                                    <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors">{t(`services.${service.id}.title`)}</h3>
+                                    <p className="text-motorx-red text-sm mb-4 uppercase tracking-wider">{t(`services.${service.id}.subtitle`)}</p>
+                                    <p className="text-motorx-gray-300 mb-6 flex-grow leading-relaxed">{t(`services.${service.id}.description`)}</p>
 
                                     {/* Features */}
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
                                             <Check className="w-4 h-4 text-motorx-red" />
-                                            Features
+                                            {t('common.features')}
                                         </h4>
                                         <ul className="space-y-2">
                                             {service.features.map((feature, idx) => (
@@ -166,7 +168,7 @@ function Services() {
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
                                             <Sparkles className="w-4 h-4 text-motorx-red" />
-                                            Benefits
+                                            {t('common.benefits')}
                                         </h4>
                                         <ul className="space-y-2">
                                             {service.benefits.map((benefit, idx) => (
@@ -180,8 +182,8 @@ function Services() {
 
                                     {/* Pricing */}
                                     <div className="mb-6 p-4 bg-motorx-gray-900/50 rounded-lg border border-motorx-red/20 group-hover:border-motorx-red/50 transition-colors">
-                                        <p className="text-sm text-motorx-gray-400 mb-1">Starting at</p>
-                                        <p className="text-2xl font-bold text-motorx-red">{service.pricing}</p>
+                                        <p className="text-sm text-motorx-gray-400 mb-1">{t('common.startingAt')}</p>
+                                        <p className="text-2xl font-bold text-motorx-red">{t(`services.${service.id}.pricing`)}</p>
                                     </div>
 
                                     {/* CTA */}
@@ -190,12 +192,12 @@ function Services() {
                                             to={service.link}
                                             className="btn-primary w-full text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
                                         >
-                                            Learn More
+                                            {t('common.learnMore')}
                                             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                         </Link>
                                     ) : (
                                         <button className="btn-secondary w-full" disabled>
-                                            Current Page
+                                            {t('common.currentPage')}
                                         </button>
                                     )}
                                 </div>
@@ -209,13 +211,13 @@ function Services() {
             <section className="py-20 px-4 bg-gradient-to-b from-motorx-black to-motorx-gray-900">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                        Ready to Get <span className="text-motorx-red">Started</span>?
+                        {t('servicesPage.cta.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('servicesPage.cta.title').split(' ').slice(-1)}</span>?
                     </h2>
                     <p className="text-xl text-motorx-gray-300 mb-8">
-                        Join thousands of satisfied customers and experience the Motor X difference today.
+                        {t('servicesPage.cta.subtitle')}
                     </p>
                     <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                        Contact Us Now
+                        {t('servicesPage.cta.button')}
                         <ArrowRight className="w-5 h-5" />
                     </Link>
                 </div>
