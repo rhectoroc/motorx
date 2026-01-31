@@ -200,12 +200,45 @@
     "servicesPage": {
         "hero": {
             "title": "Nuestros Servicios",
-            "subtitle": "Soluciones automotrices integrales adaptadas a sus necesidades. Desde acceso a subastas hasta envíos internacionales, lo tenemos cubierto."
+            "subtitle": "Soluciones automotrices integrales adaptadas a sus necesidades. Desde acceso a subastas hasta envíos internacionales, lo tenemos todo cubierto."
         },
         "cta": {
-            "title": "¿Listo para Comenzar?",
-            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de Motor X hoy.",
+            "title": "¿Listo para Comenzar",
+            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de MotorX hoy.",
             "button": "Contáctenos Ahora"
         }
+    },
+    "contactPage": {
+        "title": "Contáctenos",
+        "subtitle": "Póngase en contacto con nuestro equipo.",
+        "form": {
+            "title": "Envíenos un mensaje",
+            "name": "Nombre",
+            "email": "Correo Electrónico",
+            "message": "Mensaje",
+            "send": "Enviar Mensaje"
+        },
+        "office": {
+            "title": "Ubicación de la Oficina"
+        },
+        "info": {
+            "title": "Información de Contacto"
+        }
+    },
+    "dispatchPage": {
+        "title": "Servicios de Dispatch",
+        "subtitle": "Transporte de vehículos rápido y confiable a nivel nacional"
+    },
+    "subscriptionPage": {
+        "title": "Suscripción a Subastas",
+        "subtitle": "Obtenga su propia cuenta de postor y acceda a más de 100 subastas"
+    },
+    "blogPage": {
+        "title": "Blog",
+        "subtitle": "Últimas noticias e información de MotorX"
+    },
+    "singleBidPage": {
+        "title": "Servicio de Oferta Única",
+        "subtitle": "Permítanos ofertar por usted en cualquier subasta"
     }
 }

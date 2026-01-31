@@ -203,9 +203,42 @@
             "subtitle": "Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered."
         },
         "cta": {
-            "title": "Ready to Get Started?",
+            "title": "Ready to Get Started",
             "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
             "button": "Contact Us Now"
         }
+    },
+    "contactPage": {
+        "title": "Contact Us",
+        "subtitle": "Get in touch with our team.",
+        "form": {
+            "title": "Send us a message",
+            "name": "Name",
+            "email": "Email",
+            "message": "Message",
+            "send": "Send Message"
+        },
+        "office": {
+            "title": "Office Location"
+        },
+        "info": {
+            "title": "Contact Information"
+        }
+    },
+    "dispatchPage": {
+        "title": "Dispatch Services",
+        "subtitle": "Fast, reliable vehicle transportation nationwide"
+    },
+    "subscriptionPage": {
+        "title": "Auction Subscription",
+        "subtitle": "Get your own bidder account and access 100+ auctions"
+    },
+    "blogPage": {
+        "title": "Blog",
+        "subtitle": "Latest news and insights from Motor X"
+    },
+    "singleBidPage": {
+        "title": "Single Bid Service",
+        "subtitle": "Let us bid for you at any auction"
     }
 }
