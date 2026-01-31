@@ -158,7 +158,11 @@
         "experience": "Years of Experience",
         "auctions": "Auctions Access",
         "vehicles": "Vehicles Available",
-        "support": "Customer Support"
+        "support": "Customer Support",
+        "floating": {
+            "years": "Years",
+            "support": "Support"
+        }
     },
     "registration": {
         "title": "Start Your Registration",

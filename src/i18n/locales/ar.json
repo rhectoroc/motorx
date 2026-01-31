@@ -158,7 +158,11 @@
         "experience": "سنوات من الخبرة",
         "auctions": "الوصول إلى المزادات",
         "vehicles": "المركبات المتاحة",
-        "support": "دعم العملاء"
+        "support": "دعم العملاء",
+        "floating": {
+            "years": "سنوات",
+            "support": "دعم"
+        }
     },
     "registration": {
         "title": "ابدأ تسجيلك",
