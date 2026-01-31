@@ -255,7 +255,7 @@ function Home() {
                     {/* Header */}
                     <div className="text-center mb-20">
                         <h2 className="text-5xl md:text-7xl font-bold mb-6">
-                            {t('services.title').split(' ')[0]} <span className="text-motorx-red">{t('services.title').split(' ')[1]}</span>
+                            {t('services.title.main')} <span className="text-motorx-red">{t('services.title.accent')}</span>
                         </h2>
                         <p className="text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
                             {t('services.subtitle')}

@@ -23,11 +23,17 @@
         "noHiddenFees": "No hidden fees • Cancel anytime • 100% Transparent"
     },
     "hero": {
-        "title": "Logistics Cloud",
+        "title": {
+            "logistics": "Logistics",
+            "cloud": "Cloud"
+        },
         "subtitle": "Where Vehicles Never Stop Moving"
     },
     "services": {
-        "title": "Our Services",
+        "title": {
+            "main": "Our",
+            "accent": "Services"
+        },
         "subtitle": "Premium automotive solutions designed to save you time and money",
         "cta": {
             "title": "Ready to Transform Your Auto Business?",

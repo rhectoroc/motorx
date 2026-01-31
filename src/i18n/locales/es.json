@@ -30,7 +30,10 @@
         "subtitle": "Donde los Vehículos Nunca Dejan de Moverse"
     },
     "services": {
-        "title": "Nuestros Servicios",
+        "title": {
+            "main": "Nuestros",
+            "accent": "Servicios"
+        },
         "subtitle": "Soluciones automotrices premium diseñadas para ahorrarle tiempo y dinero",
         "cta": {
             "title": "¿Listo para Transformar su Negocio Automotriz?",

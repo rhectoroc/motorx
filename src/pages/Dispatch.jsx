@@ -14,7 +14,7 @@ function Dispatch() {
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center justify-center p-3 pk-4 mb-6 rounded-full bg-motorx-red/10 border border-motorx-red/20">
                         <Truck className="w-6 h-6 text-motorx-red mr-2" />
-                        <span className="text-motorx-red font-semibold tracking-wide uppercase">MotorX Dispatch</span>
+                        <span className="text-motorx-red font-semibold tracking-wide uppercase">MotorX {t('services.dispatch.title')}</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold text-motorx-white mb-6">
                         {t('dispatchPage.title')}
