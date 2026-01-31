@@ -193,13 +193,13 @@ function Home() {
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
                     <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                        {'Logistics '.split('').map((char, i) => (
+                        {t('hero.title.logistics').split('').map((char, i) => (
                             <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}
                             </span>
                         ))}
                         <span className="text-motorx-red">
-                            {'Cloud'.split('').map((char, i) => (
+                            {t('hero.title.cloud').split('').map((char, i) => (
                                 <span key={i} className="hero-letter hero-letter-red inline-block" style={{ display: 'inline-block' }}>
                                     {char === ' ' ? '\u00A0' : char}
                                 </span>
@@ -301,11 +301,11 @@ function Home() {
                                             {/* Floating Stats - Using Logical Properties for RTL */}
                                             <div className="floating-stat absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
                                                 <div className="text-3xl font-bold text-motorx-red">12+</div>
-                                                <div className="text-sm text-motorx-gray-300">Years</div>
+                                                <div className="text-sm text-motorx-gray-300">{t('stats.floating.years')}</div>
                                             </div>
                                             <div className="floating-stat absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
                                                 <div className="text-3xl font-bold text-motorx-red">24/7</div>
-                                                <div className="text-sm text-motorx-gray-300">Support</div>
+                                                <div className="text-sm text-motorx-gray-300">{t('stats.floating.support')}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -373,17 +373,17 @@ function Home() {
                     <div className="mt-32 text-center">
                         <div className="glass-card p-12 rounded-3xl bg-gradient-to-br from-motorx-red/10 to-transparent border-2 border-motorx-red/30">
                             <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                                Ready to Transform Your Auto Business?
+                                {t('services.cta.title')}
                             </h3>
                             <p className="text-xl text-motorx-gray-300 mb-8 max-w-2xl mx-auto">
-                                Join 1000+ dealers who trust Motor X for their automotive needs
+                                {t('services.cta.subtitle')}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link to="/services" className="btn-primary text-lg px-8 py-4">
-                                    View All Services
+                                    {t('services.cta.viewAll')}
                                 </Link>
                                 <Link to="/contact" className="btn-secondary text-lg px-8 py-4">
-                                    Talk to an Expert
+                                    {t('services.cta.talkToExpert')}
                                 </Link>
                             </div>
                         </div>
@@ -421,7 +421,7 @@ function Home() {
                                 <div className="text-4xl md:text-5xl font-bold text-motorx-red mb-2">
                                     {stat.value}
                                 </div>
-                                <div className="text-motorx-gray-300">{stat.label}</div>
+                                <div className="text-motorx-gray-300">{t(`stats.${stat.id}`)}</div>
                             </div>
                         ))}
                     </div>
@@ -434,10 +434,10 @@ function Home() {
             <section className="py-20 px-4 bg-motorx-gray-900">
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-                        Start Your <span className="text-motorx-red">Registration</span>
+                        {t('registration.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('registration.title').split(' ').slice(-1)}</span>
                     </h2>
                     <p className="text-center text-motorx-gray-300 mb-16">
-                        You will need before we start:
+                        {t('registration.subtitle')}
                     </p>
                     <div className="grid md:grid-cols-5 gap-8">
                         {registrationSteps.map((step) => (
@@ -449,15 +449,15 @@ function Home() {
                                     <div className="text-motorx-red mb-3">
                                         {getIcon(step.icon)}
                                     </div>
-                                    <h3 className="font-bold mb-2">{step.title}</h3>
-                                    <p className="text-sm text-motorx-gray-300">{step.description}</p>
+                                    <h3 className="font-bold mb-2">{t(`registration.steps.${step.id}.title`)}</h3>
+                                    <p className="text-sm text-motorx-gray-300">{t(`registration.steps.${step.id}.description`)}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className="text-center mt-12">
                         <Link to="/subscription" className="btn-primary">
-                            Find Out More
+                            {t('registration.findOutMore')}
                         </Link>
                     </div>
                 </div>
@@ -467,10 +467,10 @@ function Home() {
             <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden">
                 <div className="max-w-7xl mx-auto text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                        Trusted <span className="text-motorx-red">Auction Partners</span>
+                        {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
                     </h2>
                     <p className="text-motorx-gray-300 text-lg">
-                        Access to 100+ premium auctions nationwide
+                        {t('auctions.subtitle')}
                     </p>
                 </div>
 
@@ -542,17 +542,17 @@ function Home() {
             <section className="py-20 px-4 bg-gradient-to-r from-motorx-red-dark to-motorx-red">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                        Contact Us NOW
+                        {t('cta.title')}
                     </h2>
                     <p className="text-2xl mb-8 opacity-90">
-                        AND DRIVE AWAY WITH YOUR NEW CAR!
+                        {t('cta.subtitle')}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="mailto:bid@motorxcars.com" className="btn-secondary border-white hover:bg-white/20">
-                            bid@motorxcars.com
+                        <a href={`mailto:${t('cta.email')}`} className="btn-secondary border-white hover:bg-white/20">
+                            {t('cta.email')}
                         </a>
                         <Link to="/contact" className="btn-secondary border-white hover:bg-white/20">
-                            Get in Touch
+                            {t('cta.getInTouch')}
                         </Link>
                     </div>
                 </div>

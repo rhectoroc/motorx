@@ -146,21 +146,25 @@ export const services = allServices.slice(0, 2);
 // Resto de los datos se mantienen igual
 export const stats = [
     {
+        id: 'experience',
         value: '12+',
         label: 'Years of Experience',
         icon: 'Award'
     },
     {
+        id: 'auctions',
         value: '100+',
         label: 'Auctions Access',
         icon: 'Building2'
     },
     {
+        id: 'vehicles',
         value: '100K+',
         label: 'Vehicles Available',
         icon: 'Car'
     },
     {
+        id: 'support',
         value: '24/7',
         label: 'Customer Support',
         icon: 'Headphones'
@@ -169,30 +173,35 @@ export const stats = [
 
 export const registrationSteps = [
     {
+        id: 'deposit',
         step: 1,
         title: 'Deposit',
         description: 'Make your initial deposit to activate your account',
         icon: 'DollarSign'
     },
     {
+        id: 'id',
         step: 2,
         title: 'Valid ID or Passport',
         description: 'Provide a government-issued ID or passport',
         icon: 'IdCard'
     },
     {
+        id: 'address',
         step: 3,
         title: 'Proof of Address',
         description: 'Submit a recent utility bill or bank statement',
         icon: 'MapPin'
     },
     {
+        id: 'terms',
         step: 4,
         title: 'Sign Terms',
         description: 'Review and sign our terms and conditions',
         icon: 'FileText'
     },
     {
+        id: 'bidding',
         step: 5,
         title: 'Start Bidding',
         description: 'Access hundreds of auctions and start bidding!',

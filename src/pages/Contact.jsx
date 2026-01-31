@@ -47,16 +47,26 @@ function Contact() {
                     <div>
                         <div className="glass-card p-8 mb-6">
                             <h3 className="text-xl font-bold text-motorx-white mb-4">{t('contactPage.office.title')}</h3>
-                            <p className="text-motorx-gray-300">
-                                1815 JIM WALTER DR. SUITE #180<br />
-                                TEXARKANA AR 71854
-                            </p>
+                            <div className="space-y-6">
+                                <div>
+                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">Arkansas Headquarters</p>
+                                    <p className="text-motorx-gray-300">
+                                        {t('contactPage.office.arkansas.address')}
+                                    </p>
+                                </div>
+                                <div className="pt-4 border-t border-motorx-gray-800">
+                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">Wisconsin Headquarters</p>
+                                    <p className="text-motorx-gray-300">
+                                        {t('contactPage.office.wisconsin.address')}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div className="glass-card p-8">
                             <h3 className="text-xl font-bold text-motorx-white mb-4">{t('contactPage.info.title')}</h3>
                             <p className="text-motorx-gray-300">
-                                Email: info@motorx.com<br />
-                                Phone: (555) 123-4567
+                                Email: {t('cta.email')}<br />
+                                Phone: {t('cta.phone')}
                             </p>
                         </div>
                     </div>

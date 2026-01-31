@@ -195,6 +195,7 @@
         "title": "Свяжитесь с Нами СЕЙЧАС",
         "subtitle": "И УЕЗЖАЙТЕ НА СВОЕМ НОВОМ АВТОМОБИЛЕ!",
         "email": "bid@motorxcars.com",
+        "phone": "(463) 280-3480",
         "getInTouch": "Связаться"
     },
     "servicesPage": {
@@ -219,7 +220,13 @@
             "send": "Отправить Сообщение"
         },
         "office": {
-            "title": "Расположение Офиса"
+            "title": "Расположение Офисов",
+            "arkansas": {
+                "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
+            },
+            "wisconsin": {
+                "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
+            }
         },
         "info": {
             "title": "Контактная Информация"

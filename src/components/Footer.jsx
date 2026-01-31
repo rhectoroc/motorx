@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 function Footer() {
+    const { t } = useTranslation();
+
     return (
         <footer className="bg-motorx-gray-900 border-t border-motorx-gray-800 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -6,29 +10,39 @@ function Footer() {
                     {/* Company Info */}
                     <div>
                         <h3 className="text-motorx-red font-bold text-lg mb-4">MotorX LLC</h3>
-                        <p className="text-motorx-gray-300 text-sm">
-                            1815 JIM WALTER DR. SUITE #180<br />
-                            TEXARKANA AR 71854
-                        </p>
+                        <div className="space-y-4">
+                            <div>
+                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">Arkansas</p>
+                                <p className="text-motorx-gray-300 text-sm">
+                                    {t('contactPage.office.arkansas.address')}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">Wisconsin</p>
+                                <p className="text-motorx-gray-300 text-sm">
+                                    {t('contactPage.office.wisconsin.address')}
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-motorx-white font-bold text-lg mb-4">Quick Links</h3>
+                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.features')}</h3>
                         <ul className="space-y-2">
-                            <li><a href="/dispatch" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">Dispatch</a></li>
-                            <li><a href="/single-bid" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">Single Bid</a></li>
-                            <li><a href="/subscription" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">Subscription</a></li>
-                            <li><a href="/contact" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">Contact</a></li>
+                            <li><a href="/dispatch" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.dispatch')}</a></li>
+                            <li><a href="/single-bid" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.singleBid')}</a></li>
+                            <li><a href="/subscription" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.subscription')}</a></li>
+                            <li><a href="/contact" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.contact')}</a></li>
                         </ul>
                     </div>
 
                     {/* Contact */}
                     <div>
-                        <h3 className="text-motorx-white font-bold text-lg mb-4">Contact Us</h3>
+                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('contactUs')}</h3>
                         <p className="text-motorx-gray-300 text-sm">
-                            Email: info@motorx.com<br />
-                            Phone: (555) 123-4567
+                            Email: {t('cta.email')}<br />
+                            Phone: {t('cta.phone')}
                         </p>
                     </div>
                 </div>

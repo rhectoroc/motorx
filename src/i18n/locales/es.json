@@ -23,7 +23,10 @@
         "noHiddenFees": "Sin cargos ocultos • Cancele en cualquier momento • 100% Transparente"
     },
     "hero": {
-        "title": "Logística Cloud",
+        "title": {
+            "logistics": "Logística",
+            "cloud": "Cloud"
+        },
         "subtitle": "Donde los Vehículos Nunca Dejan de Moverse"
     },
     "services": {
@@ -31,7 +34,9 @@
         "subtitle": "Soluciones automotrices premium diseñadas para ahorrarle tiempo y dinero",
         "cta": {
             "title": "¿Listo para Transformar su Negocio Automotriz?",
-            "subtitle": "Únase a más de 1000 concesionarios que confían en Motor X para sus necesidades automotrices"
+            "subtitle": "Únase a más de 1000 concesionarios que confían en Motor X para sus necesidades automotrices",
+            "viewAll": "Ver Todos los Servicios",
+            "talkToExpert": "Hablar con un Experto"
         },
         "subscription": {
             "title": "Suscripción a Subastas",
@@ -158,7 +163,11 @@
         "experience": "Años de Experiencia",
         "auctions": "Acceso a Subastas",
         "vehicles": "Vehículos Disponibles",
-        "support": "Soporte al Cliente"
+        "support": "Soporte al Cliente",
+        "floating": {
+            "years": "Años",
+            "support": "Soporte"
+        }
     },
     "registration": {
         "title": "Comience su Registro",
@@ -195,6 +204,7 @@
         "title": "Contáctenos AHORA",
         "subtitle": "¡Y LLÉVESE SU NUEVO AUTO!",
         "email": "bid@motorxcars.com",
+        "phone": "(463) 280-3480",
         "getInTouch": "Póngase en Contacto"
     },
     "servicesPage": {
@@ -219,7 +229,13 @@
             "send": "Enviar Mensaje"
         },
         "office": {
-            "title": "Ubicación de la Oficina"
+            "title": "Ubicación de la Oficinas",
+            "arkansas": {
+                "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
+            },
+            "wisconsin": {
+                "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
+            }
         },
         "info": {
             "title": "Información de Contacto"

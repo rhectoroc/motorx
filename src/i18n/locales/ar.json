@@ -195,6 +195,7 @@
         "title": "اتصل بنا الآن",
         "subtitle": "واحصل على سيارتك الجديدة!",
         "email": "bid@motorxcars.com",
+        "phone": "(463) 280-3480",
         "getInTouch": "تواصل معنا"
     },
     "servicesPage": {
@@ -219,7 +220,13 @@
             "send": "إرسال الرسالة"
         },
         "office": {
-            "title": "موقع المكتب"
+            "title": "مواقع المكاتب",
+            "arkansas": {
+                "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
+            },
+            "wisconsin": {
+                "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
+            }
         },
         "info": {
             "title": "معلومات الاتصال"
