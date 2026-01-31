@@ -1,0 +1,211 @@
+{
+    "nav": {
+        "home": "Home",
+        "services": "Services",
+        "dispatch": "Dispatch",
+        "subscription": "Subscription",
+        "singleBid": "Single Bid",
+        "blog": "Blog",
+        "contact": "Contact"
+    },
+    "common": {
+        "getStarted": "Get Started",
+        "learnMore": "Learn More",
+        "contactUs": "Contact Us",
+        "startingAt": "Starting at",
+        "features": "Features",
+        "benefits": "Benefits",
+        "pricing": "Pricing",
+        "viewAll": "View All Services",
+        "talkToExpert": "Talk to an Expert",
+        "getStartedNow": "Get Started Now",
+        "currentPage": "Current Page",
+        "noHiddenFees": "No hidden fees • Cancel anytime • 100% Transparent"
+    },
+    "hero": {
+        "title": "Logistics Cloud",
+        "subtitle": "Where Vehicles Never Stop Moving"
+    },
+    "services": {
+        "title": "Our Services",
+        "subtitle": "Premium automotive solutions designed to save you time and money",
+        "cta": {
+            "title": "Ready to Transform Your Auto Business?",
+            "subtitle": "Join 1000+ dealers who trust Motor X for their automotive needs"
+        },
+        "subscription": {
+            "title": "Auction Subscription",
+            "subtitle": "Your Own Bidder Account",
+            "description": "Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.",
+            "features": {
+                "account": "Your Own Bidder Account",
+                "access": "Access to 100+ Auctions",
+                "fees": "Lower Transaction Fees",
+                "transparency": "Full Transparency",
+                "bids": "Unlimited Bids",
+                "support": "Priority Support"
+            },
+            "benefits": {
+                "control": "Complete control",
+                "save": "Save on fees",
+                "direct": "Direct auction access",
+                "manager": "Dedicated account manager"
+            },
+            "pricing": "Plans from $299/month"
+        },
+        "dispatch": {
+            "title": "Dispatch",
+            "subtitle": "Vehicle Transportation Services",
+            "description": "We will transport your vehicles from any Auction or Dealer to the Shipper of your preference, fast, cheap, and safe.",
+            "features": {
+                "coverage": "Nationwide Coverage",
+                "reliable": "Fast & Reliable Service",
+                "pricing": "Competitive Pricing",
+                "safe": "Safe Transportation",
+                "tracking": "Real-time Tracking",
+                "insured": "Insured Shipments"
+            },
+            "benefits": {
+                "doorToDoor": "Door-to-door service",
+                "flexible": "Flexible scheduling",
+                "professional": "Professional drivers",
+                "multiple": "Multiple vehicle transport"
+            },
+            "pricing": "Starting at $0.50/mile"
+        },
+        "shipping": {
+            "title": "International Shipping",
+            "subtitle": "Global Vehicle Export",
+            "description": "Ship your vehicles anywhere in the world with our trusted international shipping partners.",
+            "features": {
+                "worldwide": "Worldwide Shipping",
+                "options": "Container & RoRo Options",
+                "customs": "Customs Clearance Assistance",
+                "doorToPort": "Door-to-Port Service",
+                "rates": "Competitive Rates",
+                "insurance": "Cargo Insurance"
+            },
+            "benefits": {
+                "documentation": "Export documentation",
+                "methods": "Multiple shipping methods",
+                "team": "Experienced logistics team",
+                "tracking": "End-to-end tracking"
+            },
+            "pricing": "Custom quotes available"
+        },
+        "titles": {
+            "title": "Title Services",
+            "subtitle": "Document Processing",
+            "description": "Complete title processing and documentation services for all your vehicle transactions.",
+            "features": {
+                "processing": "Title Processing",
+                "lien": "Lien Releases",
+                "duplicate": "Duplicate Titles",
+                "transfer": "Out-of-State Transfers",
+                "salvage": "Salvage Title Conversion",
+                "turnaround": "Fast Turnaround"
+            },
+            "benefits": {
+                "expert": "Expert handling",
+                "compliance": "Compliance guaranteed",
+                "timeSaving": "Time-saving service",
+                "coverage": "Nationwide coverage"
+            },
+            "pricing": "Starting at $75"
+        },
+        "dismantling": {
+            "title": "Dismantling Services",
+            "subtitle": "Parts & Salvage",
+            "description": "Professional vehicle dismantling and parts salvage services for maximum value recovery.",
+            "features": {
+                "professional": "Professional Dismantling",
+                "inventory": "Parts Inventory",
+                "testing": "Quality Testing",
+                "disposal": "Eco-Friendly Disposal",
+                "sales": "Parts Sales",
+                "recycling": "Scrap Metal Recycling"
+            },
+            "benefits": {
+                "maximize": "Maximize vehicle value",
+                "environmental": "Environmental compliance",
+                "quality": "Quality parts guarantee",
+                "pricing": "Competitive pricing"
+            },
+            "pricing": "Contact for quote"
+        },
+        "consultation": {
+            "title": "Consultation and Financial Services",
+            "subtitle": "Expert Guidance & Financing",
+            "description": "Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.",
+            "features": {
+                "consultation": "Expert Vehicle Consultation",
+                "financing": "Financing Options",
+                "credit": "Credit Assistance",
+                "analysis": "Investment Analysis",
+                "insights": "Market Insights",
+                "solutions": "Personalized Solutions"
+            },
+            "benefits": {
+                "guidance": "Professional guidance",
+                "plans": "Flexible payment plans",
+                "rates": "Competitive rates",
+                "approval": "Fast approval process"
+            },
+            "pricing": "Free consultation"
+        }
+    },
+    "stats": {
+        "experience": "Years of Experience",
+        "auctions": "Auctions Access",
+        "vehicles": "Vehicles Available",
+        "support": "Customer Support"
+    },
+    "registration": {
+        "title": "Start Your Registration",
+        "subtitle": "You will need before we start:",
+        "findOutMore": "Find Out More",
+        "steps": {
+            "deposit": {
+                "title": "Deposit",
+                "description": "Make your initial deposit to activate your account"
+            },
+            "id": {
+                "title": "Valid ID or Passport",
+                "description": "Provide a government-issued ID or passport"
+            },
+            "address": {
+                "title": "Proof of Address",
+                "description": "Submit a recent utility bill or bank statement"
+            },
+            "terms": {
+                "title": "Sign Terms",
+                "description": "Review and sign our terms and conditions"
+            },
+            "bidding": {
+                "title": "Start Bidding",
+                "description": "Access hundreds of auctions and start bidding!"
+            }
+        }
+    },
+    "auctions": {
+        "title": "Trusted Auction Partners",
+        "subtitle": "Access to 100+ premium auctions nationwide"
+    },
+    "cta": {
+        "title": "Contact Us NOW",
+        "subtitle": "AND DRIVE AWAY WITH YOUR NEW CAR!",
+        "email": "bid@motorxcars.com",
+        "getInTouch": "Get in Touch"
+    },
+    "servicesPage": {
+        "hero": {
+            "title": "Our Services",
+            "subtitle": "Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered."
+        },
+        "cta": {
+            "title": "Ready to Get Started?",
+            "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
+            "button": "Contact Us Now"
+        }
+    }
+}

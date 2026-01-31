@@ -1,0 +1,211 @@
+{
+    "nav": {
+        "home": "Inicio",
+        "services": "Servicios",
+        "dispatch": "Dispatch",
+        "subscription": "Suscripción",
+        "singleBid": "Oferta Única",
+        "blog": "Blog",
+        "contact": "Contacto"
+    },
+    "common": {
+        "getStarted": "Comenzar",
+        "learnMore": "Más Información",
+        "contactUs": "Contáctenos",
+        "startingAt": "Desde",
+        "features": "Características",
+        "benefits": "Beneficios",
+        "pricing": "Precios",
+        "viewAll": "Ver Todos los Servicios",
+        "talkToExpert": "Hablar con un Experto",
+        "getStartedNow": "Comience Ahora",
+        "currentPage": "Página Actual",
+        "noHiddenFees": "Sin cargos ocultos • Cancele en cualquier momento • 100% Transparente"
+    },
+    "hero": {
+        "title": "Logística Cloud",
+        "subtitle": "Donde los Vehículos Nunca Dejan de Moverse"
+    },
+    "services": {
+        "title": "Nuestros Servicios",
+        "subtitle": "Soluciones automotrices premium diseñadas para ahorrarle tiempo y dinero",
+        "cta": {
+            "title": "¿Listo para Transformar su Negocio Automotriz?",
+            "subtitle": "Únase a más de 1000 concesionarios que confían en Motor X para sus necesidades automotrices"
+        },
+        "subscription": {
+            "title": "Suscripción a Subastas",
+            "subtitle": "Su Propia Cuenta de Oferente",
+            "description": "¿Quiere control sobre sus ofertas? ¡Conveniente! ¡Más económico! Obtenga su propia cuenta de oferente.",
+            "features": {
+                "account": "Su Propia Cuenta de Oferente",
+                "access": "Acceso a Más de 100 Subastas",
+                "fees": "Tarifas de Transacción Más Bajas",
+                "transparency": "Transparencia Total",
+                "bids": "Ofertas Ilimitadas",
+                "support": "Soporte Prioritario"
+            },
+            "benefits": {
+                "control": "Control completo",
+                "save": "Ahorre en tarifas",
+                "direct": "Acceso directo a subastas",
+                "manager": "Gerente de cuenta dedicado"
+            },
+            "pricing": "Planes desde $299/mes"
+        },
+        "dispatch": {
+            "title": "Dispatch",
+            "subtitle": "Servicios de Transporte de Vehículos",
+            "description": "Transportaremos sus vehículos desde cualquier Subasta o Concesionario hasta el Transportista de su preferencia, de manera rápida, económica y segura.",
+            "features": {
+                "coverage": "Cobertura Nacional",
+                "reliable": "Servicio Rápido y Confiable",
+                "pricing": "Precios Competitivos",
+                "safe": "Transporte Seguro",
+                "tracking": "Seguimiento en Tiempo Real",
+                "insured": "Envíos Asegurados"
+            },
+            "benefits": {
+                "doorToDoor": "Servicio puerta a puerta",
+                "flexible": "Programación flexible",
+                "professional": "Conductores profesionales",
+                "multiple": "Transporte de múltiples vehículos"
+            },
+            "pricing": "Desde $0.50/milla"
+        },
+        "shipping": {
+            "title": "Envío Internacional",
+            "subtitle": "Exportación Global de Vehículos",
+            "description": "Envíe sus vehículos a cualquier parte del mundo con nuestros socios de envío internacional de confianza.",
+            "features": {
+                "worldwide": "Envío Mundial",
+                "options": "Opciones de Contenedor y RoRo",
+                "customs": "Asistencia en Despacho Aduanero",
+                "doorToPort": "Servicio Puerta a Puerto",
+                "rates": "Tarifas Competitivas",
+                "insurance": "Seguro de Carga"
+            },
+            "benefits": {
+                "documentation": "Documentación de exportación",
+                "methods": "Múltiples métodos de envío",
+                "team": "Equipo logístico experimentado",
+                "tracking": "Seguimiento de extremo a extremo"
+            },
+            "pricing": "Cotizaciones personalizadas disponibles"
+        },
+        "titles": {
+            "title": "Servicios de Títulos",
+            "subtitle": "Procesamiento de Documentos",
+            "description": "Servicios completos de procesamiento de títulos y documentación para todas sus transacciones de vehículos.",
+            "features": {
+                "processing": "Procesamiento de Títulos",
+                "lien": "Liberación de Gravámenes",
+                "duplicate": "Títulos Duplicados",
+                "transfer": "Transferencias Interestatales",
+                "salvage": "Conversión de Título de Salvamento",
+                "turnaround": "Procesamiento Rápido"
+            },
+            "benefits": {
+                "expert": "Manejo experto",
+                "compliance": "Cumplimiento garantizado",
+                "timeSaving": "Servicio que ahorra tiempo",
+                "coverage": "Cobertura nacional"
+            },
+            "pricing": "Desde $75"
+        },
+        "dismantling": {
+            "title": "Servicios de Desmantelamiento",
+            "subtitle": "Piezas y Salvamento",
+            "description": "Servicios profesionales de desmantelamiento de vehículos y salvamento de piezas para máxima recuperación de valor.",
+            "features": {
+                "professional": "Desmantelamiento Profesional",
+                "inventory": "Inventario de Piezas",
+                "testing": "Pruebas de Calidad",
+                "disposal": "Eliminación Ecológica",
+                "sales": "Venta de Piezas",
+                "recycling": "Reciclaje de Chatarra"
+            },
+            "benefits": {
+                "maximize": "Maximice el valor del vehículo",
+                "environmental": "Cumplimiento ambiental",
+                "quality": "Garantía de calidad de piezas",
+                "pricing": "Precios competitivos"
+            },
+            "pricing": "Contacte para cotización"
+        },
+        "consultation": {
+            "title": "Consultoría y Servicios Financieros",
+            "subtitle": "Orientación Experta y Financiamiento",
+            "description": "Obtenga consultoría experta en compras de vehículos y acceda a opciones de financiamiento flexibles adaptadas a sus necesidades.",
+            "features": {
+                "consultation": "Consultoría Experta en Vehículos",
+                "financing": "Opciones de Financiamiento",
+                "credit": "Asistencia Crediticia",
+                "analysis": "Análisis de Inversión",
+                "insights": "Información del Mercado",
+                "solutions": "Soluciones Personalizadas"
+            },
+            "benefits": {
+                "guidance": "Orientación profesional",
+                "plans": "Planes de pago flexibles",
+                "rates": "Tasas competitivas",
+                "approval": "Proceso de aprobación rápido"
+            },
+            "pricing": "Consulta gratuita"
+        }
+    },
+    "stats": {
+        "experience": "Años de Experiencia",
+        "auctions": "Acceso a Subastas",
+        "vehicles": "Vehículos Disponibles",
+        "support": "Soporte al Cliente"
+    },
+    "registration": {
+        "title": "Comience su Registro",
+        "subtitle": "Necesitará antes de comenzar:",
+        "findOutMore": "Más Información",
+        "steps": {
+            "deposit": {
+                "title": "Depósito",
+                "description": "Realice su depósito inicial para activar su cuenta"
+            },
+            "id": {
+                "title": "ID o Pasaporte Válido",
+                "description": "Proporcione una identificación o pasaporte emitido por el gobierno"
+            },
+            "address": {
+                "title": "Comprobante de Domicilio",
+                "description": "Envíe una factura de servicios o extracto bancario reciente"
+            },
+            "terms": {
+                "title": "Firmar Términos",
+                "description": "Revise y firme nuestros términos y condiciones"
+            },
+            "bidding": {
+                "title": "Comenzar a Ofertar",
+                "description": "¡Acceda a cientos de subastas y comience a ofertar!"
+            }
+        }
+    },
+    "auctions": {
+        "title": "Socios de Subastas de Confianza",
+        "subtitle": "Acceso a más de 100 subastas premium en todo el país"
+    },
+    "cta": {
+        "title": "Contáctenos AHORA",
+        "subtitle": "¡Y LLÉVESE SU NUEVO AUTO!",
+        "email": "bid@motorxcars.com",
+        "getInTouch": "Póngase en Contacto"
+    },
+    "servicesPage": {
+        "hero": {
+            "title": "Nuestros Servicios",
+            "subtitle": "Soluciones automotrices integrales adaptadas a sus necesidades. Desde acceso a subastas hasta envíos internacionales, lo tenemos cubierto."
+        },
+        "cta": {
+            "title": "¿Listo para Comenzar?",
+            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de Motor X hoy.",
+            "button": "Contáctenos Ahora"
+        }
+    }
+}

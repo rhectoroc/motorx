@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, Check } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import gsap from 'gsap';
@@ -21,6 +22,7 @@ import salvatoLogo from '../assets/auction-logos/salvato-logo.png';
 gsap.registerPlugin(ScrollTrigger);
 
 function Home() {
+    const { t } = useTranslation();
     const heroRef = useRef(null);
     const titleRef = useRef(null);
     const [currentBg, setCurrentBg] = useState(0);
@@ -205,15 +207,15 @@ function Home() {
                         </span>
                     </h1>
                     <p className="hero-subtitle text-xl md:text-3xl text-motorx-gray-300 mb-8 max-w-3xl mx-auto">
-                        Where Vehicles Never Stop Moving
+                        {t('hero.subtitle')}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
                         <Link to="/subscription" className="btn-primary">
-                            Get Started
+                            {t('common.getStarted')}
                             <ArrowRight className="inline-block ml-2 w-5 h-5" />
                         </Link>
                         <Link to="/contact" className="btn-secondary">
-                            Contact Us
+                            {t('common.contactUs')}
                         </Link>
                     </div>
                 </div>
@@ -253,10 +255,10 @@ function Home() {
                     {/* Header */}
                     <div className="text-center mb-20">
                         <h2 className="text-5xl md:text-7xl font-bold mb-6">
-                            Our <span className="text-motorx-red">Services</span>
+                            {t('services.title').split(' ')[0]} <span className="text-motorx-red">{t('services.title').split(' ')[1]}</span>
                         </h2>
                         <p className="text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
-                            Premium automotive solutions designed to save you time and money
+                            {t('services.subtitle')}
                         </p>
                     </div>
 
