@@ -298,12 +298,12 @@ function Home() {
                                                 </div>
                                             </div>
 
-                                            {/* Floating Stats */}
-                                            <div className="floating-stat absolute -top-8 -right-8 glass-card px-6 py-4 rounded-2xl animate-float">
+                                            {/* Floating Stats - Using Logical Properties for RTL */}
+                                            <div className="floating-stat absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
                                                 <div className="text-3xl font-bold text-motorx-red">12+</div>
                                                 <div className="text-sm text-motorx-gray-300">Years</div>
                                             </div>
-                                            <div className="floating-stat absolute -bottom-8 -left-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
+                                            <div className="floating-stat absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
                                                 <div className="text-3xl font-bold text-motorx-red">24/7</div>
                                                 <div className="text-sm text-motorx-gray-300">Support</div>
                                             </div>
@@ -315,23 +315,23 @@ function Home() {
                                         {/* Badge */}
                                         <div className="inline-block mb-4 px-4 py-1 bg-motorx-red/20 border border-motorx-red rounded-full">
                                             <span className="text-motorx-red text-sm font-semibold uppercase tracking-wider">
-                                                {service.subtitle}
+                                                {t(`services.${service.id}.subtitle`)}
                                             </span>
                                         </div>
 
                                         {/* Title */}
                                         <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-motorx-white to-motorx-gray-300 bg-clip-text text-transparent">
-                                            {service.title}
+                                            {t(`services.${service.id}.title`)}
                                         </h3>
 
                                         {/* Description */}
                                         <p className="text-lg text-motorx-gray-300 mb-8 leading-relaxed">
-                                            {service.description}
+                                            {t(`services.${service.id}.description`)}
                                         </p>
 
                                         {/* Benefits Grid */}
                                         <div className="grid grid-cols-2 gap-4 mb-8">
-                                            {service.benefits.map((benefit, idx) => (
+                                            {(t(`services.${service.id}.benefits`, { returnObjects: true }) || []).map((benefit, idx) => (
                                                 <div
                                                     key={idx}
                                                     className="benefit-item flex items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -345,28 +345,29 @@ function Home() {
                                         {/* Pricing + CTA */}
                                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                                             <div>
-                                                <div className="text-sm text-motorx-gray-400 mb-1">Starting at</div>
-                                                <div className="text-3xl font-bold text-motorx-red">{service.pricing}</div>
+                                                <div className="text-sm text-motorx-gray-400 mb-1">{t('common.startingAt')}</div>
+                                                <div className="text-3xl font-bold text-motorx-red">{t(`services.${service.id}.pricing`)}</div>
                                             </div>
                                             <Link
                                                 to={service.link}
                                                 className="btn-primary group"
                                             >
-                                                Get Started Now
-                                                <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                                                {t('common.getStartedNow')}
+                                                <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
                                             </Link>
                                         </div>
 
                                         {/* Trust Indicator */}
                                         <div className="mt-6 flex items-center gap-2 text-sm text-motorx-gray-400">
                                             <Check className="w-4 h-4 text-green-500" />
-                                            <span>No hidden fees • Cancel anytime • 100% Transparent</span>
+                                            <span>{t('common.noHiddenFees')}</span>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
                     </div>
+
 
                     {/* CTA Banner */}
                     <div className="mt-32 text-center">

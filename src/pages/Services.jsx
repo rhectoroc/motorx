@@ -139,7 +139,7 @@ function Services() {
                                 <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/0 via-motorx-red/5 to-motorx-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                                 {/* Content */}
-                                <div className="relative z-10">
+                                <div className="relative z-10 flex flex-col h-full">
                                     {/* Icon & Title */}
                                     <div className="text-motorx-red mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
                                         {getIcon(service.icon)}
@@ -155,7 +155,7 @@ function Services() {
                                             {t('common.features')}
                                         </h4>
                                         <ul className="space-y-2">
-                                            {service.features.map((feature, idx) => (
+                                            {(t(`services.${service.id}.features`, { returnObjects: true }) || []).map((feature, idx) => (
                                                 <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
                                                     <Check className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
                                                     <span>{feature}</span>
@@ -171,9 +171,9 @@ function Services() {
                                             {t('common.benefits')}
                                         </h4>
                                         <ul className="space-y-2">
-                                            {service.benefits.map((benefit, idx) => (
+                                            {(t(`services.${service.id}.benefits`, { returnObjects: true }) || []).map((benefit, idx) => (
                                                 <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
-                                                    <ArrowRight className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
+                                                    <ArrowRight className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0 rtl:rotate-180" />
                                                     <span>{benefit}</span>
                                                 </li>
                                             ))}
@@ -181,7 +181,7 @@ function Services() {
                                     </div>
 
                                     {/* Pricing */}
-                                    <div className="mb-6 p-4 bg-motorx-gray-900/50 rounded-lg border border-motorx-red/20 group-hover:border-motorx-red/50 transition-colors">
+                                    <div className="mb-6 p-4 bg-motorx-gray-900/50 rounded-lg border border-motorx-red/20 group-hover:border-motorx-red/50 transition-colors mt-auto">
                                         <p className="text-sm text-motorx-gray-400 mb-1">{t('common.startingAt')}</p>
                                         <p className="text-2xl font-bold text-motorx-red">{t(`services.${service.id}.pricing`)}</p>
                                     </div>
@@ -193,7 +193,7 @@ function Services() {
                                             className="btn-primary w-full text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
                                         >
                                             {t('common.learnMore')}
-                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
                                         </Link>
                                     ) : (
                                         <button className="btn-secondary w-full" disabled>
@@ -206,6 +206,7 @@ function Services() {
                     </div>
                 </div>
             </section>
+
 
             {/* CTA Section */}
             <section className="py-20 px-4 bg-gradient-to-b from-motorx-black to-motorx-gray-900">
