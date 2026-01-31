@@ -4,7 +4,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { services, stats, registrationSteps, auctions } from '../data/services';
+import { allServices as services, stats, registrationSteps, auctions } from '../data/services';
 import heroBackground1 from '../assets/hero-background.png';
 import heroBackground2 from '../assets/hero-background-2.png';
 import heroBackground3 from '../assets/hero-background-3.png';

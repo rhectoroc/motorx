@@ -1,6 +1,29 @@
 // Todos los servicios de MotorX expandidos
 export const allServices = [
     {
+        id: 'subscription',
+        title: 'Auction Subscription',
+        subtitle: 'Your Own Bidder Account',
+        description: 'Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.',
+        icon: 'Gavel',
+        features: [
+            'Your Own Bidder Account',
+            'Access to 100+ Auctions',
+            'Lower Transaction Fees',
+            'Full Transparency',
+            'Unlimited Bids',
+            'Priority Support'
+        ],
+        benefits: [
+            'Complete control',
+            'Save on fees',
+            'Direct auction access',
+            'Dedicated account manager'
+        ],
+        pricing: 'Plans from $299/month',
+        link: '/subscription'
+    },
+    {
         id: 'dispatch',
         title: 'Dispatch',
         subtitle: 'Vehicle Transportation Services',
@@ -22,30 +45,6 @@ export const allServices = [
         ],
         pricing: 'Starting at $0.50/mile',
         link: '/dispatch'
-    },
-
-    {
-        id: 'subscription',
-        title: 'Auction Subscription',
-        subtitle: 'Your Own Bidder Account',
-        description: 'Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.',
-        icon: 'CreditCard',
-        features: [
-            'Your Own Bidder Account',
-            'Access to 100+ Auctions',
-            'Lower Transaction Fees',
-            'Full Transparency',
-            'Unlimited Bids',
-            'Priority Support'
-        ],
-        benefits: [
-            'Complete control',
-            'Save on fees',
-            'Direct auction access',
-            'Dedicated account manager'
-        ],
-        pricing: 'Plans from $299/month',
-        link: '/subscription'
     },
     {
         id: 'shipping',
@@ -114,6 +113,29 @@ export const allServices = [
             'Competitive pricing'
         ],
         pricing: 'Contact for quote',
+        link: '/services'
+    },
+    {
+        id: 'consultation',
+        title: 'Consultation and Financial Services',
+        subtitle: 'Expert Guidance & Financing',
+        description: 'Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.',
+        icon: 'BadgeDollarSign',
+        features: [
+            'Expert Vehicle Consultation',
+            'Financing Options',
+            'Credit Assistance',
+            'Investment Analysis',
+            'Market Insights',
+            'Personalized Solutions'
+        ],
+        benefits: [
+            'Professional guidance',
+            'Flexible payment plans',
+            'Competitive rates',
+            'Fast approval process'
+        ],
+        pricing: 'Free consultation',
         link: '/services'
     }
 ];
