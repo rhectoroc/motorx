@@ -227,18 +227,89 @@
     },
     "dispatchPage": {
         "title": "Servicios de Dispatch",
-        "subtitle": "Transporte de vehículos rápido y confiable a nivel nacional"
+        "subtitle": "Transporte de vehículos rápido, confiable y rastreado a nivel nacional.",
+        "hero": {
+            "description": "Nos especializamos en mover vehículos de manera rápida y segura. Ya sea usted un distribuidor, subasta o individuo, nuestra red de transportistas profesionales está lista para servirle."
+        },
+        "features": {
+            "title": "¿Por qué elegir MotorX Dispatch?",
+            "speed": {
+                "title": "Ultrarrápido",
+                "desc": "La mayoría de las recolecciones dentro de las 48 horas posteriores a la reserva."
+            },
+            "tracking": {
+                "title": "Rastreo en Tiempo Real",
+                "desc": "Sepa exactamente dónde está su vehículo en todo momento."
+            },
+            "insurance": {
+                "title": "Totalmente Asegurado",
+                "desc": "Tranquilidad con un seguro de carga integral."
+            }
+        },
+        "cta": {
+            "title": "Obtenga una Cotización Hoy",
+            "button": "Solicitar Dispatch"
+        }
     },
     "subscriptionPage": {
         "title": "Suscripción a Subastas",
-        "subtitle": "Obtenga su propia cuenta de postor y acceda a más de 100 subastas"
+        "subtitle": "Desbloquee un poder de oferta ilimitado con su propia cuenta.",
+        "plans": {
+            "title": "Planes de Membresía",
+            "starter": {
+                "name": "Inicial",
+                "price": "$299/mes",
+                "features": [
+                    "Acceso a subastas estándar",
+                    "5 Ofertas por mes",
+                    "Soporte Estándar"
+                ]
+            },
+            "pro": {
+                "name": "Pro",
+                "price": "$599/mes",
+                "features": [
+                    "Acceso a subastas premium",
+                    "Ofertas Ilimitadas",
+                    "Soporte Prioritario",
+                    "Tarifas más bajas"
+                ]
+            }
+        },
+        "cta": {
+            "button": "Suscribirse Ahora"
+        }
     },
     "blogPage": {
-        "title": "Blog",
-        "subtitle": "Últimas noticias e información de MotorX"
+        "title": "Blog de MotorX",
+        "subtitle": "Perspectivas de la industria, consejos de subastas y noticias automotrices.",
+        "readMore": "Leer Más",
+        "posts": {
+            "1": {
+                "title": "Los 5 Mejores Consejos de Subastas para Principiantes",
+                "excerpt": "Aprenda a navegar su primera subasta como un profesional con estos consejos esenciales."
+            },
+            "2": {
+                "title": "Entendiendo los Títulos de Vehículos",
+                "excerpt": "Una guía completa sobre títulos de salvamento, limpios y reconstruidos."
+            },
+            "3": {
+                "title": "El Futuro de la Logística Automotriz",
+                "excerpt": "Cómo la tecnología está remodelando la forma en que los vehículos se mueven por todo el país."
+            }
+        }
     },
     "singleBidPage": {
         "title": "Servicio de Oferta Única",
-        "subtitle": "Permítanos ofertar por usted en cualquier subasta"
+        "subtitle": "Acceso único a las principales subastas sin suscripción.",
+        "steps": {
+            "title": "Cómo Funciona la Oferta Única",
+            "step1": "Seleccione su vehículo de cualquier subasta compatible.",
+            "step2": "Realice su oferta única de forma segura a través de nuestra plataforma.",
+            "step3": "Nosotros nos encargamos de la oferta y la transacción si gana."
+        },
+        "cta": {
+            "button": "Realizar Oferta Única"
+        }
     }
 }

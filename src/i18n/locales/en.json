@@ -227,18 +227,89 @@
     },
     "dispatchPage": {
         "title": "Dispatch Services",
-        "subtitle": "Fast, reliable vehicle transportation nationwide"
+        "subtitle": "Fast, reliable, and tracked vehicle transportation nationwide.",
+        "hero": {
+            "description": "We specialize in moving vehicles quickly and safely. Whether you're a dealer, auction, or individual, our network of professional carriers is ready to serve you."
+        },
+        "features": {
+            "title": "Why Choose MotorX Dispatch?",
+            "speed": {
+                "title": "Lightning Fast",
+                "desc": "Most pickups within 48 hours of booking."
+            },
+            "tracking": {
+                "title": "Real-Time Tracking",
+                "desc": "Know exactly where your vehicle is at all times."
+            },
+            "insurance": {
+                "title": "Fully Insured",
+                "desc": "Peace of mind with comprehensive cargo insurance."
+            }
+        },
+        "cta": {
+            "title": "Get a Quote Today",
+            "button": "Request Dispatch"
+        }
     },
     "subscriptionPage": {
         "title": "Auction Subscription",
-        "subtitle": "Get your own bidder account and access 100+ auctions"
+        "subtitle": "Unlock unlimited bidding power with your own account.",
+        "plans": {
+            "title": "Membership Plans",
+            "starter": {
+                "name": "Starter",
+                "price": "$299/mo",
+                "features": [
+                    "Access to standard auctions",
+                    "5 Bids per month",
+                    "Standard Support"
+                ]
+            },
+            "pro": {
+                "name": "Pro",
+                "price": "$599/mo",
+                "features": [
+                    "Access to premium auctions",
+                    "Unlimited Bids",
+                    "Priority Support",
+                    "Lower Fees"
+                ]
+            }
+        },
+        "cta": {
+            "button": "Subscribe Now"
+        }
     },
     "blogPage": {
-        "title": "Blog",
-        "subtitle": "Latest news and insights from Motor X"
+        "title": "MotorX Blog",
+        "subtitle": "Industry insights, auction tips, and automotive news.",
+        "readMore": "Read More",
+        "posts": {
+            "1": {
+                "title": "Top 5 Auction Tips for Beginners",
+                "excerpt": "Learn how to navigate your first auction like a pro with these essential tips."
+            },
+            "2": {
+                "title": "Understanding Vehicle Titles",
+                "excerpt": "A comprehensive guide to salvage, clean, and rebuilt titles."
+            },
+            "3": {
+                "title": "The Future of Auto Logistics",
+                "excerpt": "How technology is reshaping the way vehicles are moved across the country."
+            }
+        }
     },
     "singleBidPage": {
         "title": "Single Bid Service",
-        "subtitle": "Let us bid for you at any auction"
+        "subtitle": "One-time access to major auctions without a subscription.",
+        "steps": {
+            "title": "How Single Bid Works",
+            "step1": "Select your vehicle from any supported auction.",
+            "step2": "Place your single bid securely through our platform.",
+            "step3": "We handle the bidding and transaction if you win."
+        },
+        "cta": {
+            "button": "Place Single Bid"
+        }
     }
 }
