@@ -2,7 +2,7 @@
     "nav": {
         "home": "Inicio",
         "services": "Servicios",
-        "dispatch": "Dispatch",
+        "dispatch": "Movilización/Pickup",
         "subscription": "Suscripción",
         "singleBid": "Oferta Única",
         "blog": "Blog",
@@ -62,7 +62,7 @@
             "pricing": "Planes desde $299/mes"
         },
         "dispatch": {
-            "title": "Dispatch",
+            "title": "Movilización/Pickup",
             "subtitle": "Servicios de Transporte de Vehículos",
             "description": "Transportaremos sus vehículos desde cualquier Subasta o Concesionario hasta el Transportista de su preferencia, de manera rápida, económica y segura.",
             "features": {
@@ -245,13 +245,13 @@
         }
     },
     "dispatchPage": {
-        "title": "Servicios de Dispatch",
+        "title": "Servicios de Movilización/Pickup",
         "subtitle": "Transporte de vehículos rápido, confiable y rastreado a nivel nacional.",
         "hero": {
             "description": "Nos especializamos en mover vehículos de manera rápida y segura. Ya sea usted un distribuidor, subasta o individuo, nuestra red de transportistas profesionales está lista para servirle."
         },
         "features": {
-            "title": "¿Por qué elegir MotorX Dispatch?",
+            "title": "¿Por qué elegir MotorX Movilización/Pickup?",
             "speed": {
                 "title": "Ultrarrápido",
                 "desc": "La mayoría de las recolecciones dentro de las 48 horas posteriores a la reserva."
@@ -267,7 +267,7 @@
         },
         "cta": {
             "title": "Obtenga una Cotización Hoy",
-            "button": "Solicitar Dispatch"
+            "button": "Solicitar Movilización/Pickup"
         }
     },
     "subscriptionPage": {
