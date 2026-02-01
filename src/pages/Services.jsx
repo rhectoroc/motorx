@@ -71,17 +71,36 @@ function Services() {
                 stagger: 0.15,
                 duration: 0.8,
                 ease: 'back.out(1.2)',
-                clearProps: 'all'
+                onComplete: () => {
+                    // Animate characters within each card
+                    document.querySelectorAll('.service-card').forEach(card => {
+                        gsap.fromTo(card.querySelectorAll('.service-title-char'),
+                            {
+                                opacity: 0,
+                                y: 20,
+                                rotateX: -90
+                            },
+                            {
+                                opacity: 1,
+                                y: 0,
+                                rotateX: 0,
+                                stagger: 0.03,
+                                duration: 0.6,
+                                ease: 'power3.out'
+                            }
+                        );
+                    });
+                }
             }
         );
 
         // Animate features and benefits on hover
         const cards = document.querySelectorAll('.service-card');
         cards.forEach(card => {
-            card.addEventListener('mouseleave', () => {
+            card.addEventListener('mouseenter', () => {
                 const isRTL = document.documentElement.dir === 'rtl';
                 gsap.to(card.querySelectorAll('.feature-item'), {
-                    x: isRTL ? -5 : 5,
+                    x: isRTL ? -10 : 10,
                     stagger: 0.05,
                     duration: 0.3,
                     ease: 'power2.out'
@@ -101,6 +120,14 @@ function Services() {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
     }, []);
+
+    const splitText = (text) => {
+        return text.split('').map((char, i) => (
+            <span key={i} className="service-title-char inline-block whitespace-pre">
+                {char}
+            </span>
+        ));
+    };
 
     const getIcon = (iconName) => {
         const Icon = LucideIcons[iconName];
@@ -145,7 +172,9 @@ function Services() {
                                     <div className="text-motorx-red mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
                                         {getIcon(service.icon)}
                                     </div>
-                                    <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors">{t(`services.${service.id}.title`)}</h3>
+                                    <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors perspective-1000">
+                                        {splitText(t(`services.${service.id}.title`))}
+                                    </h3>
                                     <p className="text-motorx-red text-sm mb-4 uppercase tracking-wider">{t(`services.${service.id}.subtitle`)}</p>
                                     <p className="text-motorx-gray-300 mb-6 flex-grow leading-relaxed">{t(`services.${service.id}.description`)}</p>
 
