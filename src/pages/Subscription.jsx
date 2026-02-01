@@ -31,9 +31,9 @@ function Subscription() {
 
                         <ul className="space-y-4 mb-8">
                             {(t('subscriptionPage.plans.starter.features', { returnObjects: true }) || []).map((feature, i) => (
-                                <li key={i} className="flex flex-row rtl:flex-row-reverse items-start text-motorx-gray-300 gap-3">
-                                    <Check className="w-5 h-5 text-motorx-gray-400 mt-0.5 flex-shrink-0" />
-                                    <span>{feature}</span>
+                                <li key={i} className="flex flex-row items-start text-motorx-gray-300 gap-3">
+                                    <Check className="w-5 h-5 text-motorx-gray-400 mt-0.5 flex-shrink-0 rtl:order-last" />
+                                    <span className="rtl:order-first">{feature}</span>
                                 </li>
                             ))}
                         </ul>
@@ -50,7 +50,7 @@ function Subscription() {
                         </div>
                         <h3 className="text-2xl font-bold text-motorx-white mb-2 flex items-center gap-2">
                             {t('subscriptionPage.plans.pro.name')}
-                            <Star className="w-5 h-5 text-motorx-red fill-motorx-red" />
+                            <Star className="w-5 h-5 text-motorx-red fill-motorx-red rtl:order-last" />
                         </h3>
                         <div className="flex items-baseline mb-8">
                             <span className="text-5xl font-bold text-motorx-white">{t('subscriptionPage.plans.pro.price')}</span>
@@ -58,9 +58,9 @@ function Subscription() {
 
                         <ul className="space-y-4 mb-8">
                             {(t('subscriptionPage.plans.pro.features', { returnObjects: true }) || []).map((feature, i) => (
-                                <li key={i} className="flex flex-row rtl:flex-row-reverse items-start text-motorx-white gap-3">
-                                    <Check className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0" />
-                                    <span>{feature}</span>
+                                <li key={i} className="flex flex-row items-start text-motorx-white gap-3">
+                                    <Check className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />
+                                    <span className="rtl:order-first">{feature}</span>
                                 </li>
                             ))}
                         </ul>

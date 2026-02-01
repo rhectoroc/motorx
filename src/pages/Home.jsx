@@ -334,10 +334,10 @@ function Home() {
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="benefit-item flex flex-row rtl:flex-row-reverse items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
+                                                    className="benefit-item flex flex-row items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
                                                 >
-                                                    <Check className="w-5 h-5 text-motorx-red flex-shrink-0 mt-0.5" />
-                                                    <span className="text-sm text-motorx-gray-300">{benefit}</span>
+                                                    <Check className="w-5 h-5 text-motorx-red flex-shrink-0 mt-0.5 rtl:order-last" />
+                                                    <span className="text-sm text-motorx-gray-300 rtl:order-first">{benefit}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -358,9 +358,9 @@ function Home() {
                                         </div>
 
                                         {/* Trust Indicator */}
-                                        <div className="mt-6 flex items-center gap-2 text-sm text-motorx-gray-400">
-                                            <Check className="w-4 h-4 text-green-500" />
-                                            <span>{t('common.noHiddenFees')}</span>
+                                        <div className="mt-6 flex flex-row items-center gap-2 text-sm text-motorx-gray-400">
+                                            <Check className="w-4 h-4 text-green-500 rtl:order-last" />
+                                            <span className="rtl:order-first">{t('common.noHiddenFees')}</span>
                                         </div>
                                     </div>
                                 </div>

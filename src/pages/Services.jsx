@@ -78,9 +78,10 @@ function Services() {
         // Animate features and benefits on hover
         const cards = document.querySelectorAll('.service-card');
         cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
+            card.addEventListener('mouseleave', () => {
+                const isRTL = document.documentElement.dir === 'rtl';
                 gsap.to(card.querySelectorAll('.feature-item'), {
-                    x: 5,
+                    x: isRTL ? -5 : 5,
                     stagger: 0.05,
                     duration: 0.3,
                     ease: 'power2.out'
@@ -118,7 +119,7 @@ function Services() {
 
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <h1 className="services-hero-title text-5xl md:text-7xl font-bold mb-6">
-                        {t('servicesPage.hero.title').split(' ')[0]} <span className="text-motorx-red">{t('servicesPage.hero.title').split(' ')[1]}</span>
+                        {t('servicesPage.hero.title.main')} <span className="text-motorx-red">{t('servicesPage.hero.title.accent')}</span>
                     </h1>
                     <p className="services-hero-subtitle text-xl md:text-2xl text-motorx-gray-300 max-w-3xl mx-auto">
                         {t('servicesPage.hero.subtitle')}
@@ -150,15 +151,15 @@ function Services() {
 
                                     {/* Features */}
                                     <div className="mb-6">
-                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row rtl:flex-row-reverse items-center gap-2">
-                                            <Check className="w-4 h-4 text-motorx-red" />
-                                            {t('common.features')}
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
+                                            <Check className="w-4 h-4 text-motorx-red rtl:order-last" />
+                                            <span className="rtl:order-first">{t('common.features')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
-                                                <li key={idx} className="feature-item flex flex-row rtl:flex-row-reverse items-start text-sm text-motorx-gray-300 gap-2">
-                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0" />
-                                                    <span>{feature}</span>
+                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2">
+                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />
+                                                    <span className="rtl:order-first">{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -166,15 +167,15 @@ function Services() {
 
                                     {/* Benefits */}
                                     <div className="mb-6">
-                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row rtl:flex-row-reverse items-center gap-2">
-                                            <Sparkles className="w-4 h-4 text-motorx-red" />
-                                            {t('common.benefits')}
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
+                                            <Sparkles className="w-4 h-4 text-motorx-red rtl:order-last" />
+                                            <span className="rtl:order-first">{t('common.benefits')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
-                                                <li key={idx} className="feature-item flex flex-row rtl:flex-row-reverse items-start text-sm text-motorx-gray-300 gap-2">
-                                                    <ArrowRight className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:rotate-180" />
-                                                    <span>{benefit}</span>
+                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2">
+                                                    <ArrowRight className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:rotate-180 rtl:order-last" />
+                                                    <span className="rtl:order-first">{benefit}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -212,7 +213,7 @@ function Services() {
             <section className="py-20 px-4 bg-gradient-to-b from-motorx-black to-motorx-gray-900">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                        {t('servicesPage.cta.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('servicesPage.cta.title').split(' ').slice(-1)}</span>?
+                        {t('servicesPage.cta.title.main')} <span className="text-motorx-red">{t('servicesPage.cta.title.accent')}</span>?
                     </h2>
                     <p className="text-xl text-motorx-gray-300 mb-8">
                         {t('servicesPage.cta.subtitle')}

@@ -212,11 +212,17 @@
     },
     "servicesPage": {
         "hero": {
-            "title": "Nuestros Servicios",
+            "title": {
+                "main": "Nuestros",
+                "accent": "Servicios"
+            },
             "subtitle": "Soluciones automotrices integrales adaptadas a sus necesidades. Desde acceso a subastas hasta envíos internacionales, lo tenemos todo cubierto."
         },
         "cta": {
-            "title": "¿Listo para Comenzar",
+            "title": {
+                "main": "¿Listo para",
+                "accent": "Comenzar"
+            },
             "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de MotorX hoy.",
             "button": "Contáctenos Ahora"
         }

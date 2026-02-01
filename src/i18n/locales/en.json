@@ -210,11 +210,17 @@
     },
     "servicesPage": {
         "hero": {
-            "title": "Our Services",
+            "title": {
+                "main": "Our",
+                "accent": "Services"
+            },
             "subtitle": "Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered."
         },
         "cta": {
-            "title": "Ready to Get Started",
+            "title": {
+                "main": "Ready to",
+                "accent": "Get Started"
+            },
             "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
             "button": "Contact Us Now"
         }
