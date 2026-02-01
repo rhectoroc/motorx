@@ -114,8 +114,3 @@
 [dir="rtl"] .transform {
   transform: scaleX(-1);
 }
-
-/* Ensure icons don't flip in RTL */
-[dir="rtl"] svg {
-  transform: scaleX(-1);
-}

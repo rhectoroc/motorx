@@ -220,7 +220,7 @@ function Services() {
                     </p>
                     <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
                         {t('servicesPage.cta.button')}
-                        <ArrowRight className="w-5 h-5" />
+                        <ArrowRight className="w-5 h-5 rtl:rotate-180" />
                     </Link>
                 </div>
             </section>

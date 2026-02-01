@@ -67,7 +67,7 @@ function Subscription() {
 
                         <Link to="/contact" className="btn-primary w-full block text-center flex items-center justify-center gap-2">
                             {t('subscriptionPage.cta.button')}
-                            <ArrowRight className="w-4 h-4" />
+                            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                         </Link>
                     </div>
                 </div>
