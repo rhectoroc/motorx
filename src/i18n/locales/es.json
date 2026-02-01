@@ -20,7 +20,15 @@
         "talkToExpert": "Hablar con un Experto",
         "getStartedNow": "Comience Ahora",
         "currentPage": "Página Actual",
-        "noHiddenFees": "Sin cargos ocultos • Cancele en cualquier momento • 100% Transparente"
+        "noHiddenFees": "Sin cargos ocultos • Cancele en cualquier momento • 100% Transparente",
+        "footer": {
+            "email": "Correo Electrónico",
+            "phone": "Teléfono",
+            "allRightsReserved": "Todos los derechos reservados",
+            "developedBy": "Desarrollado por",
+            "arkansas": "Arkansas",
+            "wisconsin": "Wisconsin"
+        }
     },
     "hero": {
         "title": {
@@ -293,6 +301,7 @@
             "pro": {
                 "name": "Pro",
                 "price": "$599/mes",
+                "recommended": "Recomendado",
                 "features": [
                     "Acceso a subastas premium",
                     "Ofertas Ilimitadas",

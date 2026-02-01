@@ -12,13 +12,13 @@ function Footer() {
                         <h3 className="text-motorx-red font-bold text-lg mb-4">MotorX LLC</h3>
                         <div className="space-y-4">
                             <div>
-                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">Arkansas</p>
+                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">{t('common.footer.arkansas')}</p>
                                 <p className="text-motorx-gray-300 text-sm">
                                     {t('contactPage.office.arkansas.address')}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">Wisconsin</p>
+                                <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">{t('common.footer.wisconsin')}</p>
                                 <p className="text-motorx-gray-300 text-sm">
                                     {t('contactPage.office.wisconsin.address')}
                                 </p>
@@ -39,10 +39,10 @@ function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('contactUs')}</h3>
+                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.contactUs')}</h3>
                         <p className="text-motorx-gray-300 text-sm">
-                            Email: {t('cta.email')}<br />
-                            Phone: {t('cta.phone')}
+                            {t('common.footer.email')}: {t('cta.email')}<br />
+                            {t('common.footer.phone')}: {t('cta.phone')}
                         </p>
                     </div>
                 </div>
@@ -50,10 +50,10 @@ function Footer() {
                 {/* Copyright */}
                 <div className="mt-8 pt-8 border-t border-motorx-gray-800 text-center">
                     <p className="text-motorx-gray-300 text-sm">
-                        © {new Date().getFullYear()} MotorX LLC. All rights reserved.
+                        © {new Date().getFullYear()} MotorX LLC. {t('common.footer.allRightsReserved')}
                     </p>
                     <p className="text-motorx-gray-300 text-xs mt-2">
-                        Developed by{' '}
+                        {t('common.footer.developedBy')}{' '}
                         <a
                             href="https://adrielssystems.com"
                             target="_blank"

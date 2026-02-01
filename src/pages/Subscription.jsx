@@ -45,8 +45,8 @@ function Subscription() {
 
                     {/* Pro Plan */}
                     <div className="glass-card p-10 border border-motorx-red transform md:-translate-y-4 shadow-2xl shadow-motorx-red/10 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 bg-motorx-red text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">
-                            Recommended
+                        <div className="absolute top-0 right-0 bg-motorx-red text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rtl:right-auto rtl:left-0">
+                            {t('subscriptionPage.plans.pro.recommended')}
                         </div>
                         <h3 className="text-2xl font-bold text-motorx-white mb-2 flex items-center gap-2">
                             {t('subscriptionPage.plans.pro.name')}

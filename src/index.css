@@ -111,6 +111,4 @@
 }
 
 /* Mirror transforms for RTL */
-[dir="rtl"] .transform {
-  transform: scaleX(-1);
-}
+/* Removed global mirror rule as it flips entire components incorrectly */

@@ -20,7 +20,15 @@
         "talkToExpert": "Talk to an Expert",
         "getStartedNow": "Get Started Now",
         "currentPage": "Current Page",
-        "noHiddenFees": "No hidden fees • Cancel anytime • 100% Transparent"
+        "noHiddenFees": "No hidden fees • Cancel anytime • 100% Transparent",
+        "footer": {
+            "email": "Email",
+            "phone": "Phone",
+            "allRightsReserved": "All rights reserved",
+            "developedBy": "Developed by",
+            "arkansas": "Arkansas",
+            "wisconsin": "Wisconsin"
+        }
     },
     "hero": {
         "title": {
@@ -293,6 +301,7 @@
             "pro": {
                 "name": "Pro",
                 "price": "$599/mo",
+                "recommended": "Recommended",
                 "features": [
                     "Access to premium auctions",
                     "Unlimited Bids",
