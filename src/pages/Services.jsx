@@ -150,14 +150,14 @@ function Services() {
 
                                     {/* Features */}
                                     <div className="mb-6">
-                                        <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row rtl:flex-row-reverse items-center gap-2">
                                             <Check className="w-4 h-4 text-motorx-red" />
                                             {t('common.features')}
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
-                                                <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
-                                                    <Check className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0" />
+                                                <li key={idx} className="feature-item flex flex-row rtl:flex-row-reverse items-start text-sm text-motorx-gray-300 gap-2">
+                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0" />
                                                     <span>{feature}</span>
                                                 </li>
                                             ))}
@@ -166,14 +166,14 @@ function Services() {
 
                                     {/* Benefits */}
                                     <div className="mb-6">
-                                        <h4 className="font-semibold mb-3 text-motorx-white flex items-center gap-2">
+                                        <h4 className="font-semibold mb-3 text-motorx-white flex flex-row rtl:flex-row-reverse items-center gap-2">
                                             <Sparkles className="w-4 h-4 text-motorx-red" />
                                             {t('common.benefits')}
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
-                                                <li key={idx} className="feature-item flex items-start text-sm text-motorx-gray-300">
-                                                    <ArrowRight className="w-4 h-4 text-motorx-red mr-2 mt-0.5 flex-shrink-0 rtl:rotate-180" />
+                                                <li key={idx} className="feature-item flex flex-row rtl:flex-row-reverse items-start text-sm text-motorx-gray-300 gap-2">
+                                                    <ArrowRight className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:rotate-180" />
                                                     <span>{benefit}</span>
                                                 </li>
                                             ))}

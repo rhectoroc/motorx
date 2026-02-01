@@ -334,7 +334,7 @@ function Home() {
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="benefit-item flex items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
+                                                    className="benefit-item flex flex-row rtl:flex-row-reverse items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
                                                 >
                                                     <Check className="w-5 h-5 text-motorx-red flex-shrink-0 mt-0.5" />
                                                     <span className="text-sm text-motorx-gray-300">{benefit}</span>

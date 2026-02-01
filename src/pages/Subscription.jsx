@@ -31,8 +31,8 @@ function Subscription() {
 
                         <ul className="space-y-4 mb-8">
                             {(t('subscriptionPage.plans.starter.features', { returnObjects: true }) || []).map((feature, i) => (
-                                <li key={i} className="flex items-start text-motorx-gray-300">
-                                    <Check className="w-5 h-5 text-motorx-gray-400 mr-3 mt-0.5 flex-shrink-0" />
+                                <li key={i} className="flex flex-row rtl:flex-row-reverse items-start text-motorx-gray-300 gap-3">
+                                    <Check className="w-5 h-5 text-motorx-gray-400 mt-0.5 flex-shrink-0" />
                                     <span>{feature}</span>
                                 </li>
                             ))}
@@ -58,8 +58,8 @@ function Subscription() {
 
                         <ul className="space-y-4 mb-8">
                             {(t('subscriptionPage.plans.pro.features', { returnObjects: true }) || []).map((feature, i) => (
-                                <li key={i} className="flex items-start text-motorx-white">
-                                    <Check className="w-5 h-5 text-motorx-red mr-3 mt-0.5 flex-shrink-0" />
+                                <li key={i} className="flex flex-row rtl:flex-row-reverse items-start text-motorx-white gap-3">
+                                    <Check className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0" />
                                     <span>{feature}</span>
                                 </li>
                             ))}
