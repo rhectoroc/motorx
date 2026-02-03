@@ -287,7 +287,7 @@ function Home() {
                                                         playsInline
                                                         className={`absolute inset-0 w-full h-full object-cover ${index === 0 ? 'opacity-100' : 'opacity-20'}`}
                                                     >
-                                                        <source src={index === 0 ? "/Camión_MotorX.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"} type="video/mp4" />
+                                                        <source src={index === 0 ? "/Auction.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"} type="video/mp4" />
                                                     </video>
                                                     {/* Icon Overlay - Solo para servicios que no son Dispatch */}
                                                     {index !== 0 && (
