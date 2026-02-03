@@ -62,28 +62,28 @@ function Navbar() {
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link
                             to="/"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900 text-center"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             {t('nav.home')}
                         </Link>
                         <Link
                             to="/services"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900 text-center"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             {t('nav.services')}
                         </Link>
                         <Link
                             to="/subscription"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900 text-center"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             {t('nav.subscription')}
                         </Link>
                         <Link
                             to="/contact"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900 text-center"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             {t('nav.contact')}
@@ -91,7 +91,7 @@ function Navbar() {
 
                         {/* Mobile Extras */}
                         <div className="mt-4 px-3 flex flex-col gap-4 sm:hidden">
-                            <div className="flex justify-start">
+                            <div className="flex justify-center">
                                 <LanguageSelector />
                             </div>
                             <a
