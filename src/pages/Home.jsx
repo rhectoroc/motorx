@@ -284,7 +284,7 @@ function Home() {
                                     <div className="lg:w-1/2">
                                         <div className="relative video-container">
                                             {/* Video Background with Icon Overlay */}
-                                            <div className={`${index === 0 ? 'w-96 h-64' : 'w-64 h-64'} mx-auto relative`}>
+                                            <div className="w-80 h-64 md:w-96 md:h-64 mx-auto relative">
                                                 <div className="absolute inset-0 bg-gradient-to-br from-motorx-red to-motorx-red-dark rounded-3xl rotate-6 blur-2xl opacity-30 animate-pulse"></div>
                                                 <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
                                                     {/* Video Background */}
