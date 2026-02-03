@@ -17,6 +17,8 @@ import impactAutoLogo from '../assets/auction-logos/impact-auto-logo.png';
 import acvLogo from '../assets/auction-logos/acv-logo.png';
 import edgePipelineLogo from '../assets/auction-logos/edge-pipeline-logo.png';
 import salvatoLogo from '../assets/auction-logos/salvato-logo.png';
+import SEO from '../components/SEO';
+
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -160,8 +162,16 @@ function Home() {
         }
     };
 
+    import SEO from '../components/SEO';
+
+    // ... (inside Home function) ...
+
     return (
         <div className="bg-motorx-black">
+            <SEO
+                title={t('hero.title.logistics') + " " + t('hero.title.cloud')}
+                description={t('hero.subtitle')}
+            />
             {/* Hero Section with Slide Carousel */}
             <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
                 {/* Carousel Background with Slide + Parallax */}
