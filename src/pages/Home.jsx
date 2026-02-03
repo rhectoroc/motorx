@@ -293,12 +293,17 @@ function Home() {
                                                         loop
                                                         muted
                                                         playsInline
-                                                        className={`absolute inset-0 w-full h-full object-cover ${index === 0 ? 'opacity-100' : 'opacity-20'}`}
+                                                        className={`absolute inset-0 w-full h-full object-cover ${index <= 2 ? 'opacity-100' : 'opacity-20'}`}
                                                     >
-                                                        <source src={index === 0 ? "/Auction.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"} type="video/mp4" />
+                                                        <source src={
+                                                            index === 0 ? "/Auction.mp4" :
+                                                                index === 1 ? "/Dispatch.mp4" :
+                                                                    index === 2 ? "/shiping.mp4" :
+                                                                        "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"
+                                                        } type="video/mp4" />
                                                     </video>
                                                     {/* Icon Overlay - Solo para servicios que no son Dispatch */}
-                                                    {index !== 0 && (
+                                                    {index > 2 && (
                                                         <div className="relative z-10 w-full h-full flex items-center justify-center text-motorx-red">
                                                             {getIcon(service.icon)}
                                                         </div>

@@ -141,7 +141,7 @@ export const allServices = [
 ];
 
 // Servicios principales para Home (los 2 más importantes)
-export const services = allServices.slice(0, 2);
+export const services = allServices.slice(0, 3);
 
 // Resto de los datos se mantienen igual
 export const stats = [
