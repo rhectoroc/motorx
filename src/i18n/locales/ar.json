@@ -32,8 +32,8 @@
     },
     "hero": {
         "title": {
-            "logistics": "السحابة",
-            "cloud": "اللوجستية"
+            "logistics": "Logistic",
+            "cloud": "Cloud"
         },
         "subtitle": "حيث لا تتوقف المركبات عن الحركة أبدًا"
     },
