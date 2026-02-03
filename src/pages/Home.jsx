@@ -162,9 +162,7 @@ function Home() {
         }
     };
 
-    import SEO from '../components/SEO';
 
-    // ... (inside Home function) ...
 
     return (
         <div className="bg-motorx-black">
