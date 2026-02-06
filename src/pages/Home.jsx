@@ -183,7 +183,7 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.5 : 0.3,
+                                    opacity: index === currentBg ? 0.7 : 0.3,
                                 }}
                             >
                                 <div
@@ -214,7 +214,7 @@ function Home() {
                             ))}
                         </span>
                     </h1>
-                    <p className="hero-subtitle text-xl md:text-3xl text-motorx-gray-300 mb-8 max-w-3xl mx-auto">
+                    <p className="hero-subtitle text-xl md:text-3xl text-black mb-8 max-w-3xl mx-auto" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.6)' }}>
                         {t('hero.subtitle')}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
