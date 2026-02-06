@@ -42,7 +42,7 @@ function Footer() {
                         <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.contactUs')}</h3>
                         <p className="text-motorx-gray-300 text-sm">
                             {t('common.footer.email')}: {t('cta.email')}<br />
-                            {t('common.footer.phone')}: {t('cta.phone')}
+                            {t('common.footer.phone')}: <a href="https://wa.link/xd8j23" target="_blank" rel="noopener noreferrer" className="hover:text-motorx-red transition-colors">{t('cta.phone')}</a>
                         </p>
                     </div>
                 </div>

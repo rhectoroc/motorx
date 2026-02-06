@@ -61,11 +61,20 @@ function Home() {
                 stagger: 0.025,
             });
 
-            tl.from('.hero-subtitle', {
-                opacity: 0,
-                y: 30,
-                duration: 0.8,
-            }, '-=0.3');
+            // Infinite animation for subtitle letters
+            gsap.to('.hero-subtitle-letter', {
+                y: -10,
+                color: '#EF233C', // Optional: flash red or just move
+                duration: 0.1,
+                repeat: 1,
+                yoyo: true,
+                stagger: {
+                    each: 0.1,
+                    repeat: -1,
+                    from: "start"
+                },
+                ease: "power1.inOut"
+            });
 
             tl.from('.hero-cta', {
                 opacity: 0,
@@ -214,8 +223,12 @@ function Home() {
                             ))}
                         </span>
                     </h1>
-                    <p className="hero-subtitle text-xl md:text-3xl text-black mb-8 max-w-3xl mx-auto" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.6)' }}>
-                        {t('hero.subtitle')}
+                    <p className="hero-subtitle text-xl md:text-3xl text-white mb-8 max-w-3xl mx-auto font-medium tracking-wide">
+                        {t('hero.subtitle').split('').map((char, i) => (
+                            <span key={i} className="hero-subtitle-letter inline-block" style={{ display: 'inline-block' }}>
+                                {char === ' ' ? '\u00A0' : char}
+                            </span>
+                        ))}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
                         <Link to="/subscription" className="btn-primary">
