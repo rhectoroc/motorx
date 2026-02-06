@@ -52,7 +52,16 @@
         "airFreight": {
             "title": "Air Freight",
             "subtitle": "SHIP YOUR PACKAGES",
-            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.",
+            "features": [
+                "Express Air Shipping",
+                "Commercial & Personal Cargo",
+                "Worldwide Delivery"
+            ],
+            "benefits": [
+                "Fast service",
+                "Low prices"
+            ],
             "stats": {
                 "stat1": "Auto Parts",
                 "stat2": "Boxes Consolidation"
@@ -64,7 +73,16 @@
         "roro": {
             "title": "RO-RO Shipping",
             "subtitle": "ROLL ON - ROLL OFF",
-            "description": "Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.",
+            "description": "Ship oversized or non-containerized vehicles! Safe and efficient service to transport trucks, heavy equipment, and large units worldwide.",
+            "features": [
+                "For Oversized Vehicle",
+                "Heavy Equipment",
+                "Heavy Machinery"
+            ],
+            "benefits": [
+                "Port-to-Port Service",
+                "No container needed"
+            ],
             "stats": {
                 "stat1": "Oversized Vehicles",
                 "stat2": "Heavy Equipment"
@@ -77,6 +95,19 @@
             "title": "اشتراك المزادات",
             "subtitle": "حسابات المزايد الخاصة بك",
             "description": "احصل على إمكانية الوصول إلى مزادات السيارات الأمريكية الكبرى من خلال حسابنا، مع رسوم أقل، والوصول إلى الولايات المغلقة (ميشيغان وويسكونسن وألاباما)، ودعم كامل لك ولمزايديك.",
+            "features": [
+                "Wisconsin Bid Card",
+                "Michigan Bid Card",
+                "Alabama Bid Card",
+                "Lowest Auction Fees",
+                "Affordable Broker Fees",
+                "Unlimited Bids"
+            ],
+            "benefits": [
+                "No hidden fees",
+                "Cancel anytime",
+                "100% transparent"
+            ],
             "stats": {
                 "stat1": "ولايات مغلقة",
                 "stat2": "رسوم منخفضة"
@@ -88,6 +119,19 @@
             "title": "خدمة الإرسال",
             "subtitle": "خدمات نقل المركبات",
             "description": "نقوم بتنسيق استلام سريع وموثوق للمركبات من المزادات أو التجار وتسليمها مباشرة إلى شركائنا في الشحن الموثوق بهم أو الشاحن الذي تفضله للتصدير.",
+            "features": [
+                "Nationwide Coverage",
+                "Fast & Reliable Service",
+                "Competitive Pricing",
+                "Safe Transportation",
+                "3-days Pick up window",
+                "Experienced Dispatchers"
+            ],
+            "benefits": [
+                "Trusted Drivers",
+                "Common Routes",
+                "Avoid Storages"
+            ],
             "stats": {
                 "stat1": "استلام خلال 3 أيام",
                 "stat2": "أكثر من 10 آلاف سائق"
@@ -100,6 +144,19 @@
             "title": "الشحن الدولي",
             "subtitle": "شحن حاويات المحيط",
             "description": "شحن آمن للحاويات مع تحميل احترافي وتوحيد وتنسيق كامل لضمان وصول مركباتك بأمان وكفاءة إلى وجهتها.",
+            "features": [
+                "Secure Container Loading",
+                "Export Documentation Support",
+                "Safe & Reliable Loading",
+                "Worldwide Shipping",
+                "Customs Clearance Assistance",
+                "Competitive Rates"
+            ],
+            "benefits": [
+                "Experienced logistics team",
+                "End-to-end tracking",
+                "All-In-One Service"
+            ],
             "tag": "عروض أسعار مخصصة متاحة",
             "button": "احصل على عرض أسعار الآن",
             "footer": "تحميل آمن للحاويات * دعم وثائق التصدير * نقل آمن وموثوق"
@@ -108,6 +165,19 @@
             "title": "خدمات الملكية",
             "subtitle": "حلول التوثيق",
             "description": "نحن نقدم حلولاً لمستندات المركبات المفقودة أو التي بها مشاكل، مما يساعد في حل مشكلات الملكية حتى يمكن تصدير مركباتك دون تأخير.",
+            "features": [
+                "Bill of Sale Only",
+                "Junk Bill of sale",
+                "Lien Releases",
+                "Duplicate Titles",
+                "Open Liens",
+                "Lost titles"
+            ],
+            "benefits": [
+                "Expert documentation team",
+                "Compliance guaranteed",
+                "Multiple solutions"
+            ],
             "stats": {
                 "stat1": "لقب مفقود",
                 "stat2": "قطع غيار فقط"
@@ -119,6 +189,18 @@
             "title": "خدمات التفكيك",
             "subtitle": "قطع نصف سيارات",
             "description": "نقوم بتفكيك المركبات بشكل احترافي وقطع الوحدات حسب طلبك ووفقًا للوائح التصدير، وتجهيزها بأمان وكفاءة للشحن الدولي.",
+            "features": [
+                "Cost-Efficient Solutions",
+                "Half-Cut vehicles",
+                "Parts Sales",
+                "Junk vehicles",
+                "Palletized"
+            ],
+            "benefits": [
+                "Maximize container space",
+                "Competitive pricing",
+                "Professional Dismantling"
+            ],
             "stats": {
                 "stat1": "سيارات مقطوعة",
                 "stat2": "نصف سيارات"
@@ -130,6 +212,18 @@
             "title": "الاستشارات والخدمات المالية",
             "subtitle": "إرشاد الخبراء والتمويل",
             "description": "إرشاد الخبراء وحلول مالية مرنة لمساعدتك في شراء وإدارة وشحن المركبات بثقة وكفاءة، لتجنب الأخطاء المكلفة.",
+            "features": [
+                "Expert Vehicle Consultation",
+                "Financing Options",
+                "Credit Assistance",
+                "Market Insights",
+                "Personalized Solutions"
+            ],
+            "benefits": [
+                "Professional guidance",
+                "Payment Solutions",
+                "Avoid Late Fee and Storages"
+            ],
             "stats": {
                 "stat1": "لا رسوم تأخير",
                 "stat2": "لا إعادة إدراج"

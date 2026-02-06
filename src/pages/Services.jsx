@@ -210,11 +210,7 @@ function Services() {
                                         </ul>
                                     </div>
 
-                                    {/* Pricing */}
-                                    <div className="mb-6 p-4 bg-motorx-gray-900/50 rounded-lg border border-motorx-red/20 group-hover:border-motorx-red/50 transition-colors mt-auto">
-                                        <p className="text-sm text-motorx-gray-400 mb-1">{t('common.startingAt')}</p>
-                                        <p className="text-2xl font-bold text-motorx-red">{t(`services.${service.id}.pricing`)}</p>
-                                    </div>
+
 
                                     {/* CTA */}
                                     {service.link !== '/services' ? (

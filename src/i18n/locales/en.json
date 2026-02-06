@@ -42,17 +42,26 @@
             "main": "Our",
             "accent": "Services"
         },
-        "subtitle": "End-to-end automotive solutions all managed through Motor X Logistic Cloud",
+        "subtitle": "End-to-end automotive solutions including auction access, dispatch, title processing, dismantling, global shipping, financial support, and expert consultation, all managed through Motor X Logistic Cloud",
         "cta": {
-            "title": "Ready to take your Vehicle Purchasing and Shipping Business to the Next Level?",
-            "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
+            "title": "Ready to Get Started?",
+            "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
             "viewAll": "View All Services",
-            "talkToExpert": "Talk to an Expert"
+            "talkToExpert": "Contact Us Now"
         },
         "airFreight": {
             "title": "Air Freight",
             "subtitle": "SHIP YOUR PACKAGES",
-            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.",
+            "features": [
+                "Express Air Shipping",
+                "Commercial & Personal Cargo",
+                "Worldwide Delivery"
+            ],
+            "benefits": [
+                "Fast service",
+                "Low prices"
+            ],
             "stats": {
                 "stat1": "Auto Parts",
                 "stat2": "Boxes Consolidation"
@@ -64,7 +73,16 @@
         "roro": {
             "title": "RO-RO Shipping",
             "subtitle": "ROLL ON - ROLL OFF",
-            "description": "Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.",
+            "description": "Ship oversized or non-containerized vehicles! Safe and efficient service to transport trucks, heavy equipment, and large units worldwide.",
+            "features": [
+                "For Oversized Vehicle",
+                "Heavy Equipment",
+                "Heavy Machinery"
+            ],
+            "benefits": [
+                "Port-to-Port Service",
+                "No container needed"
+            ],
             "stats": {
                 "stat1": "Oversized Vehicles",
                 "stat2": "Heavy Equipment"
@@ -76,7 +94,20 @@
         "subscription": {
             "title": "Auction Subscription",
             "subtitle": "YOUR OWN BIDDER ACCOUNTS",
-            "description": "Get access to major U.S. auto auctions through our account, with lower fees, access to closed states (Michigan, Wisconsin and Alabama), and full support for you and your bidders.",
+            "description": "Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.",
+            "features": [
+                "Wisconsin Bid Card",
+                "Michigan Bid Card",
+                "Alabama Bid Card",
+                "Lowest Auction Fees",
+                "Affordable Broker Fees",
+                "Unlimited Bids"
+            ],
+            "benefits": [
+                "No hidden fees",
+                "Cancel anytime",
+                "100% transparent"
+            ],
             "stats": {
                 "stat1": "Closed States",
                 "stat2": "Low Fees"
@@ -87,7 +118,20 @@
         "dispatch": {
             "title": "Dispatch",
             "subtitle": "VEHICLE TRANSPORTATION SERVICES",
-            "description": "We coordinate fast and reliable vehicle pickup from auctions or dealers and deliver directly to our trusted shipping partners or the shipper of your preference for export.",
+            "description": "We will transport your vehicles from any Auction or Dealer to the Shipper of your preference, fast, cheap, and safe.",
+            "features": [
+                "Nationwide Coverage",
+                "Fast & Reliable Service",
+                "Competitive Pricing",
+                "Safe Transportation",
+                "3-days Pick up window",
+                "Experienced Dispatchers"
+            ],
+            "benefits": [
+                "Trusted Drivers",
+                "Common Routes",
+                "Avoid Storages"
+            ],
             "stats": {
                 "stat1": "3Days PickUp",
                 "stat2": "10K+ Drivers"
@@ -99,7 +143,20 @@
         "shipping": {
             "title": "International Shipping",
             "subtitle": "OCEAN CONTAINER SHIPPING",
-            "description": "Secure container shipping with professional loading, consolidation, and full coordination to ensure your vehicles arrive safely and efficiently at their destination.",
+            "description": "Ship your vehicles anywhere in the world with our trusted international shipping service.",
+            "features": [
+                "Secure Container Loading",
+                "Export Documentation Support",
+                "Safe & Reliable Loading",
+                "Worldwide Shipping",
+                "Customs Clearance Assistance",
+                "Competitive Rates"
+            ],
+            "benefits": [
+                "Experienced logistics team",
+                "End-to-end tracking",
+                "All-In-One Service"
+            ],
             "tag": "Personalized quotes available",
             "button": "Get a quote now",
             "footer": "Secure Container Loading * Export Documentation Support * Safe & Reliable Transport"
@@ -107,7 +164,20 @@
         "titles": {
             "title": "Title Services",
             "subtitle": "DOCUMENTATION SOLUTIONS",
-            "description": "We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.",
+            "description": "fix title and document issues so your vehicles can be exported without delays.",
+            "features": [
+                "Bill of Sale Only",
+                "Junk Bill of sale",
+                "Lien Releases",
+                "Duplicate Titles",
+                "Open Liens",
+                "Lost titles"
+            ],
+            "benefits": [
+                "Expert documentation team",
+                "Compliance guaranteed",
+                "Multiple solutions"
+            ],
             "stats": {
                 "stat1": "Lost Title",
                 "stat2": "Parts Only"
@@ -118,7 +188,19 @@
         "dismantling": {
             "title": "Dismantling Services",
             "subtitle": "CUT HALF CARS",
-            "description": "We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.",
+            "description": "Professionally dismantle vehicles and cut units per your request and prepare them for safely and efficiently shipping.",
+            "features": [
+                "Cost-Efficient Solutions",
+                "Half-Cut vehicles",
+                "Parts Sales",
+                "Junk vehicles",
+                "Palletized"
+            ],
+            "benefits": [
+                "Maximize container space",
+                "Competitive pricing",
+                "Professional Dismantling"
+            ],
             "stats": {
                 "stat1": "Cut Cars",
                 "stat2": "Half Cars"
@@ -129,7 +211,19 @@
         "consultation": {
             "title": "Consultation and Financial Services",
             "subtitle": "Expert Guidance & Financing",
-            "description": "Expert guidance and flexible financial solutions to help you purchase, manage, and ship vehicles with confidence and efficiency, to avoid costly mistakes.",
+            "description": "Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.",
+            "features": [
+                "Expert Vehicle Consultation",
+                "Financing Options",
+                "Credit Assistance",
+                "Market Insights",
+                "Personalized Solutions"
+            ],
+            "benefits": [
+                "Professional guidance",
+                "Payment Solutions",
+                "Avoid Late Fee and Storages"
+            ],
             "stats": {
                 "stat1": "NO Late Fees",
                 "stat2": "NO Relists"
@@ -193,12 +287,12 @@
                 "main": "Our",
                 "accent": "Services"
             },
-            "subtitle": "Comprehensive automotive solutions tailored to your needs. From auction access to international shipping, we've got you covered."
+            "subtitle": "End-to-end automotive solutions including auction access, dispatch, title processing, dismantling, global shipping, financial support, and expert consultation, all managed through Motor X Logistic Cloud."
         },
         "cta": {
             "title": {
                 "main": "Ready to",
-                "accent": "Get Started"
+                "accent": "Get Started?"
             },
             "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
             "button": "Contact Us Now"

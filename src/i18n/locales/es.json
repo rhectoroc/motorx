@@ -42,17 +42,26 @@
             "main": "Nuestros",
             "accent": "Servicios"
         },
-        "subtitle": "Soluciones automotrices de extremo a extremo, todas gestionadas a través de Motor X Logistic Cloud",
+        "subtitle": "Soluciones automotrices de extremo a extremo que incluyen acceso a subastas, despacho, procesamiento de títulos, desmantelamiento, envío global, apoyo financiero y consultoría experta, todo gestionado a través de Motor X Logistic Cloud",
         "cta": {
-            "title": "¿Listo para llevar su negocio de compra y envío de vehículos al siguiente nivel?",
-            "subtitle": "Asóciese con Motor X y muévase más rápido, más seguro y más inteligente en el mercado global de envío de vehículos.",
+            "title": "¿Listo para empezar?",
+            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de Motor X hoy.",
             "viewAll": "Ver Todos los Servicios",
-            "talkToExpert": "Hablar con un Experto"
+            "talkToExpert": "Contáctenos ahora"
         },
         "airFreight": {
             "title": "Flete Aéreo",
             "subtitle": "ENVÍA TUS PAQUETES",
-            "description": "Flete aéreo rápido y confiable para autopartes urgentes y paquetes, entregados de manera segura en su destino en todo el mundo.",
+            "description": "Flete aéreo rápido y confiable para autopartes urgentes y paquetes, entregados de manera segura en su destino.",
+            "features": [
+                "Envío Aéreo Exprés",
+                "Carga Comercial y Personal",
+                "Entrega Mundial"
+            ],
+            "benefits": [
+                "Servicio Rápido",
+                "Precios Bajos"
+            ],
             "stats": {
                 "stat1": "Autopartes",
                 "stat2": "Consolidación Cajas"
@@ -64,7 +73,16 @@
         "roro": {
             "title": "Envío RO-RO",
             "subtitle": "ROLL ON - ROLL OFF",
-            "description": "Ideal para vehículos de gran tamaño o no contenedorizados, nuestro servicio Roll-on/Roll-off ofrece transporte marítimo seguro y eficiente para camiones, maquinaria pesada y grandes unidades en todo el mundo.",
+            "description": "¡Envíe vehículos de gran tamaño o no contenedorizados! Servicio seguro y eficiente para transportar camiones, maquinaria pesada y grandes unidades en todo el mundo.",
+            "features": [
+                "Para Vehículos de Gran Tamaño",
+                "Equipo Pesado",
+                "Maquinaria Pesada"
+            ],
+            "benefits": [
+                "Servicio Puerto a Puerto",
+                "No Necesita Contenedor"
+            ],
             "stats": {
                 "stat1": "Vehículos Grandes",
                 "stat2": "Maquinaria Pesada"
@@ -77,94 +95,141 @@
             "title": "Suscripción a Subastas",
             "subtitle": "Su Propia Cuenta de Oferente",
             "description": "¿Quiere control sobre sus ofertas? ¡Conveniente! ¡Más económico! Obtenga su propia cuenta de oferente.",
-            "features": {
-                "account": "Su Propia Cuenta de Oferente",
-                "access": "Acceso a Más de 100 Subastas",
-                "fees": "Tarifas de Transacción Más Bajas",
-                "transparency": "Transparencia Total",
-                "bids": "Ofertas Ilimitadas",
-                "support": "Soporte Prioritario"
+            "features": [
+                "Tarjeta de postor de Wisconsin",
+                "Tarjeta de postor de Michigan",
+                "Tarjeta de postor de Alabama",
+                "Tarifas de subasta más bajas",
+                "Tarifas de corredor asequibles",
+                "Ofertas ilimitadas"
+            ],
+            "benefits": [
+                "Sin tarifas ocultas",
+                "Cancela en cualquier momento",
+                "100% transparente"
+            ],
+            "stats": {
+                "stat1": "Estados Cerrados",
+                "stat2": "Tarifas Bajas"
             },
-            "benefits": {
-                "control": "Control completo",
-                "save": "Ahorre en tarifas",
-                "direct": "Acceso directo a subastas",
-                "manager": "Gerente de cuenta dedicado"
-            },
-            "pricing": "Planes desde $299/mes"
+            "button": "Obtenga sus cuentas ahora",
+            "footer": "Sin tarifas ocultas * cancelar en cualquier momento * 100% transparente"
         },
         "dispatch": {
             "title": "Movilización/Pickup",
             "subtitle": "Servicios de Transporte de Vehículos",
-            "description": "Transportaremos sus vehículos desde cualquier Subasta o Concesionario hasta el Transportista de su preferencia, de manera rápida, económica y segura.",
-            "features": {
-                "coverage": "Cobertura Nacional",
-                "reliable": "Servicio Rápido y Confiable",
-                "pricing": "Precios Competitivos",
-                "safe": "Transporte Seguro",
-                "tracking": "Seguimiento en Tiempo Real",
-                "insured": "Envíos Asegurados"
+            "description": "Transportaremos sus vehículos desde cualquier Subasta o Concesionario hasta el Transportista de su preferencia, rápido, barato y seguro.",
+            "features": [
+                "Cobertura Nacional",
+                "Servicio Rápido y Confiable",
+                "Precios Competitivos",
+                "Transporte Seguro",
+                "Ventana de recogida de 3 días",
+                "Despachadores Experimentados"
+            ],
+            "benefits": [
+                "Conductores de Confianza",
+                "Rutas Comunes",
+                "Evite Almacenamiento"
+            ],
+            "stats": {
+                "stat1": "Recogida 3 Días",
+                "stat2": "10K+ Conductores"
             },
-            "benefits": {
-                "doorToDoor": "Servicio puerta a puerta",
-                "flexible": "Programación flexible",
-                "professional": "Conductores profesionales",
-                "multiple": "Transporte de múltiples vehículos"
-            },
-            "pricing": "Desde $0.50/milla"
+            "tag": "Precios imbatibles",
+            "button": "Transportar ahora",
+            "footer": "Rápido * Conductores de Confianza * Coordinación Profesional"
         },
         "shipping": {
             "title": "Envío Internacional",
             "subtitle": "Exportación Global de Vehículos",
-            "description": "Envíe sus vehículos a cualquier parte del mundo con nuestros socios de envío internacional de confianza.",
-            "features": {
-                "worldwide": "Envío Mundial",
-                "options": "Opciones de Contenedor y RoRo",
-                "customs": "Asistencia en Despacho Aduanero",
-                "doorToPort": "Servicio Puerta a Puerto",
-                "rates": "Tarifas Competitivas",
-                "insurance": "Seguro de Carga"
-            },
-            "benefits": {
-                "documentation": "Documentación de exportación",
-                "methods": "Múltiples métodos de envío",
-                "team": "Equipo logístico experimentado",
-                "tracking": "Seguimiento de extremo a extremo"
-            },
-            "pricing": "Cotizaciones personalizadas disponibles"
+            "description": "Envíe sus vehículos a cualquier parte del mundo con nuestro servicio de envío internacional de confianza.",
+            "features": [
+                "Carga Segura de Contenedores",
+                "Soporte de Documentación de Exportación",
+                "Carga Segura y Confiable",
+                "Envío Mundial",
+                "Asistencia en Despacho Aduanero",
+                "Tarifas Competitivas"
+            ],
+            "benefits": [
+                "Equipo logístico experimentado",
+                "Seguimiento de extremo a extremo",
+                "Servicio Todo en Uno"
+            ],
+            "tag": "Cotizaciones personalizadas disponibles",
+            "button": "Obtener cotización ahora",
+            "footer": "Carga Segura de Contenedores * Soporte Documentación Exportación * Transporte Seguro"
         },
         "titles": {
             "title": "Servicios de Títulos",
             "subtitle": "SOLUCIONES DE DOCUMENTACIÓN",
-            "description": "Proporcionamos soluciones para documentos de vehículos problemáticos o faltantes, ayudando a resolver problemas de títulos para que tus vehículos puedan ser exportados sin demoras.",
+            "description": "Solucione problemas de títulos y documentos para que sus vehículos puedan exportarse sin demoras.",
+            "features": [
+                "Solo Factura de Venta",
+                "Factura de Venta de Chatarra",
+                "Liberación de Gravámenes",
+                "Títulos Duplicados",
+                "Gravámenes Abiertos",
+                "Títulos Perdidos"
+            ],
+            "benefits": [
+                "Equipo de expertos en documentación",
+                "Cumplimiento garantizado",
+                "Múltiples soluciones"
+            ],
             "stats": {
                 "stat1": "Título Perdido",
                 "stat2": "Solo Partes"
             },
-            "button": "Obtén un nuevo título ahora",
+            "button": "Obtener nuevo título ahora",
             "footer": "Solo Factura de Venta * Liberación de Gravamen * Duplicados Imposibles"
         },
         "dismantling": {
             "title": "Servicios de Desmantelamiento",
-            "subtitle": "CORTE DE AUTOS A LA MITAD",
-            "description": "Desmantelamos profesionalmente vehículos y cortamos unidades según tu solicitud y en cumplimiento con las regulaciones de exportación, preparándolos de manera segura y eficiente para el envío internacional.",
+            "subtitle": "CORTAR MEDIO AUTO",
+            "description": "Desmantelamos vehículos profesionalmente y cortamos unidades según su solicitud y los preparamos para un envío seguro y eficiente.",
+            "features": [
+                "Soluciones Rentables",
+                "Vehículos Medio Cortados",
+                "Venta de Piezas",
+                "Vehículos Chatarra",
+                "Paletizados"
+            ],
+            "benefits": [
+                "Maximizar espacio en contenedor",
+                "Precios competitivos",
+                "Desmantelamiento Profesional"
+            ],
             "stats": {
                 "stat1": "Autos Cortados",
                 "stat2": "Medios Autos"
             },
-            "button": "Corta vehículos ahora",
+            "button": "Cortar vehículos ahora",
             "footer": "Corte a la Mitad para Envío * Soluciones Rentables * Desmantelamiento Profesional"
         },
         "consultation": {
             "title": "Consultoría y Servicios Financieros",
-            "subtitle": "Asesoramiento Experto y Financiamiento",
-            "description": "Asesoramiento experto y soluciones financieras flexibles para ayudarte a comprar, gestionar y enviar vehículos con confianza y eficiencia, para evitar errores costosos.",
+            "subtitle": "Orientación Experta y Financiamiento",
+            "description": "Obtenga asesoramiento experto en la compra de vehículos y acceda a opciones de financiamiento flexibles adaptadas a sus necesidades.",
+            "features": [
+                "Consulta Experta de Vehículos",
+                "Opciones de Financiamiento",
+                "Asistencia Crediticia",
+                "Perspectivas del Mercado",
+                "Soluciones Personalizadas"
+            ],
+            "benefits": [
+                "Orientación Profesional",
+                "Soluciones de Pago",
+                "Evite Cargos por Pagos Atrasados y Almacenamiento"
+            ],
             "stats": {
                 "stat1": "SIN Cargos por Demora",
                 "stat2": "SIN Relistas"
             },
             "tag": "Consulta gratuita",
-            "button": "Obtén consultoría ahora",
+            "button": "Obtener consulta ahora",
             "footer": "Soluciones de Pago * Retrasos por Vacaciones * Orientación al Comprador"
         }
     },
@@ -205,32 +270,21 @@
             }
         }
     },
-    "auctions": {
-        "title": "Socios de Subastas de Confianza",
-        "subtitle": "Acceso a más de 100 subastas premium en todo el país"
-    },
-    "cta": {
-        "title": "Contáctenos AHORA",
-        "subtitle": "¡Y LLÉVESE SU NUEVO AUTO!",
-        "email": "bid@motorxcars.com",
-        "phone": "(463) 280-3480",
-        "getInTouch": "Póngase en Contacto"
-    },
     "servicesPage": {
         "hero": {
             "title": {
                 "main": "Nuestros",
                 "accent": "Servicios"
             },
-            "subtitle": "Soluciones automotrices integrales adaptadas a sus necesidades. Desde acceso a subastas hasta envíos internacionales, lo tenemos todo cubierto."
+            "subtitle": "Soluciones automotrices de extremo a extremo que incluyen acceso a subastas, despacho, procesamiento de títulos, desmantelamiento, envío global, apoyo financiero y consultoría experta, todo gestionado a través de Motor X Logistic Cloud"
         },
         "cta": {
             "title": {
                 "main": "¿Listo para",
-                "accent": "Comenzar"
+                "accent": "Empezar?"
             },
-            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de MotorX hoy.",
-            "button": "Contáctenos Ahora"
+            "subtitle": "Únase a miles de clientes satisfechos y experimente la diferencia de Motor X hoy.",
+            "button": "Contáctenos ahora"
         }
     },
     "contactPage": {

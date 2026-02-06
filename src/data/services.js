@@ -166,7 +166,7 @@ export const allServices = [
         title: 'RO-RO Shipping',
         subtitle: 'ROLL ON - ROLL OFF',
         description: 'Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.',
-        icon: 'Ship',
+        icon: 'Tractor',
         features: [
             'Oversized Vehicles',
             'Heavy Equipment',
