@@ -62,18 +62,18 @@ function Home() {
             });
 
             // Infinite animation for subtitle letters
+            // Infinite animation for subtitle letters
             gsap.to('.hero-subtitle-letter', {
-                y: -10,
-                color: '#EF233C', // Optional: flash red or just move
-                duration: 0.1,
+                y: -15,
+                duration: 0.2,
                 repeat: 1,
                 yoyo: true,
                 stagger: {
-                    each: 0.1,
+                    each: 0.15,
                     repeat: -1,
                     from: "start"
                 },
-                ease: "power1.inOut"
+                ease: "power1.out"
             });
 
             tl.from('.hero-cta', {
