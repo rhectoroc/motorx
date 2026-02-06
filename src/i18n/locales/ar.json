@@ -44,10 +44,34 @@
         },
         "subtitle": "حلول سيارات شاملة من البداية إلى النهاية، جميعها تُدار من خلال Motor X Logistic Cloud",
         "cta": {
-            "title": "هل أنت مستعد لتحويل أعمالك في مجال السيارات؟",
-            "subtitle": "انضم إلى أكثر من 1000 وكيل يثقون في موتورإكس لتلبية احتياجاتهم في مجال السيارات",
+            "title": "هل أنت مستعد لمستقبل أعمال السيارات؟",
+            "subtitle": "انضم إلى أكثر من 1000 وكيل يثقون في موتورإكس",
             "viewAll": "عرض جميع الخدمات",
             "talkToExpert": "تحدث إلى خبير"
+        },
+        "airFreight": {
+            "title": "Air Freight",
+            "subtitle": "SHIP YOUR PACKAGES",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "stats": {
+                "stat1": "Auto Parts",
+                "stat2": "Boxes Consolidation"
+            },
+            "tag": "Custom quotes available",
+            "button": "Send boxes now",
+            "footer": "Express Air Shipping * Commercial & Personal Cargo * Worldwide Delivery"
+        },
+        "roro": {
+            "title": "RO-RO Shipping",
+            "subtitle": "ROLL ON - ROLL OFF",
+            "description": "Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.",
+            "stats": {
+                "stat1": "Oversized Vehicles",
+                "stat2": "Heavy Equipment"
+            },
+            "tag": "Quotes per Volume",
+            "button": "Send RO-RO now",
+            "footer": "For Oversized Vehicles * Port-to-Port Service * Heavy Equipment"
         },
         "subscription": {
             "title": "اشتراك المزادات",
@@ -153,15 +177,15 @@
         }
     },
     "auctions": {
-        "title": "شركاء المزادات الموثوقون",
-        "subtitle": "الوصول إلى أكثر من 100 مزاد متميز على مستوى البلاد"
+        "title": "Trusted Auction Partners",
+        "subtitle": "Access to 1,000+ premium auctions nationwide"
     },
     "cta": {
-        "title": "اتصل بنا الآن",
-        "subtitle": "واحصل على سيارتك الجديدة!",
+        "title": "Contact Us NOW",
+        "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
         "email": "bid@motorxcars.com",
         "phone": "(463) 280-3480",
-        "getInTouch": "تواصل معنا"
+        "getInTouch": "Get in Touch"
     },
     "servicesPage": {
         "hero": {

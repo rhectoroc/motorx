@@ -44,10 +44,34 @@
         },
         "subtitle": "Soluciones automotrices de extremo a extremo, todas gestionadas a través de Motor X Logistic Cloud",
         "cta": {
-            "title": "¿Listo para Transformar su Negocio Automotriz?",
-            "subtitle": "Únase a más de 1000 concesionarios que confían en Motor X para sus necesidades automotrices",
+            "title": "¿Listo para llevar su negocio de compra y envío de vehículos al siguiente nivel?",
+            "subtitle": "Asóciese con Motor X y muévase más rápido, más seguro y más inteligente en el mercado global de envío de vehículos.",
             "viewAll": "Ver Todos los Servicios",
             "talkToExpert": "Hablar con un Experto"
+        },
+        "airFreight": {
+            "title": "Flete Aéreo",
+            "subtitle": "ENVÍA TUS PAQUETES",
+            "description": "Flete aéreo rápido y confiable para autopartes urgentes y paquetes, entregados de manera segura en su destino en todo el mundo.",
+            "stats": {
+                "stat1": "Autopartes",
+                "stat2": "Consolidación Cajas"
+            },
+            "tag": "Cotizaciones personalizadas",
+            "button": "Enviar cajas ahora",
+            "footer": "Envío Aéreo Express * Carga Comercial y Personal * Entrega Mundial"
+        },
+        "roro": {
+            "title": "Envío RO-RO",
+            "subtitle": "ROLL ON - ROLL OFF",
+            "description": "Ideal para vehículos de gran tamaño o no contenedorizados, nuestro servicio Roll-on/Roll-off ofrece transporte marítimo seguro y eficiente para camiones, maquinaria pesada y grandes unidades en todo el mundo.",
+            "stats": {
+                "stat1": "Vehículos Grandes",
+                "stat2": "Maquinaria Pesada"
+            },
+            "tag": "Cotizaciones por Volumen",
+            "button": "Enviar RO-RO ahora",
+            "footer": "Para Vehículos Sobredimensionados * Servicio Puerto a Puerto * Maquinaria Pesada"
         },
         "subscription": {
             "title": "Suscripción a Subastas",
@@ -319,5 +343,16 @@
         "cta": {
             "button": "Realizar Oferta Única"
         }
+    },
+    "auctions": {
+        "title": "Socios de Subastas de Confianza",
+        "subtitle": "Acceso a más de 1,000 subastas premium a nivel nacional"
+    },
+    "cta": {
+        "title": "Contáctenos AHORA",
+        "subtitle": "Asóciese con Motor X y muévase más rápido, más seguro y más inteligente en el mercado global de envío de vehículos.",
+        "email": "bid@motorxcars.com",
+        "phone": "(463) 280-3480",
+        "getInTouch": "Ponte en Contacto"
     }
 }

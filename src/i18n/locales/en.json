@@ -44,10 +44,34 @@
         },
         "subtitle": "End-to-end automotive solutions all managed through Motor X Logistic Cloud",
         "cta": {
-            "title": "Ready to Transform Your Auto Business?",
-            "subtitle": "Join 1000+ dealers who trust Motor X for their automotive needs",
+            "title": "Ready to take your Vehicle Purchasing and Shipping Business to the Next Level?",
+            "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
             "viewAll": "View All Services",
             "talkToExpert": "Talk to an Expert"
+        },
+        "airFreight": {
+            "title": "Air Freight",
+            "subtitle": "SHIP YOUR PACKAGES",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "stats": {
+                "stat1": "Auto Parts",
+                "stat2": "Boxes Consolidation"
+            },
+            "tag": "Custom quotes available",
+            "button": "Send boxes now",
+            "footer": "Express Air Shipping * Commercial & Personal Cargo * Worldwide Delivery"
+        },
+        "roro": {
+            "title": "RO-RO Shipping",
+            "subtitle": "ROLL ON - ROLL OFF",
+            "description": "Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.",
+            "stats": {
+                "stat1": "Oversized Vehicles",
+                "stat2": "Heavy Equipment"
+            },
+            "tag": "Quotes per Volume",
+            "button": "Send RO-RO now",
+            "footer": "For Oversized Vehicles * Port-to-Port Service * Heavy Equipment"
         },
         "subscription": {
             "title": "Auction Subscription",
@@ -154,11 +178,11 @@
     },
     "auctions": {
         "title": "Trusted Auction Partners",
-        "subtitle": "Access to 100+ premium auctions nationwide"
+        "subtitle": "Access to 1,000+ premium auctions nationwide"
     },
     "cta": {
         "title": "Contact Us NOW",
-        "subtitle": "AND DRIVE AWAY WITH YOUR NEW CAR!",
+        "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
         "email": "bid@motorxcars.com",
         "phone": "(463) 280-3480",
         "getInTouch": "Get in Touch"
@@ -286,9 +310,6 @@
             "step1": "Select your vehicle from any supported auction.",
             "step2": "Place your single bid securely through our platform.",
             "step3": "We handle the bidding and transaction if you win."
-        },
-        "cta": {
-            "button": "Place Single Bid"
         }
     }
 }

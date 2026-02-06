@@ -44,10 +44,34 @@
         },
         "subtitle": "Комплексные автомобильные решения от начала до конца, все управляется через Motor X Logistic Cloud",
         "cta": {
-            "title": "Готовы Трансформировать Ваш Автомобильный Бизнес?",
-            "subtitle": "Присоединяйтесь к более чем 1000 дилерам, которые доверяют MotorX для своих автомобильных нужд",
+            "title": "Готовы поднять свой автомобильный бизнес на новый уровень?",
+            "subtitle": "Присоединяйтесь к более чем 1000 дилерам, доверяющим MotorX",
             "viewAll": "Посмотреть Все Услуги",
             "talkToExpert": "Поговорить с Экспертом"
+        },
+        "airFreight": {
+            "title": "Air Freight",
+            "subtitle": "SHIP YOUR PACKAGES",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "stats": {
+                "stat1": "Auto Parts",
+                "stat2": "Boxes Consolidation"
+            },
+            "tag": "Custom quotes available",
+            "button": "Send boxes now",
+            "footer": "Express Air Shipping * Commercial & Personal Cargo * Worldwide Delivery"
+        },
+        "roro": {
+            "title": "RO-RO Shipping",
+            "subtitle": "ROLL ON - ROLL OFF",
+            "description": "Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.",
+            "stats": {
+                "stat1": "Oversized Vehicles",
+                "stat2": "Heavy Equipment"
+            },
+            "tag": "Quotes per Volume",
+            "button": "Send RO-RO now",
+            "footer": "For Oversized Vehicles * Port-to-Port Service * Heavy Equipment"
         },
         "subscription": {
             "title": "Подписка на Аукционы",
@@ -153,15 +177,15 @@
         }
     },
     "auctions": {
-        "title": "Надежные Партнеры по Аукционам",
-        "subtitle": "Доступ к более чем 100 премиальным аукционам по всей стране"
+        "title": "Trusted Auction Partners",
+        "subtitle": "Access to 1,000+ premium auctions nationwide"
     },
     "cta": {
-        "title": "Свяжитесь с Нами СЕЙЧАС",
-        "subtitle": "И УЕЗЖАЙТЕ НА СВОЕМ НОВОМ АВТОМОБИЛЕ!",
+        "title": "Contact Us NOW",
+        "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
         "email": "bid@motorxcars.com",
         "phone": "(463) 280-3480",
-        "getInTouch": "Связаться"
+        "getInTouch": "Get in Touch"
     },
     "servicesPage": {
         "hero": {

@@ -137,11 +137,57 @@ export const allServices = [
         ],
         pricing: 'Free consultation',
         link: '/services'
+    },
+    {
+        id: 'airFreight',
+        title: 'Air Freight',
+        subtitle: 'SHIP YOUR PACKAGES',
+        description: 'Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.',
+        icon: 'Plane',
+        features: [
+            'Express Air Shipping',
+            'Commercial & Personal Cargo',
+            'Worldwide Delivery',
+            'Priority Handling',
+            'Door-to-Door',
+            'Customs Clearance'
+        ],
+        benefits: [
+            'Fastest delivery method',
+            'Global reach',
+            'Reliable scheduling',
+            'Secure handling'
+        ],
+        pricing: 'Custom quotes available',
+        link: '/services'
+    },
+    {
+        id: 'roro',
+        title: 'RO-RO Shipping',
+        subtitle: 'ROLL ON - ROLL OFF',
+        description: 'Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.',
+        icon: 'Ship',
+        features: [
+            'Oversized Vehicles',
+            'Heavy Equipment',
+            'Port-to-Port Service',
+            'Drive-on Drive-off',
+            'Cost Effective',
+            'Secure Stowage'
+        ],
+        benefits: [
+            'Efficient loading',
+            'Lower handling costs',
+            'Suitable for large units',
+            'Regular schedules'
+        ],
+        pricing: 'Quotes per Volume',
+        link: '/services'
     }
 ];
 
 // Servicios principales para Home (los 2 más importantes)
-export const services = allServices.slice(0, 3);
+export const services = allServices.slice(0, 8);
 
 // Resto de los datos se mantienen igual
 export const stats = [

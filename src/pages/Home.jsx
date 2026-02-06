@@ -299,7 +299,9 @@ function Home() {
                                                             index === 0 ? "/Auction.mp4" :
                                                                 index === 1 ? "/Dispatch.mp4" :
                                                                     index === 2 ? "/shiping.mp4" :
-                                                                        "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"
+                                                                        index === 6 ? "/Dispatch.mp4" : // Air Freight placeholder
+                                                                            index === 7 ? "/shiping.mp4" : // RO-RO placeholder
+                                                                                "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"
                                                         } type="video/mp4" />
                                                     </video>
                                                     {/* Icon Overlay - Solo para servicios que no son Dispatch */}
@@ -433,38 +435,7 @@ function Home() {
 
 
 
-            {/* Registration Process */}
-            <section className="py-20 px-4 bg-motorx-gray-900">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-                        {t('registration.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('registration.title').split(' ').slice(-1)}</span>
-                    </h2>
-                    <p className="text-center text-motorx-gray-300 mb-16">
-                        {t('registration.subtitle')}
-                    </p>
-                    <div className="grid md:grid-cols-5 gap-8">
-                        {registrationSteps.map((step) => (
-                            <div key={step.step} className="text-center">
-                                <div className="glass-card p-6 mb-4 h-full flex flex-col items-center justify-center">
-                                    <div className="w-12 h-12 rounded-full bg-motorx-red flex items-center justify-center text-xl font-bold mb-4">
-                                        {step.step}
-                                    </div>
-                                    <div className="text-motorx-red mb-3">
-                                        {getIcon(step.icon)}
-                                    </div>
-                                    <h3 className="font-bold mb-2">{t(`registration.steps.${step.id}.title`)}</h3>
-                                    <p className="text-sm text-motorx-gray-300">{t(`registration.steps.${step.id}.description`)}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="text-center mt-12">
-                        <Link to="/subscription" className="btn-primary">
-                            {t('registration.findOutMore')}
-                        </Link>
-                    </div>
-                </div>
-            </section>
+
 
             {/* Auctions Section - Marquesina Animada */}
             <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden">
