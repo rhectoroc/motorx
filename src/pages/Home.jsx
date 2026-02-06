@@ -254,7 +254,7 @@ function Home() {
             {/* Services Section - Rediseñada con Marketing Moderno */}
             <section className="py-32 px-4 bg-gradient-to-b from-motorx-black via-motorx-gray-900 to-motorx-black relative overflow-hidden">
                 {/* Background Effects */}
-                <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 opacity-5">
                     <div className="absolute top-20 left-10 w-72 h-72 bg-motorx-red rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 right-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl"></div>
                 </div>

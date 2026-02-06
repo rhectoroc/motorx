@@ -139,7 +139,7 @@ function Services() {
             {/* Hero Section */}
             <section className="relative py-32 px-4 bg-gradient-to-b from-motorx-gray-900 via-motorx-black to-motorx-black overflow-hidden">
                 {/* Animated Background */}
-                <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 opacity-5">
                     <div className="absolute top-20 left-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl animate-pulse"></div>
                     <div className="absolute bottom-20 right-10 w-96 h-96 bg-motorx-red rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                 </div>
