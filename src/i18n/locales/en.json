@@ -94,7 +94,7 @@
         "subscription": {
             "title": "Auction Subscription",
             "subtitle": "YOUR OWN BIDDER ACCOUNTS",
-            "description": "Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.",
+            "description": "Get access to major U.S. auto auctions through our account, with lower fees, access to closed states (Michigan, Wisconsin and Alabama), and full support for you and your bidders.",
             "features": [
                 "Wisconsin Bid Card",
                 "Michigan Bid Card",
@@ -112,6 +112,7 @@
                 "stat1": "Closed States",
                 "stat2": "Low Fees"
             },
+            "tag": "Low Broker Fee",
             "button": "Get your accounts now",
             "footer": "No hidden fees * cancel anytime * 100% transparent"
         },

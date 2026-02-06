@@ -94,7 +94,7 @@
         "subscription": {
             "title": "Suscripción a Subastas",
             "subtitle": "Su Propia Cuenta de Oferente",
-            "description": "¿Quiere control sobre sus ofertas? ¡Conveniente! ¡Más económico! Obtenga su propia cuenta de oferente.",
+            "description": "Obtenga acceso a las principales subastas de automóviles de EE. UU. a través de nuestra cuenta, con tarifas más bajas, acceso a estados cerrados (Michigan, Wisconsin y Alabama) y soporte completo para usted y sus postores.",
             "features": [
                 "Tarjeta de postor de Wisconsin",
                 "Tarjeta de postor de Michigan",
@@ -112,6 +112,7 @@
                 "stat1": "Estados Cerrados",
                 "stat2": "Tarifas Bajas"
             },
+            "tag": "Baja Tarifa de Corredor",
             "button": "Obtenga sus cuentas ahora",
             "footer": "Sin tarifas ocultas * cancelar en cualquier momento * 100% transparente"
         },
