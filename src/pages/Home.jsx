@@ -64,16 +64,16 @@ function Home() {
             // Infinite animation for subtitle letters
             // Infinite animation for subtitle letters
             gsap.to('.hero-subtitle-letter', {
-                y: -15,
-                duration: 0.2,
+                y: -6,
+                duration: 0.4,
                 repeat: 1,
                 yoyo: true,
                 stagger: {
-                    each: 0.15,
+                    each: 0.1,
                     repeat: -1,
                     from: "start"
                 },
-                ease: "power1.out"
+                ease: "sine.inOut"
             });
 
             tl.from('.hero-cta', {
