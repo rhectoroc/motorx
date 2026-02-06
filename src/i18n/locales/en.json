@@ -169,7 +169,7 @@
         "titles": {
             "title": "Title Services",
             "subtitle": "DOCUMENTATION SOLUTIONS",
-            "description": "fix title and document issues so your vehicles can be exported without delays.",
+            "description": "We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.",
             "features": [
                 "Bill of Sale Only",
                 "Junk Bill of sale",
@@ -187,6 +187,7 @@
                 "stat1": "Lost Title",
                 "stat2": "Parts Only"
             },
+            "tag": "starting at $75",
             "button": "Get a new title now",
             "footer": "Bill of Sale Only * Lien Release * Impossible Duplicates"
         },

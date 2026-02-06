@@ -73,7 +73,7 @@ export const allServices = [
         id: 'titles',
         title: 'Title Services',
         subtitle: 'Document Processing',
-        description: 'Complete title processing and documentation services for all your vehicle transactions.',
+        description: 'We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.',
         icon: 'FileText',
         features: [
             'Title Processing',
