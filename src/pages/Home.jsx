@@ -362,7 +362,7 @@ function Home() {
 
                                         {/* Tag (if exists) */}
                                         {t(`services.${service.id}.tag`, { defaultValue: '' }) && (
-                                            <div className="inline-block mb-10 px-6 py-2 shimmer-effect text-white text-sm font-bold rounded-full shadow-lg shadow-motorx-red/20 border border-white/10 uppercase tracking-wider backdrop-blur-sm">
+                                            <div className="inline-block mb-14 px-6 py-2 shimmer-effect text-white text-sm font-bold rounded-full shadow-lg shadow-motorx-red/20 border border-white/10 uppercase tracking-wider backdrop-blur-sm">
                                                 {t(`services.${service.id}.tag`)}
                                             </div>
                                         )}
