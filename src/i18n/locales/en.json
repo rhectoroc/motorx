@@ -194,7 +194,7 @@
         "dismantling": {
             "title": "Dismantling Services",
             "subtitle": "CUT HALF CARS",
-            "description": "Professionally dismantle vehicles and cut units per your request and prepare them for safely and efficiently shipping.",
+            "description": "We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.",
             "features": [
                 "Cost-Efficient Solutions",
                 "Half-Cut vehicles",
@@ -211,6 +211,7 @@
                 "stat1": "Cut Cars",
                 "stat2": "Half Cars"
             },
+            "tag": "starting at $600",
             "button": "Cut vehicles now",
             "footer": "Half-Cut for Shipping * Cost-Efficient Solutions * Professional Dismantling"
         },

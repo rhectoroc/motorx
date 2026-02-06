@@ -96,7 +96,7 @@ export const allServices = [
         id: 'dismantling',
         title: 'Dismantling Services',
         subtitle: 'Parts & Salvage',
-        description: 'Professional vehicle dismantling and parts salvage services for maximum value recovery.',
+        description: 'We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.',
         icon: 'Wrench',
         features: [
             'Professional Dismantling',
