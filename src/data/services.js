@@ -50,7 +50,7 @@ export const allServices = [
         id: 'shipping',
         title: 'International Shipping',
         subtitle: 'Global Vehicle Export',
-        description: 'Ship your vehicles anywhere in the world with our trusted international shipping partners.',
+        description: 'Secure container shipping with professional loading, consolidation, and full coordination to ensure your vehicles arrive safely and efficiently at their destination.',
         icon: 'Ship',
         features: [
             'Worldwide Shipping',
