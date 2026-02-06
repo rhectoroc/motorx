@@ -51,123 +51,68 @@
         },
         "subscription": {
             "title": "Auction Subscription",
-            "subtitle": "Your Own Bidder Account",
-            "description": "Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.",
-            "features": {
-                "account": "Your Own Bidder Account",
-                "access": "Access to 100+ Auctions",
-                "fees": "Lower Transaction Fees",
-                "transparency": "Full Transparency",
-                "bids": "Unlimited Bids",
-                "support": "Priority Support"
+            "subtitle": "YOUR OWN BIDDER ACCOUNTS",
+            "description": "Get access to major U.S. auto auctions through our account, with lower fees, access to closed states (Michigan, Wisconsin and Alabama), and full support for you and your bidders.",
+            "stats": {
+                "stat1": "Closed States",
+                "stat2": "Low Fees"
             },
-            "benefits": {
-                "control": "Complete control",
-                "save": "Save on fees",
-                "direct": "Direct auction access",
-                "manager": "Dedicated account manager"
-            },
-            "pricing": "Plans from $299/month"
+            "button": "Get your accounts now",
+            "footer": "No hidden fees * cancel anytime * 100% transparent"
         },
         "dispatch": {
             "title": "Dispatch",
-            "subtitle": "Vehicle Transportation Services",
-            "description": "We will transport your vehicles from any Auction or Dealer to the Shipper of your preference, fast, cheap, and safe.",
-            "features": {
-                "coverage": "Nationwide Coverage",
-                "reliable": "Fast & Reliable Service",
-                "pricing": "Competitive Pricing",
-                "safe": "Safe Transportation",
-                "tracking": "Real-time Tracking",
-                "insured": "Insured Shipments"
+            "subtitle": "VEHICLE TRANSPORTATION SERVICES",
+            "description": "We coordinate fast and reliable vehicle pickup from auctions or dealers and deliver directly to our trusted shipping partners or the shipper of your preference for export.",
+            "stats": {
+                "stat1": "3Days PickUp",
+                "stat2": "10K+ Drivers"
             },
-            "benefits": {
-                "doorToDoor": "Door-to-door service",
-                "flexible": "Flexible scheduling",
-                "professional": "Professional drivers",
-                "multiple": "Multiple vehicle transport"
-            },
-            "pricing": "Starting at $0.50/mile"
+            "tag": "Unbeatable prices",
+            "button": "Transport it now",
+            "footer": "Fast * Trusted Drivers * Professional Coordination"
         },
         "shipping": {
             "title": "International Shipping",
-            "subtitle": "Global Vehicle Export",
-            "description": "Ship your vehicles anywhere in the world with our trusted international shipping partners.",
-            "features": {
-                "worldwide": "Worldwide Shipping",
-                "options": "Container & RoRo Options",
-                "customs": "Customs Clearance Assistance",
-                "doorToPort": "Door-to-Port Service",
-                "rates": "Competitive Rates",
-                "insurance": "Cargo Insurance"
-            },
-            "benefits": {
-                "documentation": "Export documentation",
-                "methods": "Multiple shipping methods",
-                "team": "Experienced logistics team",
-                "tracking": "End-to-end tracking"
-            },
-            "pricing": "Custom quotes available"
+            "subtitle": "OCEAN CONTAINER SHIPPING",
+            "description": "Secure container shipping with professional loading, consolidation, and full coordination to ensure your vehicles arrive safely and efficiently at their destination.",
+            "tag": "Personalized quotes available",
+            "button": "Get a quote now",
+            "footer": "Secure Container Loading * Export Documentation Support * Safe & Reliable Transport"
         },
         "titles": {
             "title": "Title Services",
-            "subtitle": "Document Processing",
-            "description": "Complete title processing and documentation services for all your vehicle transactions.",
-            "features": {
-                "processing": "Title Processing",
-                "lien": "Lien Releases",
-                "duplicate": "Duplicate Titles",
-                "transfer": "Out-of-State Transfers",
-                "salvage": "Salvage Title Conversion",
-                "turnaround": "Fast Turnaround"
+            "subtitle": "DOCUMENTATION SOLUTIONS",
+            "description": "We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.",
+            "stats": {
+                "stat1": "Lost Title",
+                "stat2": "Parts Only"
             },
-            "benefits": {
-                "expert": "Expert handling",
-                "compliance": "Compliance guaranteed",
-                "timeSaving": "Time-saving service",
-                "coverage": "Nationwide coverage"
-            },
-            "pricing": "Starting at $75"
+            "button": "Get a new title now",
+            "footer": "Bill of Sale Only * Lien Release * Impossible Duplicates"
         },
         "dismantling": {
             "title": "Dismantling Services",
-            "subtitle": "Parts & Salvage",
-            "description": "Professional vehicle dismantling and parts salvage services for maximum value recovery.",
-            "features": {
-                "professional": "Professional Dismantling",
-                "inventory": "Parts Inventory",
-                "testing": "Quality Testing",
-                "disposal": "Eco-Friendly Disposal",
-                "sales": "Parts Sales",
-                "recycling": "Scrap Metal Recycling"
+            "subtitle": "CUT HALF CARS",
+            "description": "We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.",
+            "stats": {
+                "stat1": "Cut Cars",
+                "stat2": "Half Cars"
             },
-            "benefits": {
-                "maximize": "Maximize vehicle value",
-                "environmental": "Environmental compliance",
-                "quality": "Quality parts guarantee",
-                "pricing": "Competitive pricing"
-            },
-            "pricing": "Contact for quote"
+            "button": "Cut vehicles now",
+            "footer": "Half-Cut for Shipping * Cost-Efficient Solutions * Professional Dismantling"
         },
         "consultation": {
             "title": "Consultation and Financial Services",
             "subtitle": "Expert Guidance & Financing",
-            "description": "Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.",
-            "features": {
-                "consultation": "Expert Vehicle Consultation",
-                "financing": "Financing Options",
-                "credit": "Credit Assistance",
-                "analysis": "Investment Analysis",
-                "insights": "Market Insights",
-                "solutions": "Personalized Solutions"
+            "description": "Expert guidance and flexible financial solutions to help you purchase, manage, and ship vehicles with confidence and efficiency, to avoid costly mistakes.",
+            "stats": {
+                "stat1": "NO Late Fees",
+                "stat2": "NO Relists"
             },
-            "benefits": {
-                "guidance": "Professional guidance",
-                "plans": "Flexible payment plans",
-                "rates": "Competitive rates",
-                "approval": "Fast approval process"
-            },
-            "pricing": "Free consultation"
+            "tag": "Free consultation",
+            "button": "Get consultation now",
+            "footer": "Payment Solutions * Holiday Delays * Buyer Guidance"
         }
     },
     "stats": {

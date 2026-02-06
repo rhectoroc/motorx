@@ -111,63 +111,37 @@
         },
         "titles": {
             "title": "Servicios de Títulos",
-            "subtitle": "Procesamiento de Documentos",
-            "description": "Servicios completos de procesamiento de títulos y documentación para todas sus transacciones de vehículos.",
-            "features": {
-                "processing": "Procesamiento de Títulos",
-                "lien": "Liberación de Gravámenes",
-                "duplicate": "Títulos Duplicados",
-                "transfer": "Transferencias Interestatales",
-                "salvage": "Conversión de Título de Salvamento",
-                "turnaround": "Procesamiento Rápido"
+            "subtitle": "SOLUCIONES DE DOCUMENTACIÓN",
+            "description": "Proporcionamos soluciones para documentos de vehículos problemáticos o faltantes, ayudando a resolver problemas de títulos para que tus vehículos puedan ser exportados sin demoras.",
+            "stats": {
+                "stat1": "Título Perdido",
+                "stat2": "Solo Partes"
             },
-            "benefits": {
-                "expert": "Manejo experto",
-                "compliance": "Cumplimiento garantizado",
-                "timeSaving": "Servicio que ahorra tiempo",
-                "coverage": "Cobertura nacional"
-            },
-            "pricing": "Desde $75"
+            "button": "Obtén un nuevo título ahora",
+            "footer": "Solo Factura de Venta * Liberación de Gravamen * Duplicados Imposibles"
         },
         "dismantling": {
             "title": "Servicios de Desmantelamiento",
-            "subtitle": "Piezas y Salvamento",
-            "description": "Servicios profesionales de desmantelamiento de vehículos y salvamento de piezas para máxima recuperación de valor.",
-            "features": {
-                "professional": "Desmantelamiento Profesional",
-                "inventory": "Inventario de Piezas",
-                "testing": "Pruebas de Calidad",
-                "disposal": "Eliminación Ecológica",
-                "sales": "Venta de Piezas",
-                "recycling": "Reciclaje de Chatarra"
+            "subtitle": "CORTE DE AUTOS A LA MITAD",
+            "description": "Desmantelamos profesionalmente vehículos y cortamos unidades según tu solicitud y en cumplimiento con las regulaciones de exportación, preparándolos de manera segura y eficiente para el envío internacional.",
+            "stats": {
+                "stat1": "Autos Cortados",
+                "stat2": "Medios Autos"
             },
-            "benefits": {
-                "maximize": "Maximice el valor del vehículo",
-                "environmental": "Cumplimiento ambiental",
-                "quality": "Garantía de calidad de piezas",
-                "pricing": "Precios competitivos"
-            },
-            "pricing": "Contacte para cotización"
+            "button": "Corta vehículos ahora",
+            "footer": "Corte a la Mitad para Envío * Soluciones Rentables * Desmantelamiento Profesional"
         },
         "consultation": {
             "title": "Consultoría y Servicios Financieros",
-            "subtitle": "Orientación Experta y Financiamiento",
-            "description": "Obtenga consultoría experta en compras de vehículos y acceda a opciones de financiamiento flexibles adaptadas a sus necesidades.",
-            "features": {
-                "consultation": "Consultoría Experta en Vehículos",
-                "financing": "Opciones de Financiamiento",
-                "credit": "Asistencia Crediticia",
-                "analysis": "Análisis de Inversión",
-                "insights": "Información del Mercado",
-                "solutions": "Soluciones Personalizadas"
+            "subtitle": "Asesoramiento Experto y Financiamiento",
+            "description": "Asesoramiento experto y soluciones financieras flexibles para ayudarte a comprar, gestionar y enviar vehículos con confianza y eficiencia, para evitar errores costosos.",
+            "stats": {
+                "stat1": "SIN Cargos por Demora",
+                "stat2": "SIN Relistas"
             },
-            "benefits": {
-                "guidance": "Orientación profesional",
-                "plans": "Planes de pago flexibles",
-                "rates": "Tasas competitivas",
-                "approval": "Proceso de aprobación rápido"
-            },
-            "pricing": "Consulta gratuita"
+            "tag": "Consulta gratuita",
+            "button": "Obtén consultoría ahora",
+            "footer": "Soluciones de Pago * Retrasos por Vacaciones * Orientación al Comprador"
         }
     },
     "stats": {

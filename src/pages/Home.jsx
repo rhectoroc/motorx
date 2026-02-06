@@ -311,15 +311,18 @@ function Home() {
                                                 </div>
                                             </div>
 
-                                            {/* Floating Stats - Using Logical Properties for RTL */}
-                                            <div className="floating-stat absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
-                                                <div className="text-3xl font-bold text-motorx-red">12+</div>
-                                                <div className="text-sm text-motorx-gray-300">{t('stats.floating.years')}</div>
-                                            </div>
-                                            <div className="floating-stat absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
-                                                <div className="text-3xl font-bold text-motorx-red">24/7</div>
-                                                <div className="text-sm text-motorx-gray-300">{t('stats.floating.support')}</div>
-                                            </div>
+
+                                            {/* Stats Badges - Conditional rendering */}
+                                            {t(`services.${service.id}.stats`, { returnObjects: true }) && (
+                                                <>
+                                                    <div className="floating-stat absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
+                                                        <div className="text-lg font-bold text-motorx-red">{t(`services.${service.id}.stats.stat1`)}</div>
+                                                    </div>
+                                                    <div className="floating-stat absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
+                                                        <div className="text-lg font-bold text-motorx-red">{t(`services.${service.id}.stats.stat2`)}</div>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
@@ -342,38 +345,25 @@ function Home() {
                                             {t(`services.${service.id}.description`)}
                                         </p>
 
-                                        {/* Benefits Grid */}
-                                        <div className="grid grid-cols-2 gap-4 mb-8">
-                                            {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className="benefit-item flex flex-row items-start gap-3 p-4 bg-motorx-gray-900/50 rounded-xl hover:bg-motorx-gray-900 hover:scale-105 transition-all duration-300 cursor-pointer"
-                                                >
-                                                    <Check className="w-5 h-5 text-motorx-red flex-shrink-0 mt-0.5 rtl:order-last" />
-                                                    <span className="text-sm text-motorx-gray-300 rtl:order-first">{benefit}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Pricing + CTA */}
-                                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                                            <div>
-                                                <div className="text-sm text-motorx-gray-400 mb-1">{t('common.startingAt')}</div>
-                                                <div className="text-3xl font-bold text-motorx-red">{t(`services.${service.id}.pricing`)}</div>
+                                        {/* Tag (if exists) */}
+                                        {t(`services.${service.id}.tag`, { defaultValue: '' }) && (
+                                            <div className="inline-block mb-6 px-4 py-2 bg-motorx-red text-white text-sm font-semibold rounded-lg">
+                                                {t(`services.${service.id}.tag`)}
                                             </div>
-                                            <Link
-                                                to={service.link}
-                                                className="btn-primary group"
-                                            >
-                                                {t('common.getStartedNow')}
-                                                <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
-                                            </Link>
-                                        </div>
+                                        )}
 
-                                        {/* Trust Indicator */}
-                                        <div className="mt-6 flex flex-row items-center gap-2 text-sm text-motorx-gray-400">
-                                            <Check className="w-4 h-4 text-green-500 rtl:order-last" />
-                                            <span className="rtl:order-first">{t('common.noHiddenFees')}</span>
+                                        {/* CTA Button */}
+                                        <Link
+                                            to={service.link}
+                                            className="btn-primary group inline-flex items-center mb-6"
+                                        >
+                                            {t(`services.${service.id}.button`)}
+                                            <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
+                                        </Link>
+
+                                        {/* Footer */}
+                                        <div className="mt-6 pt-6 border-t border-motorx-gray-800 text-sm text-motorx-gray-400">
+                                            {t(`services.${service.id}.footer`)}
                                         </div>
                                     </div>
                                 </div>
