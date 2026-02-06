@@ -64,8 +64,8 @@ function Home() {
             // Infinite animation for subtitle letters
             // Infinite animation for subtitle letters
             gsap.to('.hero-subtitle-letter', {
-                y: -6,
-                duration: 0.4,
+                opacity: 0.4,
+                duration: 1.5,
                 repeat: 1,
                 yoyo: true,
                 stagger: {
@@ -192,7 +192,7 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.7 : 0.3,
+                                    opacity: index === currentBg ? 0.4 : 0.0,
                                 }}
                             >
                                 <div
