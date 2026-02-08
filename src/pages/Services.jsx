@@ -232,7 +232,7 @@ function Services() {
                                     </div>
 
                                     {/* CTA */}
-                                    <div className="mt-auto">
+                                    <div className="mt-auto flex justify-center">
                                         <a
                                             href={service.link}
                                             target="_blank"
