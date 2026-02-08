@@ -50,68 +50,69 @@
             "talkToExpert": "تحدث إلى خبير"
         },
         "airFreight": {
-            "title": "Air Freight",
-            "subtitle": "SHIP YOUR PACKAGES",
-            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.",
+            "title": "الشحن الجوي",
+            "subtitle": "اشحن طرودك",
+            "description": "شحن جوي سريع وموثوق لقطع غيار السيارات والطرود العاجلة، يتم تسليمها بأمان إلى وجهتك.",
             "features": [
-                "Express Air Shipping",
-                "Commercial & Personal Cargo",
-                "Worldwide Delivery"
+                "شحن جوي سريع",
+                "شحن تجاري وشخصي",
+                "توصيل لجميع أنحاء العالم"
             ],
             "benefits": [
-                "Fast service",
-                "Low prices"
+                "خدمة سريعة",
+                "أسعار منخفضة"
             ],
             "stats": {
-                "stat1": "Auto Parts",
-                "stat2": "Boxes Consolidation"
+                "stat1": "قطع غيار سيارات",
+                "stat2": "تجميع الصناديق"
             },
-            "tag": "Custom quotes available",
-            "button": "Send boxes now",
-            "footer": "Express Air Shipping * Commercial & Personal Cargo * Worldwide Delivery"
+            "tag": "عروض أسعار مخصصة متاحة",
+            "button": "اقطع المركبات الآن",
+            "footer": "شحن جوي سريع * شحن تجاري وشخصي * توصيل لجميع أنحاء العالم"
         },
         "roro": {
-            "title": "RO-RO Shipping",
-            "subtitle": "ROLL ON - ROLL OFF",
-            "description": "Ship oversized or non-containerized vehicles! Safe and efficient service to transport trucks, heavy equipment, and large units worldwide.",
+            "title": "الشحن بنظام الدحرجة (RO-RO)",
+            "subtitle": "دحرجة الدخول - دحرجة الخروج",
+            "description": "اشحن المركبات كبيرة الحجم أو غير المعبأة في حاويات! خدمة آمنة وفعالة لنقل الشاحنات والمعدات الثقيلة والوحدات الكبيرة في جميع أنحاء العالم.",
             "features": [
-                "For Oversized Vehicle",
-                "Heavy Equipment",
-                "Heavy Machinery"
+                "للمركبات كبيرة الحجم",
+                "معدات ثقيلة",
+                "آلات ثقيلة"
             ],
             "benefits": [
-                "Port-to-Port Service",
-                "No container needed"
+                "خدمة من الميناء إلى الميناء",
+                "لا حاجة لحاوية"
             ],
             "stats": {
-                "stat1": "Oversized Vehicles",
-                "stat2": "Heavy Equipment"
+                "stat1": "مركبات كبيرة الحجم",
+                "stat2": "معدات ثقيلة"
             },
-            "tag": "Quotes per Volume",
-            "button": "Send RO-RO now",
-            "footer": "For Oversized Vehicles * Port-to-Port Service * Heavy Equipment"
+            "tag": "عروض أسعار حسب الحجم",
+            "button": "أرسل RO-RO الآن",
+            "footer": "للمركبات كبيرة الحجم * خدمة من الميناء إلى الميناء * معدات ثقيلة"
         },
         "subscription": {
             "title": "اشتراك المزادات",
             "subtitle": "حسابات المزايد الخاصة بك",
             "description": "احصل على إمكانية الوصول إلى مزادات السيارات الأمريكية الكبرى من خلال حسابنا، مع رسوم أقل، والوصول إلى الولايات المغلقة (ميشيغان وويسكونسن وألاباما)، ودعم كامل لك ولمزايديك.",
             "features": [
-                "Wisconsin Bid Card",
-                "Michigan Bid Card",
-                "Alabama Bid Card",
-                "Lowest Auction Fees",
-                "Affordable Broker Fees",
-                "Unlimited Bids"
+                "بطاقة مزايدة ويسكونسن",
+                "بطاقة مزايدة ميشيغان",
+                "بطاقة مزايدة ألاباما",
+                "أقل رسوم مزاد",
+                "رسوم وسيط معقولة",
+                "عروض غير محدودة"
             ],
             "benefits": [
-                "No hidden fees",
-                "Cancel anytime",
-                "100% transparent"
+                "لا رسوم خفية",
+                "إلغاء في أي وقت",
+                "شفافية 100%"
             ],
             "stats": {
                 "stat1": "ولايات مغلقة",
                 "stat2": "رسوم منخفضة"
             },
+            "tag": "رسوم وسيط منخفضة",
             "button": "احصل على حساباتك الآن",
             "footer": "لا رسوم خفية * إلغاء في أي وقت * شفافية 100%"
         },
@@ -120,20 +121,20 @@
             "subtitle": "خدمات نقل المركبات",
             "description": "نقوم بتنسيق استلام سريع وموثوق للمركبات من المزادات أو التجار وتسليمها مباشرة إلى شركائنا في الشحن الموثوق بهم أو الشاحن الذي تفضله للتصدير.",
             "features": [
-                "Nationwide Coverage",
-                "Fast & Reliable Service",
-                "Competitive Pricing",
-                "Safe Transportation",
-                "3-days Pick up window",
-                "Experienced Dispatchers"
+                "تغطية شاملة للبلاد",
+                "خدمة سريعة وموثوقة",
+                "أسعار تنافسية",
+                "نقل آمن",
+                "نافذة استلام 3 أيام",
+                "مرسلون ذوو خبرة"
             ],
             "benefits": [
-                "Trusted Drivers",
-                "Common Routes",
-                "Avoid Storages"
+                "سائقون موثوقون",
+                "طرق شائعة",
+                "تجنب التخزين"
             ],
             "stats": {
-                "stat1": "استلام خلال 3 أيام",
+                "stat1": "استلام 3 أيام",
                 "stat2": "أكثر من 10 آلاف سائق"
             },
             "tag": "أسعار لا تقبل المنافسة",
@@ -145,18 +146,22 @@
             "subtitle": "شحن حاويات المحيط",
             "description": "شحن آمن للحاويات مع تحميل احترافي وتوحيد وتنسيق كامل لضمان وصول مركباتك بأمان وكفاءة إلى وجهتها.",
             "features": [
-                "Secure Container Loading",
-                "Export Documentation Support",
-                "Safe & Reliable Loading",
-                "Worldwide Shipping",
-                "Customs Clearance Assistance",
-                "Competitive Rates"
+                "تحميل آمن للحاويات",
+                "دعم وثائق التصدير",
+                "تحميل آمن وموثوق",
+                "شحن لجميع أنحاء العالم",
+                "مساعدة في التخليص الجمركي",
+                "أسعار تنافسية"
             ],
             "benefits": [
-                "Experienced logistics team",
-                "End-to-end tracking",
-                "All-In-One Service"
+                "فريق لوجستي ذو خبرة",
+                "تتبع من البداية للنهاية",
+                "خدمة شاملة"
             ],
+            "stats": {
+                "stat1": "دعم 24/7",
+                "stat2": "أكثر من 12 عاماً"
+            },
             "tag": "عروض أسعار مخصصة متاحة",
             "button": "احصل على عرض أسعار الآن",
             "footer": "تحميل آمن للحاويات * دعم وثائق التصدير * نقل آمن وموثوق"
@@ -166,22 +171,23 @@
             "subtitle": "حلول التوثيق",
             "description": "نحن نقدم حلولاً لمستندات المركبات المفقودة أو التي بها مشاكل، مما يساعد في حل مشكلات الملكية حتى يمكن تصدير مركباتك دون تأخير.",
             "features": [
-                "Bill of Sale Only",
-                "Junk Bill of sale",
-                "Lien Releases",
-                "Duplicate Titles",
-                "Open Liens",
-                "Lost titles"
+                "فاتورة بيع فقط",
+                "فاتورة بيع خردة",
+                "إبراء ذمة الرهن",
+                "عناوين مكررة",
+                "رهونات مفتوحة",
+                "عناوين مفقودة"
             ],
             "benefits": [
-                "Expert documentation team",
-                "Compliance guaranteed",
-                "Multiple solutions"
+                "فريق وثائق خبير",
+                "امتثال مضمون",
+                "حلول متعددة"
             ],
             "stats": {
                 "stat1": "لقب مفقود",
                 "stat2": "قطع غيار فقط"
             },
+            "tag": "",
             "button": "احصل على لقب جديد الآن",
             "footer": "فاتورة البيع فقط * الإفراج عن الرهن * نسخ مستحيلة"
         },
@@ -190,21 +196,22 @@
             "subtitle": "قطع نصف سيارات",
             "description": "نقوم بتفكيك المركبات بشكل احترافي وقطع الوحدات حسب طلبك ووفقًا للوائح التصدير، وتجهيزها بأمان وكفاءة للشحن الدولي.",
             "features": [
-                "Cost-Efficient Solutions",
-                "Half-Cut vehicles",
-                "Parts Sales",
-                "Junk vehicles",
-                "Palletized"
+                "حلول فعالة من حيث التكلفة",
+                "مركبات مقطوعة للنصف",
+                "مبيعات قطع الغيار",
+                "مركبات خردة",
+                "منصة نقالة (Palletized)"
             ],
             "benefits": [
-                "Maximize container space",
-                "Competitive pricing",
-                "Professional Dismantling"
+                "تعظيم مساحة الحاوية",
+                "أسعار تنافسية",
+                "تفكيك احترافي"
             ],
             "stats": {
                 "stat1": "سيارات مقطوعة",
                 "stat2": "نصف سيارات"
             },
+            "tag": "",
             "button": "اقطع المركبات الآن",
             "footer": "قطع نصفي للشحن * حلول فعالة من حيث التكلفة * تفكيك احترافي"
         },
@@ -213,16 +220,16 @@
             "subtitle": "إرشاد الخبراء والتمويل",
             "description": "إرشاد الخبراء وحلول مالية مرنة لمساعدتك في شراء وإدارة وشحن المركبات بثقة وكفاءة، لتجنب الأخطاء المكلفة.",
             "features": [
-                "Expert Vehicle Consultation",
-                "Financing Options",
-                "Credit Assistance",
-                "Market Insights",
-                "Personalized Solutions"
+                "استشارة خبراء المركبات",
+                "خيارات التمويل",
+                "مساعدة ائتمانية",
+                "رؤى السوق",
+                "حلول مخصصة"
             ],
             "benefits": [
-                "Professional guidance",
-                "Payment Solutions",
-                "Avoid Late Fee and Storages"
+                "توجيه مهني",
+                "حلول الدفع",
+                "تجنب الرسوم المتأخرة والتخزين"
             ],
             "stats": {
                 "stat1": "لا رسوم تأخير",
@@ -271,15 +278,15 @@
         }
     },
     "auctions": {
-        "title": "Trusted Auction Partners",
-        "subtitle": "Access to 1,000+ premium auctions nationwide"
+        "title": "شركاء المزادات الموثوقون",
+        "subtitle": "الوصول إلى أكثر من 1000 مزاد متميز على الصعيد الوطني"
     },
     "cta": {
-        "title": "Contact Us NOW",
-        "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
+        "title": "اتصل بنا الآن",
+        "subtitle": "كن شريكاً مع Motor X وتحرك بشكل أسرع وأكثر أماناً وذكاءً في سوق شحن السيارات العالمي.",
         "email": "bid@motorxcars.com",
         "phone": "(463) 280-3480",
-        "getInTouch": "Get in Touch"
+        "getInTouch": "تواصل معنا"
     },
     "servicesPage": {
         "hero": {

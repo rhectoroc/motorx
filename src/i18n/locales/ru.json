@@ -50,68 +50,69 @@
             "talkToExpert": "Поговорить с Экспертом"
         },
         "airFreight": {
-            "title": "Air Freight",
-            "subtitle": "SHIP YOUR PACKAGES",
-            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.",
+            "title": "Авиаперевозки",
+            "subtitle": "ОТПРАВЬТЕ ВАШИ ПОСЫЛКИ",
+            "description": "Быстрые и надежные авиаперевозки срочных автозапчастей и посылок, безопасно доставленные в пункт назначения.",
             "features": [
-                "Express Air Shipping",
-                "Commercial & Personal Cargo",
-                "Worldwide Delivery"
+                "Экспресс-авиадоставка",
+                "Коммерческие и личные грузы",
+                "Доставка по всему миру"
             ],
             "benefits": [
-                "Fast service",
-                "Low prices"
+                "Быстрый сервис",
+                "Низкие цены"
             ],
             "stats": {
-                "stat1": "Auto Parts",
-                "stat2": "Boxes Consolidation"
+                "stat1": "Автозапчасти",
+                "stat2": "Консолидация коробок"
             },
-            "tag": "Custom quotes available",
-            "button": "Send boxes now",
-            "footer": "Express Air Shipping * Commercial & Personal Cargo * Worldwide Delivery"
+            "tag": "Доступны индивидуальные котировки",
+            "button": "Отправить коробки сейчас",
+            "footer": "Экспресс-авиадоставка * Коммерческие и личные грузы * Доставка по всему миру"
         },
         "roro": {
-            "title": "RO-RO Shipping",
-            "subtitle": "ROLL ON - ROLL OFF",
-            "description": "Ship oversized or non-containerized vehicles! Safe and efficient service to transport trucks, heavy equipment, and large units worldwide.",
+            "title": "RO-RO Перевозки",
+            "subtitle": "НАКАТ - СКАТ (ROLL ON - ROLL OFF)",
+            "description": "Отправляйте негабаритные или неконтейнерные транспортные средства! Безопасный и эффективный сервис для перевозки грузовиков, тяжелого оборудования и крупных агрегатов по всему миру.",
             "features": [
-                "For Oversized Vehicle",
-                "Heavy Equipment",
-                "Heavy Machinery"
+                "Для негабаритных ТС",
+                "Тяжелое оборудование",
+                "Тяжелая техника"
             ],
             "benefits": [
-                "Port-to-Port Service",
-                "No container needed"
+                "Сервис от порта до порта",
+                "Контейнер не требуется"
             ],
             "stats": {
-                "stat1": "Oversized Vehicles",
-                "stat2": "Heavy Equipment"
+                "stat1": "Негабаритные ТС",
+                "stat2": "Тяжелое оборудование"
             },
-            "tag": "Quotes per Volume",
-            "button": "Send RO-RO now",
-            "footer": "For Oversized Vehicles * Port-to-Port Service * Heavy Equipment"
+            "tag": "Котировки по объему",
+            "button": "Отправить RO-RO сейчас",
+            "footer": "Для негабаритных ТС * Сервис от порта до порта * Тяжелое оборудование"
         },
         "subscription": {
             "title": "Подписка на Аукционы",
             "subtitle": "ВАШИ СОБСТВЕННЫЕ АККАУНТЫ УЧАСТНИКА ТОРГОВ",
             "description": "Получите доступ к крупным автоаукционам США через наш аккаунт, с более низкими комиссиями, доступом к закрытым штатам (Мичиган, Висконсин и Алабама) и полной поддержкой для вас и ваших участников торгов.",
             "features": [
-                "Wisconsin Bid Card",
-                "Michigan Bid Card",
-                "Alabama Bid Card",
-                "Lowest Auction Fees",
-                "Affordable Broker Fees",
-                "Unlimited Bids"
+                "Карта участника торгов Висконсина",
+                "Карта участника торгов Мичигана",
+                "Карта участника торгов Алабамы",
+                "Самые низкие аукционные сборы",
+                "Доступные брокерские комиссии",
+                "Неограниченные ставки"
             ],
             "benefits": [
-                "No hidden fees",
-                "Cancel anytime",
-                "100% transparent"
+                "Без скрытых комиссий",
+                "Отмена в любое время",
+                "100% прозрачность"
             ],
             "stats": {
                 "stat1": "Закрытые Штаты",
                 "stat2": "Низкие Комиссии"
             },
+            "tag": "Низкая Брокерская Комиссия",
             "button": "Получите свои аккаунты сейчас",
             "footer": "Без скрытых комиссий * отмена в любое время * 100% прозрачность"
         },
@@ -120,17 +121,17 @@
             "subtitle": "УСЛУГИ ПО ТРАНСПОРТИРОВКЕ АВТОМОБИЛЕЙ",
             "description": "Мы координируем быстрый и надежный забор транспортных средств с аукционов или от дилеров и доставляем их напрямую нашим надежным партнерам по доставке или грузоотправителю по вашему выбору для экспорта.",
             "features": [
-                "Nationwide Coverage",
-                "Fast & Reliable Service",
-                "Competitive Pricing",
-                "Safe Transportation",
-                "3-days Pick up window",
-                "Experienced Dispatchers"
+                "Покрытие по всей стране",
+                "Быстрый и надежный сервис",
+                "Конкурентные цены",
+                "Безопасная транспортировка",
+                "3-дневное окно самовывоза",
+                "Опытные диспетчеры"
             ],
             "benefits": [
-                "Trusted Drivers",
-                "Common Routes",
-                "Avoid Storages"
+                "Надежные водители",
+                "Популярные маршруты",
+                "Избегайте хранения"
             ],
             "stats": {
                 "stat1": "Забор за 3 Дня",
@@ -145,18 +146,22 @@
             "subtitle": "МОРСКИЕ КОНТЕЙНЕРНЫЕ ПЕРЕВОЗКИ",
             "description": "Безопасные контейнерные перевозки с профессиональной погрузкой, консолидацией и полной координацией для обеспечения безопасной и эффективной доставки ваших автомобилей в пункт назначения.",
             "features": [
-                "Secure Container Loading",
-                "Export Documentation Support",
-                "Safe & Reliable Loading",
-                "Worldwide Shipping",
-                "Customs Clearance Assistance",
-                "Competitive Rates"
+                "Безопасная погрузка контейнеров",
+                "Поддержка экспортной документации",
+                "Безопасная и надежная погрузка",
+                "Доставка по всему миру",
+                "Помощь в таможенном оформлении",
+                "Конкурентные тарифы"
             ],
             "benefits": [
-                "Experienced logistics team",
-                "End-to-end tracking",
-                "All-In-One Service"
+                "Опытная логистическая команда",
+                "Сквозное отслеживание",
+                "Комплексный сервис"
             ],
+            "stats": {
+                "stat1": "Поддержка 24/7",
+                "stat2": "12+ лет"
+            },
             "tag": "Доступны индивидуальные котировки",
             "button": "Получить котировку сейчас",
             "footer": "Безопасная Погрузка Контейнеров * Поддержка Экспортной Документации * Безопасная и Надежная Транспортировка"
@@ -166,22 +171,23 @@
             "subtitle": "РЕШЕНИЯ ДЛЯ ДОКУМЕНТАЦИИ",
             "description": "Мы предоставляем решения для проблемных или отсутствующих документов на транспортные средства, помогая решить проблемы с титулами, чтобы ваши автомобили могли быть экспортированы без задержек.",
             "features": [
-                "Bill of Sale Only",
-                "Junk Bill of sale",
-                "Lien Releases",
-                "Duplicate Titles",
-                "Open Liens",
-                "Lost titles"
+                "Только купчая (Bill of Sale)",
+                "Купчая на утиль",
+                "Снятие залога",
+                "Дубликаты титулов",
+                "Открытые залоги",
+                "Утерянные титулы"
             ],
             "benefits": [
-                "Expert documentation team",
-                "Compliance guaranteed",
-                "Multiple solutions"
+                "Команда экспертов по документации",
+                "Гарантия соответствия",
+                "Множество решений"
             ],
             "stats": {
                 "stat1": "Утерянный Титул",
                 "stat2": "Только Запчасти"
             },
+            "tag": "",
             "button": "Получить новый титул сейчас",
             "footer": "Только Купля-Продажа * Освобождение от Залога * Невозможные Дубликаты"
         },
@@ -190,21 +196,22 @@
             "subtitle": "РАСПИЛ АВТОМОБИЛЕЙ",
             "description": "Мы профессионально разбираем автомобили и режем агрегаты по вашему запросу и в соответствии с экспортными правилами, безопасно и эффективно подготавливая их к международной доставке.",
             "features": [
-                "Cost-Efficient Solutions",
-                "Half-Cut vehicles",
-                "Parts Sales",
-                "Junk vehicles",
-                "Palletized"
+                "Экономичные решения",
+                "Распиленные автомобили (Half-Cut)",
+                "Продажа запчастей",
+                "Утиль авто",
+                "Паллетирование"
             ],
             "benefits": [
-                "Maximize container space",
-                "Competitive pricing",
-                "Professional Dismantling"
+                "Максимизация места в контейнере",
+                "Конкурентные цены",
+                "Профессиональный демонтаж"
             ],
             "stats": {
                 "stat1": "Распиленные Авто",
                 "stat2": "Половинки Авто"
             },
+            "tag": "",
             "button": "Распилить автомобили сейчас",
             "footer": "Распил для Доставки * Экономичные Решения * Профессиональный Демонтаж"
         },
@@ -213,16 +220,16 @@
             "subtitle": "Экспертное Руководство и Финансирование",
             "description": "Экспертное руководство и гибкие финансовые решения, которые помогут вам покупать, управлять и отправлять автомобили с уверенностью и эффективностью, избегая дорогостоящих ошибок.",
             "features": [
-                "Expert Vehicle Consultation",
-                "Financing Options",
-                "Credit Assistance",
-                "Market Insights",
-                "Personalized Solutions"
+                "Экспертная консультация по авто",
+                "Варианты финансирования",
+                "Кредитная помощь",
+                "Анализ рынка",
+                "Индивидуальные решения"
             ],
             "benefits": [
-                "Professional guidance",
-                "Payment Solutions",
-                "Avoid Late Fee and Storages"
+                "Профессиональное руководство",
+                "Платежные решения",
+                "Избегайте штрафов за просрочку и хранение"
             ],
             "stats": {
                 "stat1": "НЕТ Штрафов за Просрочку",
@@ -271,15 +278,15 @@
         }
     },
     "auctions": {
-        "title": "Trusted Auction Partners",
-        "subtitle": "Access to 1,000+ premium auctions nationwide"
+        "title": "Надежные аукционные партнеры",
+        "subtitle": "Доступ к более чем 1000 премиальных аукционов по всей стране"
     },
     "cta": {
-        "title": "Contact Us NOW",
-        "subtitle": "Partner with Motor X and move faster, safer, and smarter in the global vehicle shipping market.",
+        "title": "Свяжитесь с нами СЕЙЧАС",
+        "subtitle": "Станьте партнером Motor X и двигайтесь быстрее, безопаснее и умнее на мировом рынке доставки автомобилей.",
         "email": "bid@motorxcars.com",
         "phone": "(463) 280-3480",
-        "getInTouch": "Get in Touch"
+        "getInTouch": "Связаться"
     },
     "servicesPage": {
         "hero": {
