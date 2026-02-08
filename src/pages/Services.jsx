@@ -181,13 +181,19 @@ function Services() {
                                     {/* Features */}
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
-                                            <Check className="w-4 h-4 text-motorx-red rtl:order-last" />
+                                            {(() => {
+                                                const FeatureIcon = LucideIcons[service.icon] || Check;
+                                                return <FeatureIcon className="w-4 h-4 text-motorx-red rtl:order-last" />;
+                                            })()}
                                             <span className="rtl:order-first">{t('common.features')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
                                                 <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2">
-                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />
+                                                    {(() => {
+                                                        const ListIcon = LucideIcons[service.icon] || Check;
+                                                        return <ListIcon className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />;
+                                                    })()}
                                                     <span className="rtl:order-first">{feature}</span>
                                                 </li>
                                             ))}
