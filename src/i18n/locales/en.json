@@ -44,7 +44,7 @@
         },
         "subtitle": "End-to-end automotive solutions all managed through Motor X Logistic Cloud",
         "cta": {
-            "title": "Ready to Get Started?",
+            "title": "Ready to take your Vehicle Purchasing and Shipping Business to the Next Level?",
             "subtitle": "Join thousands of satisfied customers and experience the Motor X difference today.",
             "viewAll": "View All Services",
             "talkToExpert": "Contact Us Now"
@@ -187,7 +187,7 @@
                 "stat1": "Lost Title",
                 "stat2": "Parts Only"
             },
-            "tag": "starting at $75",
+            "tag": "",
             "button": "Get a new title now",
             "footer": "Bill of Sale Only * Lien Release * Impossible Duplicates"
         },
@@ -211,7 +211,7 @@
                 "stat1": "Cut Cars",
                 "stat2": "Half Cars"
             },
-            "tag": "starting at $600",
+            "tag": "",
             "button": "Cut vehicles now",
             "footer": "Half-Cut for Shipping * Cost-Efficient Solutions * Professional Dismantling"
         },

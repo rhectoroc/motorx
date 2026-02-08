@@ -199,7 +199,7 @@ export const stats = [
     },
     {
         id: 'auctions',
-        value: '100+',
+        value: '1,000+',
         label: 'Auctions Access',
         icon: 'Building2'
     },

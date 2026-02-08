@@ -192,7 +192,7 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.4 : 0.0,
+                                    opacity: index === currentBg ? 0.2 : 0.0,
                                 }}
                             >
                                 <div
@@ -209,7 +209,7 @@ function Home() {
 
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-normal">
                         {t('hero.title.logistics').split('').map((char, i) => (
                             <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}
