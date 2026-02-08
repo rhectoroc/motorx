@@ -187,7 +187,7 @@ function Services() {
                                     <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors perspective-1000">
                                         {splitText(t(`services.${service.id}.title`))}
                                     </h3>
-                                    <div className="text-motorx-red text-sm mb-4 uppercase tracking-wider overflow-hidden">
+                                    <div className="text-motorx-red text-sm mb-4 uppercase tracking-wider">
                                         {t(`services.${service.id}.subtitle`).split('').map((char, i) => (
                                             <span key={i} className="service-subtitle-char inline-block whitespace-pre" style={{ opacity: 0.8 }}>
                                                 {char}

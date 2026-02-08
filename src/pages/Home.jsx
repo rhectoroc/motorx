@@ -221,7 +221,7 @@ function Home() {
 
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-normal">
+                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-normal" dir="ltr">
                         {t('hero.title.logistics').split('').map((char, i) => (
                             <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}

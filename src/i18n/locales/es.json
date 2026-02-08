@@ -158,6 +158,10 @@
                 "Seguimiento de extremo a extremo",
                 "Servicio Todo en Uno"
             ],
+            "stats": {
+                "stat1": "24/7 support",
+                "stat2": "12+ years"
+            },
             "tag": "Cotizaciones personalizadas disponibles",
             "button": "Obtener cotización ahora",
             "footer": "Carga Segura de Contenedores * Soporte Documentación Exportación * Transporte Seguro"
@@ -183,6 +187,7 @@
                 "stat1": "Título Perdido",
                 "stat2": "Solo Partes"
             },
+            "tag": "",
             "button": "Obtener nuevo título ahora",
             "footer": "Solo Factura de Venta * Liberación de Gravamen * Duplicados Imposibles"
         },
@@ -206,6 +211,7 @@
                 "stat1": "Autos Cortados",
                 "stat2": "Medios Autos"
             },
+            "tag": "",
             "button": "Cortar vehículos ahora",
             "footer": "Corte a la Mitad para Envío * Soluciones Rentables * Desmantelamiento Profesional"
         },
@@ -271,13 +277,24 @@
             }
         }
     },
+    "auctions": {
+        "title": "Socios de Subastas de Confianza",
+        "subtitle": "Acceso a más de 1,000 subastas premium a nivel nacional"
+    },
+    "cta": {
+        "title": "Contáctenos AHORA",
+        "subtitle": "Asóciese con Motor X y muévase más rápido, más seguro y más inteligente en el mercado global de envío de vehículos.",
+        "email": "bid@motorxcars.com",
+        "phone": "(463) 280-3480",
+        "getInTouch": "Ponte en Contacto"
+    },
     "servicesPage": {
         "hero": {
             "title": {
                 "main": "Nuestros",
                 "accent": "Servicios"
             },
-            "subtitle": "Soluciones automotrices de extremo a extremo que incluyen acceso a subastas, despacho, procesamiento de títulos, desmantelamiento, envío global, apoyo financiero y consultoría experta, todo gestionado a través de Motor X Logistic Cloud"
+            "subtitle": "Soluciones automotrices de extremo a extremo que incluyen acceso a subastas, despacho, procesamiento de títulos, desmantelamiento, envío global, apoyo financiero y consultoría experta, todo gestionado a través de Motor X Logistic Cloud."
         },
         "cta": {
             "title": {
