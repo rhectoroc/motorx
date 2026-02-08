@@ -89,6 +89,18 @@ function Services() {
                                 ease: 'power3.out'
                             }
                         );
+
+                        // Infinite wave animation for subtitle
+                        gsap.to(card.querySelectorAll('.service-subtitle-char'), {
+                            y: -3,
+                            stagger: {
+                                each: 0.1,
+                                repeat: -1,
+                                yoyo: true
+                            },
+                            duration: 1,
+                            ease: 'sine.inOut'
+                        });
                     });
                 }
             }
