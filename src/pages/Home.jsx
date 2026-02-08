@@ -9,14 +9,14 @@ import { allServices as services, stats, registrationSteps, auctions } from '../
 import heroBackground1 from '../assets/hero-background.png';
 import heroBackground2 from '../assets/hero-background-2.png';
 import heroBackground3 from '../assets/hero-background-3.png';
-import iaaLogo from '../assets/auction-logos/iaa-logo.png';
-import copartLogo from '../assets/auction-logos/copart-logo.png';
-import manheimLogo from '../assets/auction-logos/manheim-logo.png';
-import adesaLogo from '../assets/auction-logos/adesa-logo.png';
-import impactAutoLogo from '../assets/auction-logos/impact-auto-logo.png';
-import acvLogo from '../assets/auction-logos/acv-logo.png';
-import edgePipelineLogo from '../assets/auction-logos/edge-pipeline-logo.png';
-import salvatoLogo from '../assets/auction-logos/salvato-logo.png';
+import americasLogo from '../assets/auction-logos/Americas Auto Auction.png';
+import carmaxLogo from '../assets/auction-logos/CarMax-Logo.png';
+import iaaLogo from '../assets/auction-logos/IAA.png';
+import manheimLogo from '../assets/auction-logos/Manheim.png';
+import acvLogo from '../assets/auction-logos/acv.png';
+import adesaLogo from '../assets/auction-logos/adesa.png';
+import copartLogo from '../assets/auction-logos/copart white.png';
+import edgePipelineLogo from '../assets/auction-logos/edge pipe.png';
 import SEO from '../components/SEO';
 
 
@@ -30,6 +30,18 @@ function Home() {
     const [currentBg, setCurrentBg] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const backgrounds = [heroBackground1, heroBackground2, heroBackground3];
+
+    // Array of logos for cleaner rendering
+    const auctionLogos = [
+        { src: copartLogo, alt: 'Copart' },
+        { src: iaaLogo, alt: 'IAA' },
+        { src: manheimLogo, alt: 'Manheim' },
+        { src: adesaLogo, alt: 'ADESA' },
+        { src: acvLogo, alt: 'ACV Auctions' },
+        { src: edgePipelineLogo, alt: 'Edge Pipeline' },
+        { src: americasLogo, alt: 'Americas Auto Auction' }, // New
+        { src: carmaxLogo, alt: 'CarMax' }, // New
+    ];
 
     useEffect(() => {
         // Background carousel with slide effect
@@ -467,23 +479,13 @@ function Home() {
                     <div className="marquee-container">
                         <div className="marquee-content">
                             {/* Primera copia de logos */}
-                            <img src={iaaLogo} alt="IAA" className="marquee-logo" />
-                            <img src={copartLogo} alt="Copart" className="marquee-logo" />
-                            <img src={manheimLogo} alt="Manheim" className="marquee-logo" />
-                            <img src={adesaLogo} alt="ADESA" className="marquee-logo" />
-                            <img src={impactAutoLogo} alt="Impact Auto" className="marquee-logo" />
-                            <img src={acvLogo} alt="ACV Auctions" className="marquee-logo" />
-                            <img src={edgePipelineLogo} alt="Edge Pipeline" className="marquee-logo" />
-                            <img src={salvatoLogo} alt="SALVATO" className="marquee-logo" />
+                            {auctionLogos.map((logo, index) => (
+                                <img key={`logo-1-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                            ))}
                             {/* Segunda copia para efecto infinito */}
-                            <img src={iaaLogo} alt="IAA" className="marquee-logo" />
-                            <img src={copartLogo} alt="Copart" className="marquee-logo" />
-                            <img src={manheimLogo} alt="Manheim" className="marquee-logo" />
-                            <img src={adesaLogo} alt="ADESA" className="marquee-logo" />
-                            <img src={impactAutoLogo} alt="Impact Auto" className="marquee-logo" />
-                            <img src={acvLogo} alt="ACV Auctions" className="marquee-logo" />
-                            <img src={edgePipelineLogo} alt="Edge Pipeline" className="marquee-logo" />
-                            <img src={salvatoLogo} alt="SALVATO" className="marquee-logo" />
+                            {auctionLogos.map((logo, index) => (
+                                <img key={`logo-2-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                            ))}
                         </div>
                     </div>
                 </div>
