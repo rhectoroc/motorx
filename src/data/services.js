@@ -119,7 +119,7 @@ export const allServices = [
         id: 'consultation',
         title: 'Consultation and Financial Services',
         subtitle: 'Expert Guidance & Financing',
-        description: 'Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.',
+        description: 'Expert guidance and flexible financial solutions to help you purchase, manage, and ship vehicles with confidence and efficiency, to avoid costly mistakes.',
         icon: 'BadgeDollarSign',
         features: [
             'Expert Vehicle Consultation',
