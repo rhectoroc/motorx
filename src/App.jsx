@@ -8,10 +8,12 @@ import SingleBid from './pages/SingleBid';
 import Subscription from './pages/Subscription';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 function App() {
     return (
         <Router>
+            <AnalyticsTracker />
             <div className="min-h-screen flex flex-col">
                 <Navbar />
                 <main className="flex-grow">
