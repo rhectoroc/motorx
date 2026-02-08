@@ -181,20 +181,17 @@ function Services() {
                                     {/* Features */}
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
-                                            {(() => {
-                                                const FeatureIcon = LucideIcons[service.icon] || Check;
-                                                return <FeatureIcon className="w-4 h-4 text-motorx-red rtl:order-last" />;
-                                            })()}
+                                            <Check className="w-4 h-4 text-motorx-red rtl:order-last" />
                                             <span className="rtl:order-first">{t('common.features')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
-                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2">
+                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2 group/item">
                                                     {(() => {
                                                         const ListIcon = LucideIcons[service.icon] || Check;
-                                                        return <ListIcon className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />;
+                                                        return <ListIcon className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last drop-shadow-[0_0_8px_rgba(220,38,38,0.5)] group-hover/item:scale-110 transition-transform" />;
                                                     })()}
-                                                    <span className="rtl:order-first">{feature}</span>
+                                                    <span className="rtl:order-first group-hover/item:text-white transition-colors">{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -208,9 +205,12 @@ function Services() {
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
-                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2">
-                                                    <ArrowRight className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:rotate-180 rtl:order-last" />
-                                                    <span className="rtl:order-first">{benefit}</span>
+                                                <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2 group/item">
+                                                    {(() => {
+                                                        const ListIcon = LucideIcons[service.icon] || Check;
+                                                        return <ListIcon className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last drop-shadow-[0_0_8px_rgba(220,38,38,0.5)] group-hover/item:scale-110 transition-transform" />;
+                                                    })()}
+                                                    <span className="rtl:order-first group-hover/item:text-white transition-colors">{benefit}</span>
                                                 </li>
                                             ))}
                                         </ul>
