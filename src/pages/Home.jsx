@@ -204,7 +204,7 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.2 : 0.0,
+                                    opacity: index === currentBg ? 0.6 : 0.0,
                                 }}
                             >
                                 <div
@@ -216,7 +216,7 @@ function Home() {
                             </div>
                         );
                     })}
-                    <div className="absolute inset-0 bg-gradient-to-b from-motorx-black/70 via-motorx-black/50 to-motorx-black pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-motorx-black/40 via-motorx-black/20 to-motorx-black pointer-events-none"></div>
                 </div>
 
                 {/* Hero Content */}
