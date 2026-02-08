@@ -367,14 +367,15 @@ function Home() {
                                             </div>
                                         )}
 
-                                        {/* CTA Button */}
-                                        <Link
-                                            to={service.link}
+                                        <a
+                                            href={service.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="btn-primary group inline-flex items-center mb-6"
                                         >
                                             {t(`services.${service.id}.button`)}
                                             <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
-                                        </Link>
+                                        </a>
 
                                         {/* Footer */}
                                         <div className="mt-6 pt-6 border-t border-motorx-gray-800 text-sm text-motorx-gray-400">

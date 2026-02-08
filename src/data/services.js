@@ -21,7 +21,7 @@ export const allServices = [
             'Dedicated account manager'
         ],
         pricing: 'Plans from $299/month',
-        link: '/subscription'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'dispatch',
@@ -44,7 +44,7 @@ export const allServices = [
             'Multiple vehicle transport'
         ],
         pricing: 'Starting at $0.50/mile',
-        link: '/dispatch'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'shipping',
@@ -67,7 +67,7 @@ export const allServices = [
             'End-to-end tracking'
         ],
         pricing: 'Custom quotes available',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'titles',
@@ -90,7 +90,7 @@ export const allServices = [
             'Nationwide coverage'
         ],
         pricing: 'Starting at $75',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'dismantling',
@@ -113,7 +113,7 @@ export const allServices = [
             'Competitive pricing'
         ],
         pricing: 'Contact for quote',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'consultation',
@@ -136,7 +136,7 @@ export const allServices = [
             'Fast approval process'
         ],
         pricing: 'Free consultation',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'airFreight',
@@ -159,7 +159,7 @@ export const allServices = [
             'Secure handling'
         ],
         pricing: 'Custom quotes available',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     },
     {
         id: 'roro',
@@ -182,7 +182,7 @@ export const allServices = [
             'Regular schedules'
         ],
         pricing: 'Quotes per Volume',
-        link: '/services'
+        link: 'https://wa.link/xd8j23'
     }
 ];
 
