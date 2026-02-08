@@ -187,22 +187,28 @@ function Services() {
                                     <h3 className="text-3xl font-bold mb-2 group-hover:text-motorx-red transition-colors perspective-1000">
                                         {splitText(t(`services.${service.id}.title`))}
                                     </h3>
-                                    <p className="text-motorx-red text-sm mb-4 uppercase tracking-wider">{t(`services.${service.id}.subtitle`)}</p>
+                                    <div className="text-motorx-red text-sm mb-4 uppercase tracking-wider overflow-hidden">
+                                        {t(`services.${service.id}.subtitle`).split('').map((char, i) => (
+                                            <span key={i} className="service-subtitle-char inline-block whitespace-pre" style={{ opacity: 0.8 }}>
+                                                {char}
+                                            </span>
+                                        ))}
+                                    </div>
                                     <p className="text-motorx-gray-300 mb-6 flex-grow leading-relaxed">{t(`services.${service.id}.description`)}</p>
 
                                     {/* Features */}
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
-                                            <Check className="w-4 h-4 text-motorx-red rtl:order-last" />
+                                            {(() => {
+                                                const FeatureIcon = LucideIcons[service.icon] || Check;
+                                                return <FeatureIcon className="w-5 h-5 text-motorx-red rtl:order-last" />;
+                                            })()}
                                             <span className="rtl:order-first">{t('common.features')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.features`, { returnObjects: true }) || {}).map((feature, idx) => (
                                                 <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2 group/item">
-                                                    {(() => {
-                                                        const ListIcon = LucideIcons[service.icon] || Check;
-                                                        return <ListIcon className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last drop-shadow-[0_0_8px_rgba(220,38,38,0.5)] group-hover/item:scale-110 transition-transform" />;
-                                                    })()}
+                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />
                                                     <span className="rtl:order-first group-hover/item:text-white transition-colors">{feature}</span>
                                                 </li>
                                             ))}
@@ -212,34 +218,31 @@ function Services() {
                                     {/* Benefits */}
                                     <div className="mb-6">
                                         <h4 className="font-semibold mb-3 text-motorx-white flex flex-row items-center gap-2">
-                                            <Sparkles className="w-4 h-4 text-motorx-red rtl:order-last" />
+                                            <Sparkles className="w-5 h-5 text-motorx-red rtl:order-last" />
                                             <span className="rtl:order-first">{t('common.benefits')}</span>
                                         </h4>
                                         <ul className="space-y-2">
                                             {Object.values(t(`services.${service.id}.benefits`, { returnObjects: true }) || {}).map((benefit, idx) => (
                                                 <li key={idx} className="feature-item flex flex-row items-start text-sm text-motorx-gray-300 gap-2 group/item">
-                                                    {(() => {
-                                                        const ListIcon = LucideIcons[service.icon] || Check;
-                                                        return <ListIcon className="w-5 h-5 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last drop-shadow-[0_0_8px_rgba(220,38,38,0.5)] group-hover/item:scale-110 transition-transform" />;
-                                                    })()}
+                                                    <Check className="w-4 h-4 text-motorx-red mt-0.5 flex-shrink-0 rtl:order-last" />
                                                     <span className="rtl:order-first group-hover/item:text-white transition-colors">{benefit}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
 
-
-
                                     {/* CTA */}
-                                    <a
-                                        href={service.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn-primary w-full text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
-                                    >
-                                        {t('common.learnMore')}
-                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
-                                    </a>
+                                    <div className="mt-auto">
+                                        <a
+                                            href={service.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn-primary w-fit px-8 py-2 text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
+                                        >
+                                            {t('common.learnMore')}
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         ))}
