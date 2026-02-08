@@ -52,7 +52,7 @@
         "airFreight": {
             "title": "Air Freight",
             "subtitle": "SHIP YOUR PACKAGES",
-            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.",
+            "description": "Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.",
             "features": [
                 "Express Air Shipping",
                 "Commercial & Personal Cargo",
@@ -94,7 +94,7 @@
         "subscription": {
             "title": "Auction Subscription",
             "subtitle": "YOUR OWN BIDDER ACCOUNTS",
-            "description": "Get access to major U.S. auto auctions through our account, with lower fees, access to closed states (Michigan, Wisconsin and Alabama), and full support for you and your bidders.",
+            "description": "Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.",
             "features": [
                 "Wisconsin Bid Card",
                 "Michigan Bid Card",
@@ -119,7 +119,7 @@
         "dispatch": {
             "title": "Dispatch",
             "subtitle": "VEHICLE TRANSPORTATION SERVICES",
-            "description": "We coordinate fast and reliable vehicle pickup from auctions or dealers and deliver directly to our trusted shipping partners or the shipper of your preference for export.",
+            "description": "We will transport your vehicles from any Auction or Dealer to the Shipper of your preference, fast, cheap, and safe.",
             "features": [
                 "Nationwide Coverage",
                 "Fast & Reliable Service",
@@ -144,7 +144,7 @@
         "shipping": {
             "title": "International Shipping",
             "subtitle": "OCEAN CONTAINER SHIPPING",
-            "description": "Secure container shipping with professional loading, consolidation, and full coordination to ensure your vehicles arrive safely and efficiently at their destination.",
+            "description": "Ship your vehicles anywhere in the world with our trusted international shipping service.",
             "features": [
                 "Secure Container Loading",
                 "Export Documentation Support",
@@ -169,7 +169,7 @@
         "titles": {
             "title": "Title Services",
             "subtitle": "DOCUMENTATION SOLUTIONS",
-            "description": "We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.",
+            "description": "Fix title and document issues so your vehicles can be exported without delays.",
             "features": [
                 "Bill of Sale Only",
                 "Junk Bill of sale",
@@ -194,7 +194,7 @@
         "dismantling": {
             "title": "Dismantling Services",
             "subtitle": "CUT HALF CARS",
-            "description": "We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.",
+            "description": "Professionally dismantle vehicles and cut units per your request and prepare them for safely and efficiently shipping.",
             "features": [
                 "Cost-Efficient Solutions",
                 "Half-Cut vehicles",
@@ -218,7 +218,7 @@
         "consultation": {
             "title": "Consultation and Financial Services",
             "subtitle": "Expert Guidance & Financing",
-            "description": "Expert guidance and flexible financial solutions to help you purchase, manage, and ship vehicles with confidence and efficiency, to avoid costly mistakes.",
+            "description": "Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.",
             "features": [
                 "Expert Vehicle Consultation",
                 "Financing Options",

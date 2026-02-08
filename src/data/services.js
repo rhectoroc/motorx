@@ -7,18 +7,17 @@ export const allServices = [
         description: 'Do you want control over your bids? Convenient! Cheaper! Get your own bidder account.',
         icon: 'Gavel',
         features: [
-            'Your Own Bidder Account',
-            'Access to 100+ Auctions',
-            'Lower Transaction Fees',
-            'Full Transparency',
-            'Unlimited Bids',
-            'Priority Support'
+            'Wisconsin Bid Card',
+            'Michigan Bid Card',
+            'Alabama Bid Card',
+            'Lowest Auction Fees',
+            'Affordable Broker Fees',
+            'Unlimited Bids'
         ],
         benefits: [
-            'Complete control',
-            'Save on fees',
-            'Direct auction access',
-            'Dedicated account manager'
+            'No hidden fees',
+            'Cancel anytime',
+            '100% transparent'
         ],
         pricing: 'Plans from $299/month',
         link: 'https://wa.link/xd8j23'
@@ -34,14 +33,13 @@ export const allServices = [
             'Fast & Reliable Service',
             'Competitive Pricing',
             'Safe Transportation',
-            'Real-time Tracking',
-            'Insured Shipments'
+            '3-days Pick up window',
+            'Experienced Dispatchers'
         ],
         benefits: [
-            'Door-to-door service',
-            'Flexible scheduling',
-            'Professional drivers',
-            'Multiple vehicle transport'
+            'Trusted Drivers',
+            'Common Routes',
+            'Avoid Storages'
         ],
         pricing: 'Starting at $0.50/mile',
         link: 'https://wa.link/xd8j23'
@@ -50,21 +48,20 @@ export const allServices = [
         id: 'shipping',
         title: 'International Shipping',
         subtitle: 'Global Vehicle Export',
-        description: 'Secure container shipping with professional loading, consolidation, and full coordination to ensure your vehicles arrive safely and efficiently at their destination.',
+        description: 'Ship your vehicles anywhere in the world with our trusted international shipping service.',
         icon: 'Ship',
         features: [
+            'Secure Container Loading',
+            'Export Documentation Support',
+            'Safe & Reliable Loading',
             'Worldwide Shipping',
-            'Container & RoRo Options',
             'Customs Clearance Assistance',
-            'Door-to-Port Service',
-            'Competitive Rates',
-            'Cargo Insurance'
+            'Competitive Rates'
         ],
         benefits: [
-            'Export documentation',
-            'Multiple shipping methods',
             'Experienced logistics team',
-            'End-to-end tracking'
+            'End-to-end tracking',
+            'All-In-One Service'
         ],
         pricing: 'Custom quotes available',
         link: 'https://wa.link/xd8j23'
@@ -73,21 +70,20 @@ export const allServices = [
         id: 'titles',
         title: 'Title Services',
         subtitle: 'Document Processing',
-        description: 'We provide solutions for problematic or missing vehicle documents, helping resolve title issues so your vehicles can be exported without delays.',
+        description: 'Fix title and document issues so your vehicles can be exported without delays.',
         icon: 'FileText',
         features: [
-            'Title Processing',
+            'Bill of Sale Only',
+            'Junk Bill of sale',
             'Lien Releases',
             'Duplicate Titles',
-            'Out-of-State Transfers',
-            'Salvage Title Conversion',
-            'Fast Turnaround'
+            'Open Liens',
+            'Lost titles'
         ],
         benefits: [
-            'Expert handling',
+            'Expert documentation team',
             'Compliance guaranteed',
-            'Time-saving service',
-            'Nationwide coverage'
+            'Multiple solutions'
         ],
         pricing: 'Starting at $75',
         link: 'https://wa.link/xd8j23'
@@ -96,21 +92,19 @@ export const allServices = [
         id: 'dismantling',
         title: 'Dismantling Services',
         subtitle: 'Parts & Salvage',
-        description: 'We professionally dismantle vehicles and cut units per your request and in compliance with export regulations, preparing them safely and efficiently for international shipping.',
+        description: 'Professionally dismantle vehicles and cut units per your request and prepare them for safely and efficiently shipping.',
         icon: 'Wrench',
         features: [
-            'Professional Dismantling',
-            'Parts Inventory',
-            'Quality Testing',
-            'Eco-Friendly Disposal',
+            'Cost-Efficient Solutions',
+            'Half-Cut vehicles',
             'Parts Sales',
-            'Scrap Metal Recycling'
+            'Junk vehicles',
+            'Palletized'
         ],
         benefits: [
-            'Maximize vehicle value',
-            'Environmental compliance',
-            'Quality parts guarantee',
-            'Competitive pricing'
+            'Maximize container space',
+            'Competitive pricing',
+            'Professional Dismantling'
         ],
         pricing: 'Contact for quote',
         link: 'https://wa.link/xd8j23'
@@ -119,21 +113,19 @@ export const allServices = [
         id: 'consultation',
         title: 'Consultation and Financial Services',
         subtitle: 'Expert Guidance & Financing',
-        description: 'Expert guidance and flexible financial solutions to help you purchase, manage, and ship vehicles with confidence and efficiency, to avoid costly mistakes.',
+        description: 'Get expert consultation on vehicle purchases and access flexible financing options tailored to your needs.',
         icon: 'BadgeDollarSign',
         features: [
             'Expert Vehicle Consultation',
             'Financing Options',
             'Credit Assistance',
-            'Investment Analysis',
             'Market Insights',
             'Personalized Solutions'
         ],
         benefits: [
             'Professional guidance',
-            'Flexible payment plans',
-            'Competitive rates',
-            'Fast approval process'
+            'Payment Solutions',
+            'Avoid Late Fee and Storages'
         ],
         pricing: 'Free consultation',
         link: 'https://wa.link/xd8j23'
@@ -142,21 +134,16 @@ export const allServices = [
         id: 'airFreight',
         title: 'Air Freight',
         subtitle: 'SHIP YOUR PACKAGES',
-        description: 'Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination worldwide.',
+        description: 'Fast and reliable air freight for urgent vehicle parts and packages, delivered safely to your destination.',
         icon: 'Plane',
         features: [
             'Express Air Shipping',
             'Commercial & Personal Cargo',
-            'Worldwide Delivery',
-            'Priority Handling',
-            'Door-to-Door',
-            'Customs Clearance'
+            'Worldwide Delivery'
         ],
         benefits: [
-            'Fastest delivery method',
-            'Global reach',
-            'Reliable scheduling',
-            'Secure handling'
+            'Fast service',
+            'Low prices'
         ],
         pricing: 'Custom quotes available',
         link: 'https://wa.link/xd8j23'
@@ -165,21 +152,16 @@ export const allServices = [
         id: 'roro',
         title: 'RO-RO Shipping',
         subtitle: 'ROLL ON - ROLL OFF',
-        description: 'Ideal for oversized or non-containerized vehicles, our Roll-on/Roll-off service provides safe, efficient ocean transport for trucks, heavy equipment, and large units worldwide.',
+        description: 'Ship oversized or non-containerized vehicles! Safe and efficient service to transport trucks, heavy equipment, and large units worldwide.',
         icon: 'Tractor',
         features: [
-            'Oversized Vehicles',
+            'For Oversized Vehicle',
             'Heavy Equipment',
-            'Port-to-Port Service',
-            'Drive-on Drive-off',
-            'Cost Effective',
-            'Secure Stowage'
+            'Heavy Machinery'
         ],
         benefits: [
-            'Efficient loading',
-            'Lower handling costs',
-            'Suitable for large units',
-            'Regular schedules'
+            'Port-to-Port Service',
+            'No container needed'
         ],
         pricing: 'Quotes per Volume',
         link: 'https://wa.link/xd8j23'
