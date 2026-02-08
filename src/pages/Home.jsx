@@ -204,7 +204,7 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.6 : 0.0,
+                                    opacity: index === currentBg ? 0.8 : 0.0,
                                 }}
                             >
                                 <div
@@ -216,7 +216,7 @@ function Home() {
                             </div>
                         );
                     })}
-                    <div className="absolute inset-0 bg-gradient-to-b from-motorx-black/40 via-motorx-black/20 to-motorx-black pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-motorx-black/30 via-motorx-black/10 to-motorx-black pointer-events-none"></div>
                 </div>
 
                 {/* Hero Content */}
@@ -235,7 +235,7 @@ function Home() {
                             ))}
                         </span>
                     </h1>
-                    <p className="hero-subtitle text-xl md:text-3xl text-white mb-8 max-w-3xl mx-auto font-medium tracking-wide">
+                    <p className="hero-subtitle text-xl md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
                         {t('hero.subtitle').split('').map((char, i) => (
                             <span key={i} className="hero-subtitle-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}
