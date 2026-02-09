@@ -8,13 +8,13 @@ const SEO = ({ title, description, keywords, image, url }) => {
     // Fallback values
     const siteTitle = "MotorX";
     const defaultDescription = "International vehicle shipping, auction access, and logistics solutions.";
-    const defaultImage = "/src/assets/logo.png"; // Ensure this path is accessible publicly or use an absolute URL
-    const siteUrl = "https://motorx.com"; // Update with actual domain
+    const defaultImage = "https://www.motorxcars.com/logo.png"; // Absolute URL for OG tags
+    const siteUrl = "https://www.motorxcars.com";
 
     const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     const metaDescription = description || defaultDescription;
-    const metaImage = image || defaultImage;
-    const metaUrl = url || siteUrl;
+    const metaImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;
+    const metaUrl = url ? (url.startsWith('http') ? url : `${siteUrl}${url}`) : siteUrl;
 
     return (
         <Helmet>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import SEO from '../components/SEO';
 
 function Contact() {
     const { t } = useTranslation();
@@ -56,6 +57,11 @@ function Contact() {
 
     return (
         <div className="min-h-screen py-20">
+            <SEO
+                title={t('contactPage.title')}
+                description={t('contactPage.subtitle')}
+                url="/contact"
+            />
             <div className="max-w-7xl mx-auto px-4">
                 <h1 className="text-5xl font-bold text-motorx-white mb-8">{t('contactPage.title')}</h1>
                 <p className="text-xl text-motorx-gray-300 mb-12">

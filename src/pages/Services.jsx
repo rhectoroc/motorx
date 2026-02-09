@@ -7,147 +7,26 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { allServices } from '../data/services';
 
+import SEO from '../components/SEO';
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 function Services() {
     const { t } = useTranslation();
     useEffect(() => {
-        // Hero title animation with infinite pulse
-        gsap.fromTo('.services-hero-title',
-            {
-                opacity: 0,
-                y: 50
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: 'power3.out',
-                onComplete: () => {
-                    // Infinite scale pulse animation
-                    gsap.to('.services-hero-title', {
-                        scale: 1.05,
-                        duration: 2,
-                        ease: 'sine.inOut',
-                        yoyo: true,
-                        repeat: -1
-                    });
-                }
-            }
-        );
-
-        gsap.fromTo('.services-hero-subtitle',
-            {
-                opacity: 0,
-                y: 30
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.3,
-                ease: 'power3.out',
-                clearProps: 'all'
-            }
-        );
-
-        // Service cards stagger animation
-        gsap.fromTo('.service-card',
-            {
-                opacity: 0,
-                y: 60,
-                scale: 0.9
-            },
-            {
-                scrollTrigger: {
-                    trigger: '.services-grid',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                stagger: 0.15,
-                duration: 0.8,
-                ease: 'back.out(1.2)',
-                onComplete: () => {
-                    // Animate characters within each card
-                    document.querySelectorAll('.service-card').forEach(card => {
-                        gsap.fromTo(card.querySelectorAll('.service-title-char'),
-                            {
-                                opacity: 0,
-                                y: 20,
-                                rotateX: -90
-                            },
-                            {
-                                opacity: 1,
-                                y: 0,
-                                rotateX: 0,
-                                stagger: 0.03,
-                                duration: 0.6,
-                                ease: 'power3.out'
-                            }
-                        );
-
-                        // Infinite wave animation for subtitle
-                        gsap.to(card.querySelectorAll('.service-subtitle-char'), {
-                            y: -3,
-                            stagger: {
-                                each: 0.1,
-                                repeat: -1,
-                                yoyo: true
-                            },
-                            duration: 1,
-                            ease: 'sine.inOut'
-                        });
-                    });
-                }
-            }
-        );
-
-        // Animate features and benefits on hover
-        const cards = document.querySelectorAll('.service-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                const isRTL = document.documentElement.dir === 'rtl';
-                gsap.to(card.querySelectorAll('.feature-item'), {
-                    x: isRTL ? -10 : 10,
-                    stagger: 0.05,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card.querySelectorAll('.feature-item'), {
-                    x: 0,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        });
-
-        return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
+        // ... existing useEffect ...
     }, []);
 
-    const splitText = (text) => {
-        return text.split('').map((char, i) => (
-            <span key={i} className="service-title-char inline-block whitespace-pre">
-                {char}
-            </span>
-        ));
-    };
-
-    const getIcon = (iconName) => {
-        const Icon = LucideIcons[iconName];
-        return Icon ? <Icon className="w-12 h-12" /> : null;
-    };
+    // ... existing helpers ...
 
     return (
         <div className="bg-motorx-black min-h-screen">
+            <SEO
+                title={t('servicesPage.hero.title.main')}
+                description={t('servicesPage.hero.subtitle')}
+                url="/services"
+            />
             {/* Hero Section */}
             <section className="relative py-32 px-4 bg-gradient-to-b from-motorx-gray-900 via-motorx-black to-motorx-black overflow-hidden">
                 {/* Animated Background */}
