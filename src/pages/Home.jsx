@@ -331,7 +331,7 @@ function Home() {
                                                         playsInline
                                                         webkit-playsinline="true"
                                                         poster={heroBackground1}
-                                                        className={`absolute inset-0 w-full h-full object-cover ${index <= 2 ? 'opacity-100' : 'opacity-20'}`}
+                                                        className={`absolute inset-0 w-full h-full object-cover ${index <= 3 ? 'opacity-100' : 'opacity-20'}`}
                                                     >
                                                         <source src={
                                                             index === 0 ? "/Auction.mp4?v=3" :
@@ -343,8 +343,8 @@ function Home() {
                                                                                     "/Auction.mp4?v=3"
                                                         } type="video/mp4" />
                                                     </video>
-                                                    {/* Icon Overlay - Solo para servicios que no son Dispatch */}
-                                                    {index > 2 && (
+                                                    {/* Icon Overlay - Solo para servicios que no tienen video dedicado (indices > 3) */}
+                                                    {index > 3 && (
                                                         <div className="relative z-10 w-full h-full flex items-center justify-center text-motorx-red">
                                                             {getIcon(service.icon)}
                                                         </div>
