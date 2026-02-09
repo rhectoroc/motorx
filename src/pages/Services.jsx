@@ -35,14 +35,15 @@ function Services() {
 
             // Services Grid Animation
             gsap.from('.service-card', {
-                y: 100,
+                y: 50, // Reduced distance for smoother effect
                 opacity: 0,
-                duration: 0.8,
+                duration: 0.6,
                 stagger: 0.1,
+                clearProps: 'transform', // CRITICAL: Clear inline transform so CSS hover works
                 scrollTrigger: {
                     trigger: '.services-grid',
-                    start: 'top bottom-=100',
-                    toggleActions: 'play none none reverse'
+                    start: 'top bottom-=50', // Trigger slightly earlier
+                    toggleActions: 'play none none none' // CRITICAL: Do not reverse (hide) on scroll up
                 }
             });
         });
