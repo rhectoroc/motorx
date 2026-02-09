@@ -243,10 +243,7 @@ function Home() {
                         ))}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/subscription" className="btn-primary">
-                            {t('common.getStarted')}
-                            <ArrowRight className="inline-block ml-2 w-5 h-5 rtl:rotate-180" />
-                        </Link>
+
                         <Link to="/contact" className="btn-secondary">
                             {t('common.contactUs')}
                         </Link>
