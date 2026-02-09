@@ -477,8 +477,8 @@ function Home() {
 
 
             {/* Auctions Section - Marquesina Animada */}
-            <section className="py-32 px-4 bg-[#0f0f0f] overflow-hidden border-b border-motorx-gray-800 transform -skew-y-3 relative z-20">
-                <div className="transform skew-y-3">
+            <section className="py-32 px-4 bg-[#0f0f0f] overflow-hidden border-b border-motorx-gray-800 relative z-20">
+                <div>
                     <div className="max-w-7xl mx-auto text-center mb-12">
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">
                             {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
