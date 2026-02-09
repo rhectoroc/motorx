@@ -309,7 +309,7 @@ function Home() {
                                         } gap-12 items-center`}
                                 >
                                     {/* Visual Side - Icon + Stats */}
-                                    <div className="lg:w-1/2">
+                                    <div className="w-full lg:w-1/2">
                                         <div className="relative video-container">
                                             {/* Video Background with Icon Overlay */}
                                             <div className="w-full md:max-w-sm h-64 mx-auto relative">
@@ -367,7 +367,7 @@ function Home() {
                                     </div>
 
                                     {/* Content Side */}
-                                    <div className="lg:w-1/2">
+                                    <div className="w-full lg:w-1/2">
                                         {/* Badge */}
                                         <div className="inline-block mb-4 px-4 py-1 bg-motorx-red/20 border border-motorx-red rounded-full">
                                             <span className="text-motorx-red text-sm font-semibold uppercase tracking-wider">
