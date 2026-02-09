@@ -20,6 +20,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
         <Helmet>
             {/* Standard Metadata */}
             <title>{fullTitle}</title>
+            <link rel="canonical" href={metaUrl} />
             <meta name="description" content={metaDescription} />
             <meta name="keywords" content={keywords || "car shipping, auto transport, vehicle logistics, auction access, copart, iaai"} />
             <html lang={currentLang} />
