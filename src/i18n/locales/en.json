@@ -318,14 +318,17 @@
             "successTitle": "Message Received!",
             "successMessage": "Thanks for reaching out. Our team will contact you very soon.",
             "errorMessage": "Something went wrong. Please try again.",
-            "sending": "Sending..."
+            "sending": "Sending...",
+            "sendAnother": "Send another message"
         },
         "office": {
             "title": "Office Locations",
             "arkansas": {
+                "title": "Arkansas Headquarters",
                 "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
             },
             "wisconsin": {
+                "title": "Wisconsin Headquarters",
                 "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
             }
         },

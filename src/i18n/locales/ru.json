@@ -318,14 +318,17 @@
             "successTitle": "Сообщение получено!",
             "successMessage": "Спасибо за обращение. Наша команда свяжется с вами в ближайшее время.",
             "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте еще раз.",
-            "sending": "Отправка..."
+            "sending": "Отправка...",
+            "sendAnother": "Отправить еще одно сообщение"
         },
         "office": {
             "title": "Расположение Офисов",
             "arkansas": {
+                "title": "Штаб-квартира в Арканзасе",
                 "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
             },
             "wisconsin": {
+                "title": "Штаб-квартира в Висконсине",
                 "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
             }
         },

@@ -318,14 +318,17 @@
             "successTitle": "تم استلام الرسالة!",
             "successMessage": "شكراً لتواصلك معنا. سيقوم فريقنا بالرد عليك قريباً جداً.",
             "errorMessage": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
-            "sending": "جاري الإرسال..."
+            "sending": "جاري الإرسال...",
+            "sendAnother": "أرسل رسالة أخرى"
         },
         "office": {
             "title": "مواقع المكاتب",
             "arkansas": {
+                "title": "مقر أركنساس",
                 "address": "1815 Jim Walter Dr. Suite#180, Texarkana AR 71854"
             },
             "wisconsin": {
+                "title": "مقر ويسكونسن",
                 "address": "101 Skyline Dr # 1W652, Arlington WI 53911"
             }
         },

@@ -75,7 +75,7 @@ function Contact() {
                                     onClick={() => setSubmitStatus(null)}
                                     className="btn-primary"
                                 >
-                                    Send another message
+                                    {t('contactPage.form.sendAnother')}
                                 </button>
                             </div>
                         )}
@@ -149,13 +149,13 @@ function Contact() {
                             <h3 className="text-xl font-bold text-motorx-white mb-4">{t('contactPage.office.title')}</h3>
                             <div className="space-y-6">
                                 <div>
-                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">Arkansas Headquarters</p>
+                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">{t('contactPage.office.arkansas.title')}</p>
                                     <p className="text-motorx-gray-300">
                                         {t('contactPage.office.arkansas.address')}
                                     </p>
                                 </div>
                                 <div className="pt-4 border-t border-motorx-gray-800">
-                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">Wisconsin Headquarters</p>
+                                    <p className="text-motorx-red text-sm font-bold uppercase tracking-wider mb-1">{t('contactPage.office.wisconsin.title')}</p>
                                     <p className="text-motorx-gray-300">
                                         {t('contactPage.office.wisconsin.address')}
                                     </p>
@@ -165,8 +165,8 @@ function Contact() {
                         <div className="glass-card p-8">
                             <h3 className="text-xl font-bold text-motorx-white mb-4">{t('contactPage.info.title')}</h3>
                             <p className="text-motorx-gray-300">
-                                Email: {t('cta.email')}<br />
-                                Phone: <a href="https://wa.link/xd8j23" target="_blank" rel="noopener noreferrer" className="hover:text-motorx-red transition-colors">{t('cta.phone')}</a>
+                                {t('common.footer.email')}: {t('cta.email')}<br />
+                                {t('common.footer.phone')}: <a href="https://wa.link/xd8j23" target="_blank" rel="noopener noreferrer" className="hover:text-motorx-red transition-colors">{t('cta.phone')}</a>
                             </p>
                         </div>
                     </div>
