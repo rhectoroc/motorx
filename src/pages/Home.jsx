@@ -18,6 +18,7 @@ import adesaLogo from '../assets/auction-logos/adesa.png';
 import copartLogo from '../assets/auction-logos/copart white.png';
 import edgePipelineLogo from '../assets/auction-logos/edge pipe.png';
 import SEO from '../components/SEO';
+import LazyVideo from '../components/LazyVideo';
 
 
 // Register GSAP plugins
@@ -316,33 +317,20 @@ function Home() {
                                                 <div className="absolute inset-0 bg-gradient-to-br from-motorx-red to-motorx-red-dark rounded-3xl rotate-6 blur-2xl opacity-30 animate-pulse"></div>
                                                 <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
                                                     {/* Video Background */}
-                                                    <video
-                                                        ref={(el) => {
-                                                            if (el) {
-                                                                el.muted = true;
-                                                                el.play().catch(() => {
-                                                                    // Autoplay prevented
-                                                                });
-                                                            }
-                                                        }}
-                                                        autoPlay
-                                                        loop
-                                                        muted={true}
-                                                        playsInline
-                                                        webkit-playsinline="true"
+                                                    <LazyVideo
+                                                        src={
+                                                            index === 0 ? "/Auction.webm" :
+                                                                index === 1 ? "/Dispatch.webm" :
+                                                                    index === 2 ? "/shiping.webm" :
+                                                                        index === 3 ? "/Tittle.webm" :
+                                                                            index === 6 ? "/Dispatch.webm" : // Air Freight placeholder
+                                                                                index === 7 ? "/shiping.webm" : // RO-RO placeholder
+                                                                                    "/Auction.webm"
+                                                        }
                                                         poster={heroBackground1}
                                                         className={`absolute inset-0 w-full h-full object-cover ${index <= 3 ? 'opacity-100' : 'opacity-20'}`}
-                                                    >
-                                                        <source src={
-                                                            index === 0 ? "/Auction.mp4?v=3" :
-                                                                index === 1 ? "/Dispatch.mp4?v=3" :
-                                                                    index === 2 ? "/shiping.mp4?v=3" :
-                                                                        index === 3 ? "/Tittle.mp4?v=1" :
-                                                                            index === 6 ? "/Dispatch.mp4?v=3" : // Air Freight placeholder
-                                                                                index === 7 ? "/shiping.mp4?v=3" : // RO-RO placeholder
-                                                                                    "/Auction.mp4?v=3"
-                                                        } type="video/mp4" />
-                                                    </video>
+                                                        type="video/webm"
+                                                    />
                                                     {/* Icon Overlay - Solo para servicios que no tienen video dedicado (indices > 3) */}
                                                     {index > 3 && (
                                                         <div className="relative z-10 w-full h-full flex items-center justify-center text-motorx-red">
