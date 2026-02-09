@@ -15,10 +15,54 @@ gsap.registerPlugin(ScrollTrigger);
 function Services() {
     const { t } = useTranslation();
     useEffect(() => {
-        // ... existing useEffect ...
+        const ctx = gsap.context(() => {
+            // Hero Title Animation
+            gsap.from('.services-hero-title', {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power4.out',
+                delay: 0.2
+            });
+
+            gsap.from('.services-hero-subtitle', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power4.out',
+                delay: 0.4
+            });
+
+            // Services Grid Animation
+            gsap.from('.service-card', {
+                y: 100,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '.services-grid',
+                    start: 'top bottom-=100',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+
+        return () => ctx.revert();
     }, []);
 
-    // ... existing helpers ...
+    const getIcon = (iconName) => {
+        const Icon = LucideIcons[iconName] || LucideIcons.HelpCircle;
+        return <Icon className="w-12 h-12" />;
+    };
+
+    const splitText = (text) => {
+        if (!text) return null;
+        return text.split('').map((char, index) => (
+            <span key={index} className="inline-block whitespace-pre hover:text-motorx-red transition-colors duration-300">
+                {char}
+            </span>
+        ));
+    };
 
     return (
         <div className="bg-motorx-black min-h-screen">
