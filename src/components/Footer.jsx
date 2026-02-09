@@ -31,8 +31,8 @@ function Footer() {
                     <div>
                         <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.menu')}</h3>
                         <ul className="space-y-2">
-                            <li><a href="/dispatch" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.dispatch')}</a></li>
-                            <li><a href="/single-bid" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.singleBid')}</a></li>
+                            <li><a href="/" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.home')}</a></li>
+                            <li><a href="/services" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.services')}</a></li>
                             <li><a href="/contact" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.contact')}</a></li>
                         </ul>
                     </div>

@@ -464,7 +464,7 @@ function Home() {
 
 
             {/* Auctions Section - Marquesina Animada */}
-            <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden">
+            <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden border-b border-motorx-gray-800">
                 <div className="max-w-7xl mx-auto text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">
                         {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
@@ -528,22 +528,41 @@ function Home() {
                 `}</style>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-20 px-4 bg-gradient-to-r from-motorx-red-dark to-motorx-red">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                        {t('cta.title')}
-                    </h2>
-                    <p className="text-2xl mb-8 opacity-90">
-                        {t('cta.subtitle')}
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href={`mailto:${t('cta.email')}`} className="btn-secondary border-white hover:bg-white/20">
-                            {t('cta.email')}
-                        </a>
-                        <Link to="/contact" className="btn-secondary border-white hover:bg-white/20">
-                            {t('cta.getInTouch')}
-                        </Link>
+            {/* CTA Section - Premium Glow Design */}
+            <section className="py-32 px-4 bg-motorx-black relative overflow-hidden">
+                {/* Background Ambient Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full max-h-[500px] bg-motorx-red/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+                <div className="max-w-5xl mx-auto relative z-10">
+                    <div className="glass-card p-12 md:p-16 rounded-[2.5rem] border border-motorx-red/30 shadow-[0_0_60px_-15px_rgba(220,38,38,0.4)] text-center relative overflow-hidden group hover:border-motorx-red/50 transition-colors duration-500">
+
+                        {/* Shimmer Effect on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none"></div>
+
+                        <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                            {t('cta.title')}
+                        </h2>
+                        <p className="text-xl md:text-2xl mb-10 text-motorx-gray-300 max-w-3xl mx-auto">
+                            {t('cta.subtitle')}
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                            <a
+                                href={`mailto:${t('cta.email')}`}
+                                className="px-8 py-4 bg-motorx-gray-900/80 hover:bg-motorx-gray-800 text-white rounded-xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-300 flex items-center gap-3 group/btn backdrop-blur-md"
+                            >
+                                <LucideIcons.Mail className="w-5 h-5 text-motorx-red group-hover/btn:scale-110 transition-transform" />
+                                <span className="font-semibold">{t('cta.email')}</span>
+                            </a>
+
+                            <Link
+                                to="/contact"
+                                className="px-8 py-4 bg-gradient-to-r from-motorx-red to-motorx-red-dark hover:from-red-600 hover:to-red-800 text-white rounded-xl shadow-lg shadow-motorx-red/30 hover:shadow-motorx-red/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 font-bold text-lg"
+                            >
+                                <span>{t('cta.getInTouch')}</span>
+                                <ArrowRight className="w-5 h-5 rtl:rotate-180" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
