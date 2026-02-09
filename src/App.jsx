@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
-import Dispatch from './pages/Dispatch';
+
 import Contact from './pages/Contact';
 import AnalyticsTracker from './components/AnalyticsTracker';
 
@@ -20,7 +20,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/services" element={<Services />} />
-                        <Route path="/dispatch" element={<Dispatch />} />
+
                         <Route path="/contact" element={<Contact />} />
                     </Routes>
                 </main>
