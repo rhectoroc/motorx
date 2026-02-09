@@ -477,28 +477,30 @@ function Home() {
 
 
             {/* Auctions Section - Marquesina Animada */}
-            <section className="py-20 px-4 bg-motorx-gray-900 overflow-hidden border-b border-motorx-gray-800">
-                <div className="max-w-7xl mx-auto text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                        {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
-                    </h2>
-                    <p className="text-motorx-gray-300 text-lg">
-                        {t('auctions.subtitle')}
-                    </p>
-                </div>
+            <section className="py-32 px-4 bg-[#0f0f0f] overflow-hidden border-b border-motorx-gray-800 transform -skew-y-3 relative z-20">
+                <div className="transform skew-y-3">
+                    <div className="max-w-7xl mx-auto text-center mb-12">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                            {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
+                        </h2>
+                        <p className="text-motorx-gray-300 text-lg">
+                            {t('auctions.subtitle')}
+                        </p>
+                    </div>
 
-                {/* Marquesina Infinita */}
-                <div className="relative">
-                    <div className="marquee-container">
-                        <div className="marquee-content">
-                            {/* Primera copia de logos */}
-                            {auctionLogos.map((logo, index) => (
-                                <img key={`logo-1-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
-                            ))}
-                            {/* Segunda copia para efecto infinito */}
-                            {auctionLogos.map((logo, index) => (
-                                <img key={`logo-2-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
-                            ))}
+                    {/* Marquesina Infinita */}
+                    <div className="relative">
+                        <div className="marquee-container">
+                            <div className="marquee-content">
+                                {/* Primera copia de logos */}
+                                {auctionLogos.map((logo, index) => (
+                                    <img key={`logo-1-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                                ))}
+                                {/* Segunda copia para efecto infinito */}
+                                {auctionLogos.map((logo, index) => (
+                                    <img key={`logo-2-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -509,11 +511,12 @@ function Home() {
                         width: 100%;
                         overflow: hidden;
                         position: relative;
+                        /* Updated gradient to match new background color #0f0f0f */
                         background: linear-gradient(90deg, 
-                            rgba(23, 23, 23, 1) 0%, 
-                            rgba(23, 23, 23, 0) 10%, 
-                            rgba(23, 23, 23, 0) 90%, 
-                            rgba(23, 23, 23, 1) 100%);
+                            #0f0f0f 0%, 
+                            rgba(15, 15, 15, 0) 10%, 
+                            rgba(15, 15, 15, 0) 90%, 
+                            #0f0f0f 100%);
                         padding: 2rem 0;
                     }
                     .marquee-content {
