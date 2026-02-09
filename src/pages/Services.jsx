@@ -33,19 +33,24 @@ function Services() {
                 delay: 0.4
             });
 
-            // Services Grid Animation
-            gsap.from('.service-card', {
-                y: 50, // Reduced distance for smoother effect
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                clearProps: 'transform', // CRITICAL: Clear inline transform so CSS hover works
-                scrollTrigger: {
-                    trigger: '.services-grid',
-                    start: 'top bottom-=50', // Trigger slightly earlier
-                    toggleActions: 'play none none none' // CRITICAL: Do not reverse (hide) on scroll up
-                }
+            // Services Grid Animation - using batch for better reliability
+            ScrollTrigger.batch('.service-card', {
+                onEnter: (batch) => {
+                    gsap.to(batch, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        stagger: 0.15,
+                        overwrite: true,
+                        clearProps: 'transform' // Ensure CSS hover works after animation
+                    });
+                },
+                start: 'top bottom-=50',
+                once: true // Keep them visible once shown
             });
+
+            // Set initial state for batch animation
+            gsap.set('.service-card', { opacity: 0, y: 50 });
         });
 
         return () => ctx.revert();
