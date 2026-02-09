@@ -327,7 +327,7 @@ function Home() {
                                                                                 index === 7 ? "/shiping.webm" : // RO-RO placeholder
                                                                                     "/Auction.webm"
                                                         }
-                                                        poster={heroBackground1}
+
                                                         className={`absolute inset-0 w-full h-full object-cover ${index <= 3 ? 'opacity-100' : 'opacity-20'}`}
                                                         type="video/webm"
                                                     />
