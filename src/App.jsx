@@ -7,9 +7,12 @@ import Dispatch from './pages/Dispatch';
 import Contact from './pages/Contact';
 import AnalyticsTracker from './components/AnalyticsTracker';
 
+import ScrollToTop from './components/ScrollToTop';
+
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <AnalyticsTracker />
             <div className="min-h-screen flex flex-col">
                 <Navbar />
