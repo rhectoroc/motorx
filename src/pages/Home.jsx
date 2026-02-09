@@ -221,7 +221,7 @@ function Home() {
 
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-normal" dir="ltr">
+                    <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal" dir="ltr">
                         {t('hero.title.logistics').split('').map((char, i) => (
                             <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}
@@ -309,7 +309,7 @@ function Home() {
                                     <div className="lg:w-1/2">
                                         <div className="relative video-container">
                                             {/* Video Background with Icon Overlay */}
-                                            <div className="w-80 h-64 md:w-96 md:h-64 mx-auto relative">
+                                            <div className="w-full max-w-[20rem] md:max-w-sm h-64 mx-auto relative">
                                                 <div className="absolute inset-0 bg-gradient-to-br from-motorx-red to-motorx-red-dark rounded-3xl rotate-6 blur-2xl opacity-30 animate-pulse"></div>
                                                 <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
                                                     {/* Video Background */}
@@ -342,10 +342,10 @@ function Home() {
                                             {/* Stats Badges - Conditional rendering */}
                                             {t(`services.${service.id}.stats`, { returnObjects: true }) && (
                                                 <>
-                                                    <div className="floating-stat absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
+                                                    <div className="floating-stat scale-75 md:scale-100 absolute -top-8 -end-8 glass-card px-6 py-4 rounded-2xl animate-float">
                                                         <div className="text-lg font-bold text-motorx-red">{t(`services.${service.id}.stats.stat1`)}</div>
                                                     </div>
-                                                    <div className="floating-stat absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
+                                                    <div className="floating-stat scale-75 md:scale-100 absolute -bottom-8 -start-8 glass-card px-6 py-4 rounded-2xl animate-float-delayed">
                                                         <div className="text-lg font-bold text-motorx-red">{t(`services.${service.id}.stats.stat2`)}</div>
                                                     </div>
                                                 </>
