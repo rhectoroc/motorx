@@ -313,7 +313,11 @@
             "name": "Nombre",
             "email": "Correo Electrónico",
             "message": "Mensaje",
-            "send": "Enviar Mensaje"
+            "send": "Enviar Mensaje",
+            "successTitle": "¡Mensaje Recibido!",
+            "successMessage": "Gracias por contactarnos. Nuestro equipo te responderá muy pronto.",
+            "errorMessage": "Algo salió mal. Por favor inténtalo de nuevo.",
+            "sending": "Enviando..."
         },
         "office": {
             "title": "Ubicación de la Oficinas",
@@ -415,16 +419,5 @@
         "cta": {
             "button": "Realizar Oferta Única"
         }
-    },
-    "auctions": {
-        "title": "Socios de Subastas de Confianza",
-        "subtitle": "Acceso a más de 1,000 subastas premium a nivel nacional"
-    },
-    "cta": {
-        "title": "Contáctenos AHORA",
-        "subtitle": "Asóciese con Motor X y muévase más rápido, más seguro y más inteligente en el mercado global de envío de vehículos.",
-        "email": "bid@motorxcars.com",
-        "phone": "(463) 280-3480",
-        "getInTouch": "Ponte en Contacto"
     }
 }

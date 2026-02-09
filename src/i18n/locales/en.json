@@ -313,7 +313,11 @@
             "name": "Name",
             "email": "Email",
             "message": "Message",
-            "send": "Send Message"
+            "send": "Send Message",
+            "successTitle": "Message Received!",
+            "successMessage": "Thanks for reaching out. Our team will contact you very soon.",
+            "errorMessage": "Something went wrong. Please try again.",
+            "sending": "Sending..."
         },
         "office": {
             "title": "Office Locations",
