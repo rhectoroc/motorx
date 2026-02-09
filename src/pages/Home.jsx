@@ -136,31 +136,37 @@ function Home() {
             }
 
             // Stagger animate benefits
-            gsap.from(card.querySelectorAll('.benefit-item'), {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 70%'
-                },
-                opacity: 0,
-                y: 20,
-                stagger: 0.1,
-                duration: 0.6,
-                ease: 'back.out(1.2)'
-            });
+            const benefitItems = card.querySelectorAll('.benefit-item');
+            if (benefitItems.length > 0) {
+                gsap.from(benefitItems, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 70%'
+                    },
+                    opacity: 0,
+                    y: 20,
+                    stagger: 0.1,
+                    duration: 0.6,
+                    ease: 'back.out(1.2)'
+                });
+            }
 
             // Animate floating stats
-            gsap.from(card.querySelectorAll('.floating-stat'), {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 75%'
-                },
-                scale: 0,
-                rotation: 180,
-                opacity: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                ease: 'back.out(1.7)'
-            });
+            const floatingStats = card.querySelectorAll('.floating-stat');
+            if (floatingStats.length > 0) {
+                gsap.from(floatingStats, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 75%'
+                    },
+                    scale: 0,
+                    rotation: 180,
+                    opacity: 0,
+                    stagger: 0.2,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                });
+            }
         });
 
         return () => {
@@ -323,7 +329,7 @@ function Home() {
                                                                     index === 2 ? "/shiping.mp4" :
                                                                         index === 6 ? "/Dispatch.mp4" : // Air Freight placeholder
                                                                             index === 7 ? "/shiping.mp4" : // RO-RO placeholder
-                                                                                "https://assets.mixkit.co/videos/preview/mixkit-new-cars-parked-in-a-row-4044-large.mp4"
+                                                                                "/Auction.mp4"
                                                         } type="video/mp4" />
                                                     </video>
                                                     {/* Icon Overlay - Solo para servicios que no son Dispatch */}
