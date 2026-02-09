@@ -312,7 +312,7 @@ function Home() {
                                     <div className="lg:w-1/2">
                                         <div className="relative video-container">
                                             {/* Video Background with Icon Overlay */}
-                                            <div className="w-full max-w-[20rem] md:max-w-sm h-64 mx-auto relative">
+                                            <div className="w-full md:max-w-sm h-64 mx-auto relative">
                                                 <div className="absolute inset-0 bg-gradient-to-br from-motorx-red to-motorx-red-dark rounded-3xl rotate-6 blur-2xl opacity-30 animate-pulse"></div>
                                                 <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
                                                     {/* Video Background */}
@@ -329,6 +329,8 @@ function Home() {
                                                         loop
                                                         muted={true}
                                                         playsInline
+                                                        webkit-playsinline="true"
+                                                        poster={heroBackground1}
                                                         className={`absolute inset-0 w-full h-full object-cover ${index <= 2 ? 'opacity-100' : 'opacity-20'}`}
                                                     >
                                                         <source src={
