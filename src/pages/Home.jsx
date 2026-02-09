@@ -241,7 +241,7 @@ function Home() {
                             ))}
                         </span>
                     </h1>
-                    <p className="hero-subtitle text-xl md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
+                    <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
                         {t('hero.subtitle').split('').map((char, i) => (
                             <span key={i} className="hero-subtitle-letter inline-block" style={{ display: 'inline-block' }}>
                                 {char === ' ' ? '\u00A0' : char}
@@ -317,19 +317,27 @@ function Home() {
                                                 <div className="relative glass-card w-full h-full rounded-3xl overflow-hidden transform hover:scale-110 transition-transform duration-500">
                                                     {/* Video Background */}
                                                     <video
+                                                        ref={(el) => {
+                                                            if (el) {
+                                                                el.muted = true;
+                                                                el.play().catch(() => {
+                                                                    // Autoplay prevented
+                                                                });
+                                                            }
+                                                        }}
                                                         autoPlay
                                                         loop
-                                                        muted
+                                                        muted={true}
                                                         playsInline
                                                         className={`absolute inset-0 w-full h-full object-cover ${index <= 2 ? 'opacity-100' : 'opacity-20'}`}
                                                     >
                                                         <source src={
-                                                            index === 0 ? "/Auction.mp4" :
-                                                                index === 1 ? "/Dispatch.mp4" :
-                                                                    index === 2 ? "/shiping.mp4" :
-                                                                        index === 6 ? "/Dispatch.mp4" : // Air Freight placeholder
-                                                                            index === 7 ? "/shiping.mp4" : // RO-RO placeholder
-                                                                                "/Auction.mp4"
+                                                            index === 0 ? "/Auction.mp4?v=3" :
+                                                                index === 1 ? "/Dispatch.mp4?v=3" :
+                                                                    index === 2 ? "/shiping.mp4?v=3" :
+                                                                        index === 6 ? "/Dispatch.mp4?v=3" : // Air Freight placeholder
+                                                                            index === 7 ? "/shiping.mp4?v=3" : // RO-RO placeholder
+                                                                                "/Auction.mp4?v=3"
                                                         } type="video/mp4" />
                                                     </video>
                                                     {/* Icon Overlay - Solo para servicios que no son Dispatch */}
