@@ -4,8 +4,6 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Dispatch from './pages/Dispatch';
-import Subscription from './pages/Subscription';
-import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import AnalyticsTracker from './components/AnalyticsTracker';
 
@@ -20,8 +18,6 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/services" element={<Services />} />
                         <Route path="/dispatch" element={<Dispatch />} />
-                        <Route path="/subscription" element={<Subscription />} />
-                        <Route path="/blog" element={<Blog />} />
                         <Route path="/contact" element={<Contact />} />
                     </Routes>
                 </main>
