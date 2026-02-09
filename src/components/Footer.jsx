@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import logo from '../assets/logo.png';
 
 function Footer() {
     const { t } = useTranslation();
@@ -9,7 +10,7 @@ function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Company Info */}
                     <div>
-                        <h3 className="text-motorx-red font-bold text-lg mb-4">MotorX LLC</h3>
+                        <img src={logo} alt="Motor X Logo" className="h-12 w-auto mb-4" />
                         <div className="space-y-4">
                             <div>
                                 <p className="text-motorx-white text-xs font-bold uppercase tracking-wider mb-1">{t('common.footer.arkansas')}</p>
@@ -28,11 +29,10 @@ function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.features')}</h3>
+                        <h3 className="text-motorx-white font-bold text-lg mb-4">{t('common.menu')}</h3>
                         <ul className="space-y-2">
                             <li><a href="/dispatch" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.dispatch')}</a></li>
                             <li><a href="/single-bid" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.singleBid')}</a></li>
-                            <li><a href="/subscription" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.subscription')}</a></li>
                             <li><a href="/contact" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">{t('nav.contact')}</a></li>
                         </ul>
                     </div>
