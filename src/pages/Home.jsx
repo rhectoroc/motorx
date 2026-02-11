@@ -59,33 +59,42 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        // GSAP animations - Optimized for performance
+        // GSAP animations - Split title animation: words slide from opposite sides
         const ctx = gsap.context(() => {
-            // Create timeline for better control
             const tl = gsap.timeline();
 
-            // Simplified animation - animate words instead of individual letters
-            tl.from('.hero-title', {
+            // Animate "Logistics" from LEFT
+            tl.from('.hero-word-left', {
                 opacity: 0,
-                y: 50,
+                x: -200,
+                rotationY: -30,
                 duration: 0.8,
                 ease: 'power3.out',
             });
 
-            // Defer non-critical subtitle animation
-            setTimeout(() => {
-                gsap.to('.hero-subtitle', {
-                    opacity: 1,
-                    duration: 0.6,
-                    ease: 'power2.out'
-                });
-            }, 500);
+            // Animate "Cloud" from RIGHT (simultaneous)
+            tl.from('.hero-word-right', {
+                opacity: 0,
+                x: 200,
+                rotationY: 30,
+                duration: 0.8,
+                ease: 'power3.out',
+            }, '<'); // '<' means start at the same time as previous animation
+
+            // Animate subtitle words with stagger
+            tl.from('.hero-subtitle-word', {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+                ease: 'power2.out',
+                stagger: 0.05,
+            }, '-=0.3');
 
             tl.from('.hero-cta', {
                 opacity: 0,
                 y: 20,
                 duration: 0.6,
-            }, '-=0.3');
+            }, '-=0.2');
         }, heroRef);
 
         return () => ctx.revert();
@@ -229,10 +238,27 @@ function Home() {
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
                     <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal" dir="ltr">
-                        {t('hero.title.logistics')} <span className="text-motorx-red">{t('hero.title.cloud')}</span>
+                        {/* "Logistics" slides from LEFT */}
+                        {t('hero.title.logistics').split(' ').map((word, i) => (
+                            <span key={i} className="hero-word-left inline-block" style={{ display: 'inline-block', marginRight: '0.25em' }}>
+                                {word}
+                            </span>
+                        ))}
+                        {/* "Cloud" slides from RIGHT */}
+                        <span className="text-motorx-red">
+                            {t('hero.title.cloud').split(' ').map((word, i) => (
+                                <span key={i} className="hero-word-right inline-block" style={{ display: 'inline-block', marginRight: '0.25em' }}>
+                                    {word}
+                                </span>
+                            ))}
+                        </span>
                     </h1>
                     <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
-                        {t('hero.subtitle')}
+                        {t('hero.subtitle').split(' ').map((word, i) => (
+                            <span key={i} className="hero-subtitle-word inline-block" style={{ display: 'inline-block', marginRight: '0.25em' }}>
+                                {word}
+                            </span>
+                        ))}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
 
