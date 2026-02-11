@@ -478,80 +478,151 @@ function Home() {
 
 
 
-            {/* Auctions Section - Marquesina Animada */}
-            <section className="py-32 px-4 bg-[#0f0f0f] overflow-hidden border-b border-motorx-gray-800 relative z-20">
-                <div>
-                    <div className="max-w-7xl mx-auto text-center mb-12">
+            {/* Auctions Section - Premium Card Marquee */}
+            <section className="py-32 px-4 bg-gradient-to-b from-motorx-black via-[#0f0f0f] to-motorx-black overflow-hidden border-b border-motorx-gray-800 relative z-20">
+                {/* Background Glow Effects */}
+                <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-motorx-red/10 rounded-full blur-[150px] pointer-events-none"></div>
+                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-motorx-red/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+                <div className="relative z-10">
+                    <div className="max-w-7xl mx-auto text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">
                             {t('auctions.title').split(' ').slice(0, -1).join(' ')} <span className="text-motorx-red">{t('auctions.title').split(' ').slice(-1)}</span>
                         </h2>
-                        <p className="text-motorx-gray-300 text-lg">
+                        <p className="text-motorx-gray-300 text-lg max-w-2xl mx-auto">
                             {t('auctions.subtitle')}
                         </p>
                     </div>
 
-                    {/* Marquesina Infinita */}
+                    {/* Premium Card Marquee */}
                     <div className="relative">
-                        <div className="marquee-container">
-                            <div className="marquee-content">
-                                {/* Primera copia de logos */}
+                        {/* First Row - Scroll Left */}
+                        <div className="marquee-wrapper mb-8">
+                            <div className="marquee-track">
+                                {/* First copy */}
                                 {auctionLogos.map((logo, index) => (
-                                    <OptimizedImage
-                                        key={`logo-1-${index}`}
-                                        src={logo.src}
-                                        alt={logo.alt}
-                                        className="marquee-logo mx-16"
-                                        loading="lazy"
-                                    />
+                                    <div
+                                        key={`card-1-${index}`}
+                                        className="marquee-card group"
+                                    >
+                                        <div className="glass-card p-8 rounded-2xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-500 h-32 flex items-center justify-center relative overflow-hidden">
+                                            {/* Card Glow on Hover */}
+                                            <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            <OptimizedImage
+                                                src={logo.src}
+                                                alt={logo.alt}
+                                                className="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500 relative z-10"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
                                 ))}
-                                {/* Segunda copia para efecto infinito */}
+                                {/* Second copy for infinite effect */}
                                 {auctionLogos.map((logo, index) => (
-                                    <OptimizedImage
-                                        key={`logo-2-${index}`}
-                                        src={logo.src}
-                                        alt={logo.alt}
-                                        className="marquee-logo mx-16"
-                                        loading="lazy"
-                                    />
+                                    <div
+                                        key={`card-2-${index}`}
+                                        className="marquee-card group"
+                                    >
+                                        <div className="glass-card p-8 rounded-2xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-500 h-32 flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            <OptimizedImage
+                                                src={logo.src}
+                                                alt={logo.alt}
+                                                className="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500 relative z-10"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Second Row - Scroll Right (reverse) */}
+                        <div className="marquee-wrapper-reverse">
+                            <div className="marquee-track-reverse">
+                                {/* First copy */}
+                                {auctionLogos.slice().reverse().map((logo, index) => (
+                                    <div
+                                        key={`card-rev-1-${index}`}
+                                        className="marquee-card group"
+                                    >
+                                        <div className="glass-card p-8 rounded-2xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-500 h-32 flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            <OptimizedImage
+                                                src={logo.src}
+                                                alt={logo.alt}
+                                                className="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500 relative z-10"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                                {/* Second copy for infinite effect */}
+                                {auctionLogos.slice().reverse().map((logo, index) => (
+                                    <div
+                                        key={`card-rev-2-${index}`}
+                                        className="marquee-card group"
+                                    >
+                                        <div className="glass-card p-8 rounded-2xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-500 h-32 flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-motorx-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            <OptimizedImage
+                                                src={logo.src}
+                                                alt={logo.alt}
+                                                className="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500 relative z-10"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Custom CSS para marquesina */}
+                {/* Custom CSS for Premium Marquee */}
                 <style jsx>{`
-                    .marquee-container {
+                    .marquee-wrapper,
+                    .marquee-wrapper-reverse {
                         width: 100%;
                         overflow: hidden;
                         position: relative;
-                        /* Updated gradient to match new background color #0f0f0f */
-                        background: linear-gradient(90deg, 
-                            #0f0f0f 0%, 
-                            rgba(15, 15, 15, 0) 10%, 
-                            rgba(15, 15, 15, 0) 90%, 
-                            #0f0f0f 100%);
-                        padding: 2rem 0;
                     }
-                    .marquee-content {
+
+                    .marquee-track {
                         display: flex;
-                        animation: scroll 30s linear infinite;
+                        gap: 2rem;
+                        animation: scroll-left 40s linear infinite;
+                        will-change: transform;
                     }
-                    .marquee-logo {
-                        height: 80px;
-                        width: auto;
+
+                    .marquee-track-reverse {
+                        display: flex;
+                        gap: 2rem;
+                        animation: scroll-right 40s linear infinite;
+                        will-change: transform;
+                    }
+
+                    .marquee-card {
+                        min-width: 280px;
                         flex-shrink: 0;
-                        filter: brightness(0.9);
-                        transition: filter 0.3s;
                     }
-                    .marquee-logo:hover {
-                        filter: brightness(1.2);
-                    }
-                    @keyframes scroll {
+
+                    @keyframes scroll-left {
                         0% { transform: translateX(0); }
                         100% { transform: translateX(-50%); }
                     }
-                    .marquee-container:hover .marquee-content {
+
+                    @keyframes scroll-right {
+                        0% { transform: translateX(-50%); }
+                        100% { transform: translateX(0); }
+                    }
+
+                    .marquee-wrapper:hover .marquee-track,
+                    .marquee-wrapper-reverse:hover .marquee-track-reverse {
                         animation-play-state: paused;
                     }
                 `}</style>
