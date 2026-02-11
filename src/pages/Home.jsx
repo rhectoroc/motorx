@@ -500,7 +500,7 @@ function Home() {
                                         key={`logo-1-${index}`}
                                         src={logo.src}
                                         alt={logo.alt}
-                                        className="marquee-logo"
+                                        className="marquee-logo mx-16"
                                         loading="lazy"
                                     />
                                 ))}
@@ -510,7 +510,7 @@ function Home() {
                                         key={`logo-2-${index}`}
                                         src={logo.src}
                                         alt={logo.alt}
-                                        className="marquee-logo"
+                                        className="marquee-logo mx-16"
                                         loading="lazy"
                                     />
                                 ))}
@@ -540,7 +540,6 @@ function Home() {
                     .marquee-logo {
                         height: 80px;
                         width: auto;
-                        margin: 0 4rem;
                         flex-shrink: 0;
                         filter: brightness(0.9);
                         transition: filter 0.3s;
