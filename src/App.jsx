@@ -15,7 +15,9 @@ function App() {
             <ScrollToTop />
             <AnalyticsTracker />
             <div className="min-h-screen flex flex-col">
-                <Navbar />
+                <header>
+                    <Navbar />
+                </header>
                 <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />

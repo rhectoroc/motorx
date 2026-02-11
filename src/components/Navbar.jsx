@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { User, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
 import LanguageSelector from './LanguageSelector';
+import OptimizedImage from './OptimizedImage';
 
 function Navbar() {
     const { t } = useTranslation();
@@ -18,7 +19,13 @@ function Navbar() {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <Link to="/" className="flex items-center">
-                        <img src={logo} alt="MotorX" className="h-12 w-auto" />
+                        <OptimizedImage
+                            src={logo}
+                            alt="MotorX"
+                            className="h-12 w-auto"
+                            loading="eager"
+                            fetchpriority="high"
+                        />
                     </Link>
 
                     {/* Desktop Menu */}
@@ -39,6 +46,7 @@ function Navbar() {
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center w-12 h-12 bg-gradient-red text-white rounded-lg shadow-glow-red hover:scale-105 transition-transform"
                                 title="Client Portal"
+                                aria-label="Access Client Portal"
                             >
                                 <User className="h-5 w-5" />
                             </a>
@@ -91,6 +99,7 @@ function Navbar() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center w-full h-12 bg-gradient-red text-white rounded-lg shadow-glow-red"
+                                aria-label="Access Client Portal"
                             >
                                 <User className="h-5 w-5 mr-2" /> Client Portal
                             </a>

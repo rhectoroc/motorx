@@ -172,7 +172,7 @@ function Contact() {
                             <h3 className="text-xl font-bold text-motorx-white mb-4">{t('contactPage.info.title')}</h3>
                             <p className="text-motorx-gray-300">
                                 {t('common.footer.email')}: {t('cta.email')}<br />
-                                {t('common.footer.phone')}: <a href="https://wa.link/xd8j23" target="_blank" rel="noopener noreferrer" className="hover:text-motorx-red transition-colors">{t('cta.phone')}</a>
+                                {t('common.footer.phone')}: <a href="https://wa.link/xd8j23" target="_blank" rel="noopener noreferrer" className="hover:text-motorx-red transition-colors" aria-label="Contact us via WhatsApp">{t('cta.phone')}</a>
                             </p>
                         </div>
                     </div>

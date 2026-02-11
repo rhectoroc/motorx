@@ -19,6 +19,7 @@ import copartLogo from '../assets/auction-logos/copart white.png';
 import edgePipelineLogo from '../assets/auction-logos/edge pipe.png';
 import SEO from '../components/SEO';
 import LazyVideo from '../components/LazyVideo';
+import OptimizedImage from '../components/OptimizedImage';
 
 
 // Register GSAP plugins
@@ -204,6 +205,7 @@ function Home() {
                 <div className="absolute inset-0 z-0">
                     {backgrounds.map((bg, index) => {
                         const offset = index - currentBg;
+                        const isActive = index === currentBg;
                         return (
                             <div
                                 key={index}
@@ -211,13 +213,18 @@ function Home() {
                                 style={{
                                     transform: `translateX(${offset * 100}%) scale(${isTransitioning ? 1.05 : 1})`,
                                     filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-                                    opacity: index === currentBg ? 0.8 : 0.0,
+                                    opacity: isActive ? 0.8 : 0.0,
                                 }}
                             >
-                                <div
-                                    className="w-full h-full bg-cover bg-center"
+                                <OptimizedImage
+                                    src={bg}
+                                    alt={`Hero background ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    fetchpriority={index === 0 ? "high" : undefined}
                                     style={{
-                                        backgroundImage: `url(${bg})`,
+                                        position: 'absolute',
+                                        inset: 0,
                                     }}
                                 />
                             </div>
@@ -483,11 +490,23 @@ function Home() {
                             <div className="marquee-content">
                                 {/* Primera copia de logos */}
                                 {auctionLogos.map((logo, index) => (
-                                    <img key={`logo-1-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                                    <OptimizedImage
+                                        key={`logo-1-${index}`}
+                                        src={logo.src}
+                                        alt={logo.alt}
+                                        className="marquee-logo"
+                                        loading="lazy"
+                                    />
                                 ))}
                                 {/* Segunda copia para efecto infinito */}
                                 {auctionLogos.map((logo, index) => (
-                                    <img key={`logo-2-${index}`} src={logo.src} alt={logo.alt} className="marquee-logo" />
+                                    <OptimizedImage
+                                        key={`logo-2-${index}`}
+                                        src={logo.src}
+                                        alt={logo.alt}
+                                        className="marquee-logo"
+                                        loading="lazy"
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -555,6 +574,7 @@ function Home() {
                             <a
                                 href={`mailto:${t('cta.email')}`}
                                 className="px-8 py-4 bg-motorx-gray-900/80 hover:bg-motorx-gray-800 text-white rounded-xl border border-motorx-gray-700 hover:border-motorx-red/50 transition-all duration-300 flex items-center gap-3 group/btn backdrop-blur-md"
+                                aria-label="Send us an email"
                             >
                                 <LucideIcons.Mail className="w-5 h-5 text-motorx-red group-hover/btn:scale-110 transition-transform" />
                                 <span className="font-semibold">{t('cta.email')}</span>
@@ -563,6 +583,7 @@ function Home() {
                             <Link
                                 to="/contact"
                                 className="px-8 py-4 bg-gradient-to-r from-motorx-red to-motorx-red-dark hover:from-red-600 hover:to-red-800 text-white rounded-xl shadow-lg shadow-motorx-red/30 hover:shadow-motorx-red/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 font-bold text-lg"
+                                aria-label="Navigate to Contact page"
                             >
                                 <span>{t('cta.getInTouch')}</span>
                                 <ArrowRight className="w-5 h-5 rtl:rotate-180" />

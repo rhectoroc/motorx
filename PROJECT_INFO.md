@@ -49,8 +49,25 @@ src/
 - `motorx-red-dark`: #991B1B
 - `motorx-white`: #FFFFFF
 
-## Últimos Cambios (2026-02-06)
+## Últimos Cambios
 
+### 2026-02-11: Optimización de Imágenes
+- ✅ Conversión automática a WebP (88.5% compresión en logo)
+- ✅ Lazy loading para imágenes below-the-fold
+- ✅ Eager loading + fetchpriority="high" para hero
+- ✅ Plugin Vite personalizado para generación WebP
+- ✅ Componente OptimizedImage reutilizable
+- **Archivos modificados**: vite.config.js, Navbar.jsx, Footer.jsx, Home.jsx
+- **Archivos nuevos**: vite-plugin-webp-generator.js, OptimizedImage.jsx
+
+### 2026-02-11: HTML5 Semántico & Accesibilidad WCAG
+- ✅ Estructura HTML5 semántica (`<header>`, `<main>`, `<footer>`)
+- ✅ Atributos `aria-label` en todos los enlaces y botones
+- ✅ Cumplimiento WCAG 2.1 Nivel A
+- ✅ Compatibilidad con lectores de pantalla mejorada
+- **Archivos modificados**: App.jsx, Navbar.jsx, Footer.jsx, Contact.jsx, Home.jsx, Services.jsx
+
+### 2026-02-06: Ajustes de UI
 - Eliminada sección "Subscription" del menú
 - Aumentada opacidad del Hero (0.5 → 0.7)
 - Subtítulo Hero: texto negro con sombra blanca

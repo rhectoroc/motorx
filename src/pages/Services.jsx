@@ -170,6 +170,7 @@ function Services() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="btn-primary w-fit px-8 py-2 text-center group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-motorx-red/50 transition-all flex items-center justify-center gap-2"
+                                            aria-label={`Learn more about ${t(`services.${service.id}.title`)}`}
                                         >
                                             {t('common.learnMore')}
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform rtl:rotate-180" />
@@ -192,7 +193,7 @@ function Services() {
                     <p className="text-xl text-motorx-gray-300 mb-8">
                         {t('servicesPage.cta.subtitle')}
                     </p>
-                    <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                    <Link to="/contact" className="btn-primary inline-flex items-center gap-2" aria-label="Navigate to Contact page">
                         {t('servicesPage.cta.button')}
                         <ArrowRight className="w-5 h-5 rtl:rotate-180" />
                     </Link>
