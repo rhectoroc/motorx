@@ -228,10 +228,10 @@ function Home() {
 
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal opacity-0" dir="ltr">
+                    <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal" dir="ltr">
                         {t('hero.title.logistics')} <span className="text-motorx-red">{t('hero.title.cloud')}</span>
                     </h1>
-                    <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide opacity-0">
+                    <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
                         {t('hero.subtitle')}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
