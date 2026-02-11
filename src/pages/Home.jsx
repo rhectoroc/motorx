@@ -59,9 +59,11 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        // GSAP animations - Split title animation: words slide from opposite sides
+        // GSAP animations - Split title animation with 3-second delay
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({
+                delay: 3 // 3-second delay before animation starts
+            });
 
             // Animate "Logistics" from LEFT
             tl.from('.hero-word-left', {
@@ -81,14 +83,14 @@ function Home() {
                 ease: 'power3.out',
             }, '<'); // '<' means start at the same time as previous animation
 
-            // Animate subtitle words with stagger
+            // Animate subtitle words AFTER title completes
             tl.from('.hero-subtitle-word', {
                 opacity: 0,
                 y: 20,
                 duration: 0.5,
                 ease: 'power2.out',
                 stagger: 0.05,
-            }, '-=0.3');
+            }); // No overlap, starts after title finishes
 
             tl.from('.hero-cta', {
                 opacity: 0,
