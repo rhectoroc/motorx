@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import OptimizedImage from './OptimizedImage';
 
@@ -8,7 +9,7 @@ function Footer() {
     return (
         <footer className="bg-motorx-gray-900 border-t border-motorx-gray-800 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Company Info */}
                     <div>
                         <OptimizedImage
@@ -42,6 +43,28 @@ function Footer() {
                             <li><a href="/" className="text-motorx-gray-300 hover:text-motorx-red transition-colors" aria-label="Navigate to Home page">{t('nav.home')}</a></li>
                             <li><a href="/services" className="text-motorx-gray-300 hover:text-motorx-red transition-colors" aria-label="Navigate to Services page">{t('nav.services')}</a></li>
                             <li><a href="/contact" className="text-motorx-gray-300 hover:text-motorx-red transition-colors" aria-label="Navigate to Contact page">{t('nav.contact')}</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Legal */}
+                    <div>
+                        <h3 className="text-motorx-white font-bold text-lg mb-4">Legal</h3>
+                        <ul className="space-y-2">
+                            <li>
+                                <Link to="/terms" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">
+                                    Terms of Service
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">
+                                    Privacy Policy
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/security" className="text-motorx-gray-300 hover:text-motorx-red transition-colors">
+                                    Security
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

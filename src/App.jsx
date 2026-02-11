@@ -9,6 +9,9 @@ import ScrollToTop from './components/ScrollToTop';
 const Footer = lazy(() => import('./components/Footer'));
 const Services = lazy(() => import('./pages/Services'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Security = lazy(() => import('./pages/Security'));
 
 // Loading fallback component
 function LoadingFallback() {
@@ -34,6 +37,9 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/services" element={<Services />} />
                             <Route path="/contact" element={<Contact />} />
+                            <Route path="/terms" element={<Terms />} />
+                            <Route path="/privacy" element={<Privacy />} />
+                            <Route path="/security" element={<Security />} />
                         </Routes>
                     </Suspense>
                 </main>
