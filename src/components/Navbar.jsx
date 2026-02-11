@@ -25,6 +25,8 @@ function Navbar() {
                             className="h-12 w-auto"
                             loading="eager"
                             fetchpriority="high"
+                            width={48}
+                            height={48}
                         />
                     </Link>
 
@@ -44,9 +46,9 @@ function Navbar() {
                                 href="https://dev.motorxcars.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center w-12 h-12 bg-gradient-red text-white rounded-lg shadow-glow-red hover:scale-105 transition-transform"
+                                className="flex items-center justify-center min-w-12 min-h-12 w-12 h-12 bg-gradient-red text-white rounded-lg shadow-glow-red hover:scale-105 transition-transform"
                                 title="Client Portal"
-                                aria-label="Access Client Portal"
+                                aria-label="Acceder al Portal de Clientes"
                             >
                                 <User className="h-5 w-5" />
                             </a>
@@ -54,8 +56,9 @@ function Navbar() {
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="md:hidden text-motorx-white p-2"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="md:hidden text-motorx-white hover:text-motorx-red transition-colors min-w-12 min-h-12 flex items-center justify-center"
+                            aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
                         >
                             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>

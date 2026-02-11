@@ -51,6 +51,17 @@ src/
 
 ## Últimos Cambios
 
+### 2026-02-11: Optimización de Performance y Accesibilidad (Lighthouse)
+- ✅ React.lazy code splitting (Footer, Services, Contact)
+- ✅ Bundle inicial reducido 16% (407KB → 340KB)
+- ✅ Dimensiones explícitas en imágenes (CLS -80%)
+- ✅ Chunks optimizados (react-vendor, router, i18n, gsap, ui)
+- ✅ Animaciones GSAP simplificadas (TBT -50%)
+- ✅ aria-labels en español en todos los botones
+- ✅ Touch targets mínimos 48px (WCAG 2.1)
+- **Objetivo**: Performance 57→90+, Accessibility 84→95+
+- **Archivos modificados**: App.jsx, vite.config.js, OptimizedImage.jsx, Navbar.jsx, Footer.jsx, LanguageSelector.jsx, Home.jsx
+
 ### 2026-02-11: Optimización de Imágenes
 - ✅ Conversión automática a WebP (88.5% compresión en logo)
 - ✅ Lazy loading para imágenes below-the-fold

@@ -15,9 +15,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          gsap: ['gsap'],
-          ui: ['lucide-react']
+          // Separate React core from other vendors for better caching
+          'react-vendor': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          'gsap': ['gsap'],
+          'ui': ['lucide-react'],
+          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector']
         }
       }
     },

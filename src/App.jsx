@@ -1,13 +1,23 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import Home from './pages/Home';
-import Services from './pages/Services';
-
-import Contact from './pages/Contact';
 import AnalyticsTracker from './components/AnalyticsTracker';
-
 import ScrollToTop from './components/ScrollToTop';
+
+// Lazy load components that are not immediately visible
+const Footer = lazy(() => import('./components/Footer'));
+const Services = lazy(() => import('./pages/Services'));
+const Contact = lazy(() => import('./pages/Contact'));
+
+// Loading fallback component
+function LoadingFallback() {
+    return (
+        <div className="flex items-center justify-center min-h-[200px]">
+            <div className="animate-pulse text-motorx-gray-300">Cargando...</div>
+        </div>
+    );
+}
 
 function App() {
     return (
@@ -19,14 +29,17 @@ function App() {
                     <Navbar />
                 </header>
                 <main className="flex-grow">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/services" element={<Services />} />
-
-                        <Route path="/contact" element={<Contact />} />
-                    </Routes>
+                    <Suspense fallback={<LoadingFallback />}>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/services" element={<Services />} />
+                            <Route path="/contact" element={<Contact />} />
+                        </Routes>
+                    </Suspense>
                 </main>
-                <Footer />
+                <Suspense fallback={null}>
+                    <Footer />
+                </Suspense>
             </div>
         </Router>
     );

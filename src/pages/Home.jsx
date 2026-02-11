@@ -59,42 +59,33 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        // GSAP animations - Choreographed title letters
+        // GSAP animations - Optimized for performance
         const ctx = gsap.context(() => {
             // Create timeline for better control
             const tl = gsap.timeline();
 
-            // Animate ALL letters together with stagger
-            tl.from('.hero-letter', {
+            // Simplified animation - animate words instead of individual letters
+            tl.from('.hero-title', {
                 opacity: 0,
-                y: 80,
-                rotationX: -90,
-                scale: 0.3,
-                duration: 0.6,
-                ease: 'back.out(1.5)',
-                stagger: 0.025,
+                y: 50,
+                duration: 0.8,
+                ease: 'power3.out',
             });
 
-            // Infinite animation for subtitle letters
-            // Infinite animation for subtitle letters
-            gsap.to('.hero-subtitle-letter', {
-                opacity: 0.4,
-                duration: 1.5,
-                repeat: 1,
-                yoyo: true,
-                stagger: {
-                    each: 0.1,
-                    repeat: -1,
-                    from: "start"
-                },
-                ease: "sine.inOut"
-            });
+            // Defer non-critical subtitle animation
+            setTimeout(() => {
+                gsap.to('.hero-subtitle', {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
+            }, 500);
 
             tl.from('.hero-cta', {
                 opacity: 0,
                 y: 20,
-                duration: 0.8,
-            }, '-=0.5');
+                duration: 0.6,
+            }, '-=0.3');
         }, heroRef);
 
         return () => ctx.revert();
@@ -222,6 +213,8 @@ function Home() {
                                     className="w-full h-full object-cover"
                                     loading={index === 0 ? "eager" : "lazy"}
                                     fetchpriority={index === 0 ? "high" : undefined}
+                                    width={1920}
+                                    height={1080}
                                     style={{
                                         position: 'absolute',
                                         inset: 0,
@@ -235,26 +228,11 @@ function Home() {
 
                 {/* Hero Content */}
                 <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                    <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal" dir="ltr">
-                        {t('hero.title.logistics').split('').map((char, i) => (
-                            <span key={i} className="hero-letter inline-block" style={{ display: 'inline-block' }}>
-                                {char === ' ' ? '\u00A0' : char}
-                            </span>
-                        ))}
-                        <span className="text-motorx-red">
-                            {t('hero.title.cloud').split('').map((char, i) => (
-                                <span key={i} className="hero-letter hero-letter-red inline-block" style={{ display: 'inline-block' }}>
-                                    {char === ' ' ? '\u00A0' : char}
-                                </span>
-                            ))}
-                        </span>
+                    <h1 ref={titleRef} className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal opacity-0" dir="ltr">
+                        {t('hero.title.logistics')} <span className="text-motorx-red">{t('hero.title.cloud')}</span>
                     </h1>
-                    <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide">
-                        {t('hero.subtitle').split('').map((char, i) => (
-                            <span key={i} className="hero-subtitle-letter inline-block" style={{ display: 'inline-block' }}>
-                                {char === ' ' ? '\u00A0' : char}
-                            </span>
-                        ))}
+                    <p className="hero-subtitle text-base sm:text-lg md:text-3xl text-white mb-8 max-w-5xl mx-auto font-medium tracking-wide opacity-0">
+                        {t('hero.subtitle')}
                     </p>
                     <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
 
@@ -270,11 +248,11 @@ function Home() {
                         <button
                             key={index}
                             onClick={() => handleIndicatorClick(index)}
-                            className={`transition-all duration-500 ${currentBg === index
+                            className={`transition-all duration-500 min-w-8 min-h-8 flex items-center justify-center ${currentBg === index
                                 ? 'bg-motorx-red w-8 h-2'
                                 : 'bg-motorx-white/30 hover:bg-motorx-white/50 w-2 h-2'
                                 } rounded-full`}
-                            aria-label={`Go to slide ${index + 1}`}
+                            aria-label={`Ir a la diapositiva ${index + 1}`}
                         />
                     ))}
                 </div>
@@ -496,6 +474,8 @@ function Home() {
                                         alt={logo.alt}
                                         className="marquee-logo"
                                         loading="lazy"
+                                        width={150}
+                                        height={60}
                                     />
                                 ))}
                                 {/* Segunda copia para efecto infinito */}
@@ -506,6 +486,8 @@ function Home() {
                                         alt={logo.alt}
                                         className="marquee-logo"
                                         loading="lazy"
+                                        width={150}
+                                        height={60}
                                     />
                                 ))}
                             </div>

@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
  * - Configurable lazy loading (default: lazy)
  * - Support for fetchpriority attribute
  * - Can render as regular img or background div
+ * - Explicit width/height to prevent CLS
  * 
  * @param {Object} props
  * @param {string} props.src - Image source URL
@@ -17,6 +18,8 @@ import { useState, useEffect } from 'react';
  * @param {string} props.className - CSS classes
  * @param {boolean} props.isBackground - Render as background div instead of img
  * @param {Object} props.style - Inline styles
+ * @param {number} props.width - Explicit width for CLS prevention
+ * @param {number} props.height - Explicit height for CLS prevention
  */
 function OptimizedImage({
     src,
@@ -26,6 +29,8 @@ function OptimizedImage({
     className = '',
     isBackground = false,
     style = {},
+    width,
+    height,
     ...props
 }) {
     const [imageSrc, setImageSrc] = useState(src);
@@ -84,6 +89,8 @@ function OptimizedImage({
                 alt={alt}
                 loading={loading}
                 fetchpriority={fetchpriority}
+                width={width}
+                height={height}
                 className={className}
                 style={style}
                 onError={handleError}

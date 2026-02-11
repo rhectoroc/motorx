@@ -41,8 +41,8 @@ function LanguageSelector() {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-motorx-gray-900 hover:bg-motorx-gray-800 transition-colors border border-motorx-gray-700"
-                aria-label="Select Language"
+                className="flex items-center gap-2 px-3 py-2 min-w-12 min-h-12 rounded-lg bg-motorx-gray-900 hover:bg-motorx-gray-800 transition-colors border border-motorx-gray-700"
+                aria-label="Seleccionar idioma"
             >
                 <Globe className="w-5 h-5 text-motorx-red" />
                 <span className="text-sm font-medium">{currentLanguage.flag}</span>

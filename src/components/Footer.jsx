@@ -16,6 +16,8 @@ function Footer() {
                             alt="Motor X Logo"
                             className="h-12 w-auto mb-4"
                             loading="lazy"
+                            width={48}
+                            height={48}
                         />
                         <div className="space-y-4">
                             <div>
