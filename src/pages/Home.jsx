@@ -502,8 +502,6 @@ function Home() {
                                         alt={logo.alt}
                                         className="marquee-logo"
                                         loading="lazy"
-                                        width={150}
-                                        height={60}
                                     />
                                 ))}
                                 {/* Segunda copia para efecto infinito */}
@@ -514,8 +512,6 @@ function Home() {
                                         alt={logo.alt}
                                         className="marquee-logo"
                                         loading="lazy"
-                                        width={150}
-                                        height={60}
                                     />
                                 ))}
                             </div>
