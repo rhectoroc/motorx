@@ -336,16 +336,17 @@ function Home() {
                                                                 index === 1 ? "/Dispatch.webm" :
                                                                     index === 2 ? "/shiping.webm" :
                                                                         index === 3 ? "/Tittle.webm" :
-                                                                            index === 6 ? "/Dispatch.webm" : // Air Freight placeholder
-                                                                                index === 7 ? "/shiping.webm" : // RO-RO placeholder
-                                                                                    "/Auction.webm"
+                                                                            index === 5 ? "/Consultation.webm" :
+                                                                                index === 6 ? "/Air Freight.webm" :
+                                                                                    index === 7 ? "/shiping.webm" : // RO-RO placeholder
+                                                                                        "/Auction.webm"
                                                         }
 
-                                                        className={`absolute inset-0 w-full h-full object-cover ${index <= 3 ? 'opacity-100' : 'opacity-20'}`}
+                                                        className={`absolute inset-0 w-full h-full object-cover ${index <= 3 || index === 5 || index === 6 ? 'opacity-100' : 'opacity-20'}`}
                                                         type="video/webm"
                                                     />
-                                                    {/* Icon Overlay - Solo para servicios que no tienen video dedicado (indices > 3) */}
-                                                    {index > 3 && (
+                                                    {/* Icon Overlay - Solo para servicios que no tienen video dedicado */}
+                                                    {(index === 4 || index === 7) && (
                                                         <div className="relative z-10 w-full h-full flex items-center justify-center text-motorx-red">
                                                             {getIcon(service.icon)}
                                                         </div>
