@@ -76,7 +76,7 @@ function Services() {
     return (
         <div className="bg-motorx-black min-h-screen">
             <SEO
-                title={t('servicesPage.hero.title.main')}
+                title={`${t('servicesPage.hero.title.main')} ${t('servicesPage.hero.title.accent')}`}
                 description={t('servicesPage.hero.subtitle')}
                 url="/services"
             />

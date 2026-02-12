@@ -6,7 +6,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
     const currentLang = i18n.language;
 
     // Fallback values
-    const siteTitle = "MotorX";
+    const siteTitle = "Motor X";
     const defaultDescription = "International vehicle shipping, auction access, and logistics solutions.";
     const defaultImage = "https://www.motorxcars.com/logo.png"; // Absolute URL for OG tags
     const siteUrl = "https://www.motorxcars.com";
