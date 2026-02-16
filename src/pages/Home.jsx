@@ -334,7 +334,7 @@ function Home() {
                                                         src={
                                                             index === 0 ? "/Auction.webm" :
                                                                 index === 1 ? "/Dispatch.webm" :
-                                                                    index === 2 ? "/shiping.webm" :
+                                                                    index === 2 ? "/shiping_v2.webm" :
                                                                         index === 3 ? "/Tittle.webm" :
                                                                             index === 4 ? "/Desmanttling.webm" :
                                                                                 index === 5 ? "/Consultation.webm" :
