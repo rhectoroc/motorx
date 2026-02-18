@@ -1,3 +1,4 @@
-window.env = {
-    VITE_WEBHOOK_URL: "https://motorx-n8n.1bigxc.easypanel.host/webhook-test/69ad8d3c-e29d-4361-80a8-979401573282"
+// During local development, define VITE_WEBHOOK_URL in your .env or replace here temporarily
+// In production (Easypanel), this will be injected or overridden.
+VITE_WEBHOOK_URL: "" 
 };

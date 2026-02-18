@@ -26,7 +26,14 @@ function Contact() {
         setSubmitStatus(null);
 
         try {
-            const webhookUrl = window.env?.VITE_WEBHOOK_URL || 'https://motorx-n8n.1bigxc.easypanel.host/webhook-test/69ad8d3c-e29d-4361-80a8-979401573282';
+            const webhookUrl = import.meta.env.VITE_WEBHOOK_URL || window.env?.VITE_WEBHOOK_URL;
+
+            if (!webhookUrl) {
+                console.error("Webhook URL is missing. Please configure VITE_WEBHOOK_URL in environment variables.");
+                setSubmitStatus('error');
+                setIsSubmitting(false);
+                return;
+            }
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
