@@ -188,7 +188,7 @@
                 "stat1": "Título Perdido",
                 "stat2": "Solo Partes"
             },
-            "tag": "",
+            "tag": "Desde $75",
             "button": "Obtener nuevo título ahora",
             "footer": "Solo Factura de Venta * Liberación de Gravamen * Duplicados Imposibles"
         },
@@ -212,7 +212,7 @@
                 "stat1": "Autos Cortados",
                 "stat2": "Medios Autos"
             },
-            "tag": "",
+            "tag": "Desde $600",
             "button": "Cortar vehículos ahora",
             "footer": "Corte a la Mitad para Envío * Soluciones Rentables * Desmantelamiento Profesional"
         },
