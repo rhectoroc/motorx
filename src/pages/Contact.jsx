@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import SEO from '../components/SEO';
 
 function Contact() {
     const { t } = useTranslation();
+    const { executeRecaptcha } = useGoogleReCaptcha();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -34,6 +36,14 @@ function Contact() {
                 setIsSubmitting(false);
                 return;
             }
+
+            let recaptchaToken = null;
+            if (executeRecaptcha) {
+                recaptchaToken = await executeRecaptcha('contact_form');
+            } else {
+                console.warn('reCAPTCHA script has not loaded yet.');
+            }
+
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
@@ -44,7 +54,8 @@ function Contact() {
                     email: formData.email,
                     message: formData.message,
                     source: 'motorx-web-contact-form',
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    recaptchaToken: recaptchaToken
                 }),
             });
 
