@@ -43,7 +43,7 @@ function Navbar() {
                             <LanguageSelector />
                             {/* Client Portal Button - Icon Only */}
                             <a
-                                href="https://dev.motorxcars.com"
+                                href="https://clients.motorxcars.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center min-w-12 min-h-12 w-12 h-12 bg-gradient-red text-white rounded-lg shadow-glow-red hover:scale-105 transition-transform"
@@ -98,7 +98,7 @@ function Navbar() {
                                 <LanguageSelector />
                             </div>
                             <a
-                                href="https://dev.motorxcars.com"
+                                href="https://clients.motorxcars.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center w-full h-12 bg-gradient-red text-white rounded-lg shadow-glow-red"
