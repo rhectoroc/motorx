@@ -13,6 +13,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Security = lazy(() => import('./pages/Security'));
+const Calculator = lazy(() => import('./pages/Calculator'));
 
 // Loading fallback component
 function LoadingFallback() {
@@ -42,6 +43,7 @@ function App() {
                                 <Route path="/terms" element={<Terms />} />
                                 <Route path="/privacy" element={<Privacy />} />
                                 <Route path="/security" element={<Security />} />
+                                <Route path="/calculator" element={<Calculator />} />
                             </Routes>
                         </Suspense>
                     </main>

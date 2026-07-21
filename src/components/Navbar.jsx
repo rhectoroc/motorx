@@ -34,6 +34,7 @@ function Navbar() {
                     <div className="hidden md:flex items-center space-x-8">
                         <Link to="/" className="text-motorx-white hover:text-motorx-red transition-colors">{t('nav.home')}</Link>
                         <Link to="/services" className="text-motorx-white hover:text-motorx-red transition-colors">{t('nav.services')}</Link>
+                        <Link to="/calculator" className="text-motorx-white hover:text-motorx-red transition-colors">{t('calculator.pricingTool') || 'Calculator'}</Link>
                         <Link to="/contact" className="text-motorx-white hover:text-motorx-red transition-colors">{t('nav.contact')}</Link>
                     </div>
 
@@ -83,6 +84,13 @@ function Navbar() {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             {t('nav.services')}
+                        </Link>
+                        <Link
+                            to="/calculator"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-motorx-white hover:text-motorx-red hover:bg-motorx-gray-900 text-center"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            {t('calculator.pricingTool') || 'Calculator'}
                         </Link>
                         <Link
                             to="/contact"
