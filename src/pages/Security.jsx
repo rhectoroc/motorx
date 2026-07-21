@@ -31,8 +31,6 @@ function Security() {
                                 <p className="mb-4">We employ multiple layers of encryption to protect your data:</p>
                                 <ul className="list-disc list-inside space-y-2 ml-4">
                                     <li><strong>TLS/SSL Encryption:</strong> All data transmitted between your browser and our servers is encrypted using TLS 1.3</li>
-                                    <li><strong>Data at Rest:</strong> All stored data is encrypted using AES-256 encryption</li>
-                                    <li><strong>Database Encryption:</strong> Sensitive database fields are encrypted with additional layers of protection</li>
                                     <li><strong>Payment Security:</strong> Payment information is processed through PCI DSS compliant payment processors</li>
                                 </ul>
                             </div>
@@ -46,7 +44,6 @@ function Security() {
                                 <h2 className="text-2xl font-bold text-white mb-4">Access Control</h2>
                                 <p className="mb-4">We maintain strict access controls to ensure only authorized personnel can access sensitive data:</p>
                                 <ul className="list-disc list-inside space-y-2 ml-4">
-                                    <li><strong>Multi-Factor Authentication (MFA):</strong> Required for all employee and client portal access</li>
                                     <li><strong>Role-Based Access Control:</strong> Employees have access only to data necessary for their job functions</li>
                                     <li><strong>Regular Access Reviews:</strong> Quarterly audits of user permissions and access rights</li>
                                     <li><strong>Secure Password Policies:</strong> Enforcement of strong password requirements and regular password rotation</li>
