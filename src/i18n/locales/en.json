@@ -422,7 +422,7 @@
         }
     },
     "calculator": {
-        "pricingTool": "Transportation pricing tool",
+        "pricingTool": "Calculator",
         "eyebrow": "Motor X Local Transportation",
         "heroTitle": "Find the right route before the vehicle moves.",
         "heroDescription": "Search published auction pickup rates or estimate transportation from a dealer or private address to a Motor X terminal.",

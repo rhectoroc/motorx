@@ -425,7 +425,7 @@
         }
     },
     "calculator": {
-        "pricingTool": "Calculadora de transporte",
+        "pricingTool": "Calculadora",
         "eyebrow": "Transporte Local Motor X",
         "heroTitle": "Encuentre la mejor ruta antes de mover el vehículo.",
         "heroDescription": "Consulte las tarifas publicadas de recogida en subastas o calcule el transporte desde un concesionario o una dirección privada hasta una terminal de Motor X.",
